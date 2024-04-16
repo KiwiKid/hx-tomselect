@@ -1,17 +1,12 @@
-const logIt = (msg) => {
-    console.log(`hx-tomselect: ${msg}`)
-} 
-
-
 htmx.defineExtension('tomselect', {
     transformResponse : function(text, xhr, elt) { console.log('transformResponse'); return text;},
     isInlineSwap : function(swapStyle) {  console.log('isInlineSwap'); return false;},
     handleSwap : function(swapStyle, target, fragment, settleInfo) {console.log('handleSwap');  return false;},
     encodeParameters : function(xhr, parameters, elt) {console.log('encodeParameters');  return null;},
     onEvent: function(name, evt) {
-        logIt(`onEvent - ${name}`)
+        console.log(`htmx-tomselect - onEvent - ${name}`)
         if (name === "htmx:afterProcessNode") {
-            logIt(`htmx:afterProcessNode ${name}`)
+            console.log(`htmx-tomselect - htmx:afterProcessNode ${name}`)
             document.querySelectorAll('[hx-ext=tomselect]').forEach(element => {
                 try {
 
@@ -47,12 +42,12 @@ htmx.defineExtension('tomselect', {
                             let rawConfig = JSON.parse(element.getAttribute('raw-config'));
                             config = {...config, ...rawConfig};
                         }
-                        logIt('hx-tomselect: config', config)
+                        console.log('htmx-tomselect - hx-tomselect: config', config)
                         initializeTomSelect(element, config);
                         element.classList.add('tomselect-initialized');
                     }
                 } catch (err) {
-                    console.error(`Failed to load hx-tomsselect ${err}`)
+                    console.error(`htmx-tomselect - Failed to load hx-tomsselect ${err}`)
                 }
             });
         }
