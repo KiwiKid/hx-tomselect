@@ -53,4 +53,4 @@ htmx.defineExtension('tomselect', {
         }
     }
 });
-logIt('hx-tomselect: loaded!')
+console.log('htmx-tomselect - loaded!')
