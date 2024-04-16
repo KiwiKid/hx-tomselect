@@ -42,8 +42,9 @@ htmx.defineExtension('tomselect', {
                             let rawConfig = JSON.parse(element.getAttribute('raw-config'));
                             config = {...config, ...rawConfig};
                         }
-                        console.log('htmx-tomselect - hx-tomselect: config', config)
-                        initializeTomSelect(element, config);
+                        console.log('htmx-tomselect - New TomSelect() config', config)
+                        new TomSelect(element, config)
+                    
                         element.classList.add('tomselect-initialized');
                     }
                 } catch (err) {
