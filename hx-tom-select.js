@@ -10,7 +10,7 @@ htmx.defineExtension('tomselect', {
             document.querySelectorAll('[hx-ext=tomselect]').forEach(element => {
                 try {
 
-                    logIt('setting up new tomselect for '+element)
+                    console.log('setting up new tomselect for '+element)
                     if (!element.classList.contains('tomselect-initialized')) {
                         let config = {
                             maxOptions: element.getAttribute('max-options') || 100,
