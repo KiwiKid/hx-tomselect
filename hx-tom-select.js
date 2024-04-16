@@ -4,10 +4,10 @@ htmx.defineExtension('tomselect', {
     handleSwap : function(swapStyle, target, fragment, settleInfo) {console.log('handleSwap');  return false;},
     encodeParameters : function(xhr, parameters, elt) {console.log('encodeParameters');  return null;},
     onEvent: function(name, evt) {
-        console.log("onEvent")
+        console.log(`onEvent - ${name}`)
         if (name === "htmx:afterProcessNode") {
-            console.log("htmx:afterProcessNode")
-            document.querySelectorAll('[hx-ext=tomselect]') .forEach(element => {
+            console.log(`htmx:afterProcessNode ${name}`)
+            document.querySelectorAll('[hx-ext=tomselect]').forEach(element => {
                 try {
 
                     console.log('setting up new tomselect for '+element)
