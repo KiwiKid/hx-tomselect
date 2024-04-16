@@ -1,15 +1,17 @@
 htmx.defineExtension('tomselect', {
-    
+    transformResponse : function(text, xhr, elt) { console.log('transformResponse'); return text;},
+    isInlineSwap : function(swapStyle) {  console.log('isInlineSwap'); return false;},
+    handleSwap : function(swapStyle, target, fragment, settleInfo) {console.log('handleSwap');  return false;},
+    encodeParameters : function(xhr, parameters, elt) {console.log('encodeParameters');  return null;},
     onEvent: function(name, evt) {
         console.log("onEvent")
         if (name === "htmx:afterProcessNode") {
             console.log("htmx:afterProcessNode")
-            document.querySelectorAll('[hx-tomselect]').forEach(element => {
+            document.querySelectorAll('[hx-ext=tomselect]') .forEach(element => {
                 try {
-                    console.log("   document.querySelectorAll('[hx-tomselect]')")
 
                     console.log('setting up new tomselect for '+element)
-                    if (!element.classList.contains('tom-select-initialized')) {
+                    if (!element.classList.contains('tomselect-initialized')) {
                         let config = {
                             maxOptions: element.getAttribute('max-options') || 100,
                             plugins: {}
