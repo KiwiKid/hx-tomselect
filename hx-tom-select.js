@@ -1,43 +1,51 @@
 htmx.defineExtension('tomselect', {
     
     onEvent: function(name, evt) {
+        console.log("onEvent")
         if (name === "htmx:afterProcessNode") {
+            console.log("htmx:afterProcessNode")
             document.querySelectorAll('[hx-tomselect]').forEach(element => {
-                console.log('setting up new tomselect for '+element)
-                if (!element.classList.contains('tom-select-initialized')) {
-                    let config = {
-                        maxOptions: element.getAttribute('max-options') || 100,
-                        plugins: {}
-                    };
+                try {
+                    console.log("   document.querySelectorAll('[hx-tomselect]')")
 
-                    if (element.hasAttribute('remove-button-title')) {
-                        config.plugins.remove_button = {
-                            title: element.getAttribute('remove-button-title'),
-                            plugins: {
-                                remove_button:{
-                                    title:'Remove this'
-                                }
-                            },
+                    console.log('setting up new tomselect for '+element)
+                    if (!element.classList.contains('tom-select-initialized')) {
+                        let config = {
+                            maxOptions: element.getAttribute('max-options') || 100,
+                            plugins: {}
                         };
-                    }
 
-                    if (element.hasAttribute('clear-after-item-add')) {
-                        const clearAfterItemAddConfig = { 
-                            onItemAdd:function(){
-                                this.setTextboxValue('');
-                                this.refreshOptions();
-                            }
+                        if (element.hasAttribute('remove-button-title')) {
+                            config.plugins.remove_button = {
+                                title: element.getAttribute('remove-button-title'),
+                                plugins: {
+                                    remove_button:{
+                                        title:'Remove this'
+                                    }
+                                },
+                            };
                         }
-                        config = {...config, ...clearAfterItemAddConfig};
-                    }
 
-                    if (element.hasAttribute('raw-config')) {
-                        let rawConfig = JSON.parse(element.getAttribute('raw-config'));
-                        config = {...config, ...rawConfig};
-                    }
+                        if (element.hasAttribute('clear-after-item-add')) {
+                            const clearAfterItemAddConfig = { 
+                                onItemAdd:function(){
+                                    this.setTextboxValue('');
+                                    this.refreshOptions();
+                                }
+                            }
+                            config = {...config, ...clearAfterItemAddConfig};
+                        }
 
-                    initializeTomSelect(element, config);
-                    element.classList.add('tomselect-initialized');
+                        if (element.hasAttribute('raw-config')) {
+                            let rawConfig = JSON.parse(element.getAttribute('raw-config'));
+                            config = {...config, ...rawConfig};
+                        }
+
+                        initializeTomSelect(element, config);
+                        element.classList.add('tomselect-initialized');
+                    }
+                } catch (err) {
+                    console.error(`Failed to load hx-tomsselect ${err}`)
                 }
             });
         }
