@@ -2,6 +2,11 @@
 
 Provides a hx-tomselect htmx extention tag
 
+Let me write the javascript so you dont have too
+
+[V0.1 - this is under active development, is provided as it, and future releases *may* introduce large breaking changes]
+[lmk if you see any bugs/feature oppotunitues]
+
 (should be loaded before any hx-ext tags)
 ```html
 <link href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.css" rel="stylesheet"/>
