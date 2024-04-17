@@ -5,7 +5,7 @@ htmx.defineExtension('tomselect', {
     encodeParameters : function(xhr, parameters, elt) {console.info('encodeParameters');  return null;},
     onEvent: function(name, evt) {
         console.info(`htmx-tomselect - onEvent - ${name}`)
-        if (name === "htmx:afterProcessNode") {
+        if (name === "isInlineSwap") {
             console.info(`htmx-tomselect - htmx:afterProcessNode ${name}`)
             document.querySelectorAll('[hx-ext=tomselect]').forEach(element => {
                 try {
