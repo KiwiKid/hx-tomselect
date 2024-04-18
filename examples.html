@@ -19,57 +19,48 @@
 
         <section class="mb-10">
             <h2 class="text-xl font-semibold mb-3">Basic Usage</h2>
-            <pre><code>&lt;select 
-    hx-ext="tomselect" 
-    class="block w-full mt-1"
-&gt;
-    &lt;option value=""&gt;Select an option&lt;/option&gt;
-    &lt;option value="1"&gt;Option 1&lt;/option&gt;
-    &lt;option value="2"&gt;Option 2&lt;/option&gt;
-    &lt;option value="3"&gt;Option 3&lt;/option&gt;
-&lt;/select&gt;</code></pre>
+
             <select hx-ext="tomselect" class="block w-full mt-1">
                 <option value="">Select</option>
                 <option value="1">Option 1</option>
                 <option value="2">Option 2</option>
                 <option value="3">Option 3</option>
             </select>
+            <pre><code>&lt;select 
+                hx-ext="tomselect" 
+                class="block w-full mt-1"
+            &gt;
+                &lt;option value=""&gt;Select an option&lt;/option&gt;
+                &lt;option value="1"&gt;Option 1&lt;/option&gt;
+                &lt;option value="2"&gt;Option 2&lt;/option&gt;
+                &lt;option value="3"&gt;Option 3&lt;/option&gt;
+            &lt;/select&gt;</code></pre>
         </section>
 
 
         <section class="mb-10">
             <h2 class="text-xl font-semibold mb-3">Create</h2>
-            <pre><code>&lt;select 
-    hx-ext="tomselect" 
-    class="block w-full mt-1"
-&gt;
-    &lt;option value=""&gt;Select an option&lt;/option&gt;
-    &lt;option value="1"&gt;Option 1&lt;/option&gt;
-    &lt;option value="2"&gt;Option 2&lt;/option&gt;
-    &lt;option value="3"&gt;Option 3&lt;/option&gt;
-&lt;/select&gt;</code></pre>
+
             <select hx-ext="tomselect" ts-create="true" class="block w-full mt-1">
                 <option value="">Select</option>
                 <option value="1">Option 1</option>
                 <option value="2">Option 2</option>
                 <option value="3">Option 3</option>
             </select>
+            <pre><code>&lt;select 
+                hx-ext="tomselect" 
+                class="block w-full mt-1"
+            &gt;
+                &lt;option value=""&gt;Select an option&lt;/option&gt;
+                &lt;option value="1"&gt;Option 1&lt;/option&gt;
+                &lt;option value="2"&gt;Option 2&lt;/option&gt;
+                &lt;option value="3"&gt;Option 3&lt;/option&gt;
+            &lt;/select&gt;</code></pre>
         </section>
 
         <section class="mb-10">
             <h2 class="text-xl font-semibold mb-3">Multiple Selection with Max Options and Remove Button</h2>
-            <pre><code>&lt;select 
-            hx-ext="tomselect" 
-            max-options="3" 
-            remove-button-title="Remove this item" 
-            multiple 
-            class="block w-full mt-1"
-&gt;
-    &lt;option value=""&gt;N/A&lt;/option&gt;
-    &lt;option value="1"&gt;Option 1&lt;/option&gt;
-    &lt;option value="2"&gt;Option 2&lt;/option&gt;
-    &lt;option value="3"&gt;Option 3&lt;/option&gt;
-&lt;/select&gt;</code></pre>
+
             <select hx-ext="tomselect" ts-max-options="3" ts-remove-button-title="Remove this item" multiple
                 class="block w-full mt-1">
                 <option value="">N/A</option>
@@ -77,10 +68,24 @@
                 <option value="2">Option 2</option>
                 <option value="3">Option 3</option>
             </select>
+            <pre><code>&lt;select 
+                hx-ext="tomselect" 
+                max-options="3" 
+                remove-button-title="Remove this item" 
+                multiple 
+                class="block w-full mt-1"
+    &gt;
+        &lt;option value=""&gt;N/A&lt;/option&gt;
+        &lt;option value="1"&gt;Option 1&lt;/option&gt;
+        &lt;option value="2"&gt;Option 2&lt;/option&gt;
+        &lt;option value="3"&gt;Option 3&lt;/option&gt;
+    &lt;/select&gt;</code></pre>
         </section>
 
-        <section class="mb-10" hx-get="another-place.html" hx-trigger="click">
-            <h2 class="text-xl font-semibold mb-3">(Click to dynamically load options)</h2>
+        <section class="mb-10">
+            <button hx-get="another-place.html" hx-trigger="click" class="text-xl font-semibold mb-3">(Click to
+                dynamically
+                load options)</button>
         </section>
 
         <section class="mb-10">
