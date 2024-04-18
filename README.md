@@ -2,8 +2,6 @@
 
 Provides a hx-ext="tomselect" htmx extention tag
 
-(Get your <script> tag count back down to 0)
-
 [V0.2 - this is under active development, is provided as it, and future releases *may* introduce large breaking changes]
 [create a github pr/issue if you see any bugs/feature opportunities]
 
@@ -11,18 +9,25 @@ Provides a hx-ext="tomselect" htmx extention tag
 <a href="examples.html">See examples for a full list</a>
 
 ```html
-<link href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.css" rel="stylesheet"/>
-<script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"></script>
 <script src="https://kiwikid.github.io/hx-tomselect/hx-tom-select.js"></script>
 ```
+
+
+(Include htmx and tom-select before the extention)
+```html
+<link href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.css" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"></script>
+```
+
+
 
 Example Usage:
 ```go
 <select hx-ext="tomselect" ts-max-options="20" ts-remove-button-title="Remove this player" multiple>
-		<option value="">N/A</option>
-		<option value="">N/A</option>
-		<option value = "1">Option 1</option>
-		<option value = "2">Option 2</option>
+	<option value="">N/A</option>
+	<option value="">N/A</option>
+	<option value = "1">Option 1</option>
+	<option value = "2">Option 2</option>
 </select>
 ```
 
@@ -43,18 +48,18 @@ hx-oob swaps works too (and was the main motivation for writing this extention)
 ```html
 <div hx-swap-oob="true" id="select-oob"> 
 	<label>Options</label>
-		<select
-			hx-ext="tomselect"
-			ts-max-options="20"
-			ts-remove-button-title=""
-			name="playerOfTheDay"
-			class="mt-1 w-full border-gray-300  bg-white rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-		>
-			<option value="">N/A</option>
-			<option value = "1">Option 1</option>
-			<option value = "2">Option 2</option>
-		</select>
-	</div>
+  <select
+    hx-ext="tomselect"
+    ts-max-options="20"
+    ts-remove-button-title=""
+    name="playerOfTheDay"
+    class="mt-1 w-full border-gray-300  bg-white rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+	>
+      <option value="">N/A</option>
+      <option value = "1">Option 1</option>
+      <option value = "2">Option 2</option>
+	</select>
+</div>
 ```
 
 
