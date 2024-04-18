@@ -25,9 +25,8 @@ Example Usage:
 ```go
 <select hx-ext="tomselect" ts-max-options="20" ts-remove-button-title="Remove this player" multiple>
 	<option value="">N/A</option>
-	<option value="">N/A</option>
-	<option value = "1">Option 1</option>
-	<option value = "2">Option 2</option>
+	<option value="1">Option 1</option>
+	<option value="2">Option 2</option>
 </select>
 ```
 
@@ -52,7 +51,7 @@ hx-oob swaps works too (and was the main motivation for writing this extention)
     hx-ext="tomselect"
     ts-max-options="20"
     ts-remove-button-title=""
-    name="playerOfTheDay"
+    name="inputName"
     class="mt-1 w-full border-gray-300  bg-white rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
 	>
       <option value="">N/A</option>
