@@ -12,13 +12,14 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.0.24/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
-<body class="bg-gray-100 p-10 md:">
+<body class="bg-gray-100 p-10">
+    <div class=" max-w-4xl mx-auto">
 
-    <h1 class="text-2xl font-bold mb-5">hx-tomselect examples</h1>
+        <h1 class="text-2xl font-bold mb-5">hx-tomselect examples</h1>
 
-    <section class="mb-10">
-        <h2 class="text-xl font-semibold mb-3">Basic Usage</h2>
-        <pre><code>&lt;select 
+        <section class="mb-10">
+            <h2 class="text-xl font-semibold mb-3">Basic Usage</h2>
+            <pre><code>&lt;select 
     hx-ext="tomselect" 
     class="block w-full mt-1"
 &gt;
@@ -27,18 +28,18 @@
     &lt;option value="2"&gt;Option 2&lt;/option&gt;
     &lt;option value="3"&gt;Option 3&lt;/option&gt;
 &lt;/select&gt;</code></pre>
-        <select hx-ext="tomselect" class="block w-full mt-1">
-            <option value="">Select</option>
-            <option value="1">Option 1</option>
-            <option value="2">Option 2</option>
-            <option value="3">Option 3</option>
-        </select>
-    </section>
+            <select hx-ext="tomselect" class="block w-full mt-1">
+                <option value="">Select</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+            </select>
+        </section>
 
 
-    <section class="mb-10">
-        <h2 class="text-xl font-semibold mb-3">Create</h2>
-        <pre><code>&lt;select 
+        <section class="mb-10">
+            <h2 class="text-xl font-semibold mb-3">Create</h2>
+            <pre><code>&lt;select 
     hx-ext="tomselect" 
     class="block w-full mt-1"
 &gt;
@@ -47,17 +48,17 @@
     &lt;option value="2"&gt;Option 2&lt;/option&gt;
     &lt;option value="3"&gt;Option 3&lt;/option&gt;
 &lt;/select&gt;</code></pre>
-        <select hx-ext="tomselect" ts-create="true" class="block w-full mt-1">
-            <option value="">Select</option>
-            <option value="1">Option 1</option>
-            <option value="2">Option 2</option>
-            <option value="3">Option 3</option>
-        </select>
-    </section>
+            <select hx-ext="tomselect" ts-create="true" class="block w-full mt-1">
+                <option value="">Select</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+            </select>
+        </section>
 
-    <section class="mb-10">
-        <h2 class="text-xl font-semibold mb-3">Multiple Selection with Max Options and Remove Button</h2>
-        <pre><code>&lt;select 
+        <section class="mb-10">
+            <h2 class="text-xl font-semibold mb-3">Multiple Selection with Max Options and Remove Button</h2>
+            <pre><code>&lt;select 
             hx-ext="tomselect" 
             max-options="3" 
             remove-button-title="Remove this item" 
@@ -69,29 +70,31 @@
     &lt;option value="2"&gt;Option 2&lt;/option&gt;
     &lt;option value="3"&gt;Option 3&lt;/option&gt;
 &lt;/select&gt;</code></pre>
-        <select hx-ext="tomselect" ts-max-options="3" ts-remove-button-title="Remove this item" multiple
-            class="block w-full mt-1">
-            <option value="">N/A</option>
-            <option value="1">Option 1</option>
-            <option value="2">Option 2</option>
-            <option value="3">Option 3</option>
-        </select>
-    </section>
+            <select hx-ext="tomselect" ts-max-options="3" ts-remove-button-title="Remove this item" multiple
+                class="block w-full mt-1">
+                <option value="">N/A</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+            </select>
+        </section>
 
-    <section class="mb-10" hx-get="another-place.html" hx-trigger="click">
-        <h2 class="text-xl font-semibold mb-3">(Click to dynamically load options)</h2>
-    </section>
+        <section class="mb-10" hx-get="another-place.html" hx-trigger="click">
+            <h2 class="text-xl font-semibold mb-3">(Click to dynamically load options)</h2>
+        </section>
 
-    <section class="mb-10">
-        <h2 class="text-xl font-semibold mb-3">Advanced Configuration with Raw Config</h2>
-        <select hx-ext="tomselect" ts-raw-config='{"create": true, "maxOptions":10, "plugins": {"dropdown_input": {}}}'
-            class="block w-full mt-1">
-            <option value="">Select</option>
-            <option value="1">Option 1</option>
-            <option value="2">Option 2</option>
-            <option value="3">Option 3</option>
-        </select>
-    </section>
+        <section class="mb-10">
+            <h2 class="text-xl font-semibold mb-3">Advanced Configuration with Raw Config</h2>
+            <select hx-ext="tomselect"
+                ts-raw-config='{"create": true, "maxOptions":10, "plugins": {"dropdown_input": {}}}'
+                class="block w-full mt-1">
+                <option value="">Select</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+            </select>
+        </section>
+    </div>
 </body>
 
 </html>
