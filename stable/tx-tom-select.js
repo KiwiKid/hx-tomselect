@@ -1,4 +1,4 @@
-/** Nightly Build - Expect the latest & greatest */
+/** Stable Build - For prod */
 const version = '02'
 
 /**
