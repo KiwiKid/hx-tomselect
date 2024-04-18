@@ -49,8 +49,6 @@ hx-oob swaps works too (and was the main motivation for writing this extention)
 	<label>Options</label>
   <select
     hx-ext="tomselect"
-    ts-max-options="20"
-    ts-remove-button-title=""
     name="inputName"
     class="mt-1 w-full border-gray-300  bg-white rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
 	>

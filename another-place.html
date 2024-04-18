@@ -1,4 +1,4 @@
-<div>
+<div class="mb-10">
     <label>These came from somewhere else:
         <select hx-ext="tomselect" ts-clear-after-add="true">
             <option>
@@ -11,7 +11,9 @@
                 Remote Option 1
             </option>
         </select>
-        <pre><code>&lt;select 
+    </label>
+</div>
+<pre class="mb-10" hx-swap-oob="true" id="source-holder"><code>&lt;select 
 hx-ext="tomselect" 
 max-options="3" 
 remove-button-title="Remove this item" 
@@ -24,5 +26,10 @@ multiple
 &lt;/select&gt;</code>
     
     </pre>
-    </label>
-</div>
+<pre class="mb-10">
+
+<code>&lt;button 
+        hx-get="another-place.html"
+        hx-trigger="click"
+    &gt;
+                &lt;/button&gt;</code></pre>
