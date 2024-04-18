@@ -1,11 +1,14 @@
 # hx-tomselect
 
-Provides a hx-tomselect htmx extention tag
+Provides a hx-ext="tomselect" htmx extention tag
 
-Let me write the javascript so you dont have too
+(Get your <script> tag count back down to 0)
 
-[V0.1 - this is under active development, is provided as it, and future releases *may* introduce large breaking changes]
-[lmk if you see any bugs/feature oppotunitues]
+[V0.2 - this is under active development, is provided as it, and future releases *may* introduce large breaking changes]
+[create a github pr/issue if you see any bugs/feature opportunities]
+
+
+<a href="examples.html">See examples for a full list</a>
 
 ```html
 <link href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.css" rel="stylesheet"/>
@@ -15,39 +18,45 @@ Let me write the javascript so you dont have too
 
 Example Usage:
 ```go
-<select hx-ext="tomselect" max-options="20" remove-button-title="Remove this player" multiple>
+<select hx-ext="tomselect" ts-max-options="20" ts-remove-button-title="Remove this player" multiple>
 		<option value="">N/A</option>
-		for _, p := range players {
-			<option value={ S("%v", p.ID) }>
-				{ S("%s", p.Name) }
-			</option>
-		}
+		<option value="">N/A</option>
+		<option value = "1">Option 1</option>
+		<option value = "2">Option 2</option>
 </select>
+```
+
+Config Optionss are prefixed with a `ts-` and generally match TomSelect config options. If a non-valid key is found on an element a warning will be issued
+
+After processing, one of three attributes will be added to each select box:
+
+- tom-select-success - Tom Select was launch succesfully
+- tom-select-warning - non-breaking error (e.g. tag name is no recognised)
+- tom-select-error - Breaking error - (i.e. invalid TomConfig json in ts-raw-config)
 
 
-hx-oob swaps works too!
+hx-oob swaps works too (and was the main motivation for writing this extention)
 ```html
-<div hx-swap-oob="true" id="player-select-potd" class="mt-4"> 
-	<label class="text-lg font-semibold">{ UsePlayerOfTheDayName(ctx) } ({ fmt.Sprintf("%d", len(players))  }):</label>
+<div id="select-oob"> </div>
+```
+
+```html
+<div hx-swap-oob="true" id="select-oob"> 
+	<label>Options</label>
 		<select
 			hx-ext="tomselect"
-			max-options="20"
-			remove-button-title=""
+			ts-max-options="20"
+			ts-remove-button-title=""
 			name="playerOfTheDay"
 			class="mt-1 w-full border-gray-300  bg-white rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
 		>
 			<option value="">N/A</option>
-			for _, p := range players {
-				<option
-					if p.ID == uint(playerId) {
-						selected
-					}
-					value={ S("%v", p.ID) }
-				>
-					{ S("%s", p.Name) }
-				</option>
-			}
+			<option value = "1">Option 1</option>
+			<option value = "2">Option 2</option>
 		</select>
-		}
 	</div>
 ```
+
+
+
+<a href="examples.html">See examples for a full list</a>
