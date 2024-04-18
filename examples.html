@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hx-tomselect Examples</title>
+    <script src="https://unpkg.com/htmx.org"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"></script>
+    <script src="./hx-tom-select.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.0.24/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100 p-10 md:">
+
+    <h1 class="text-2xl font-bold mb-5">hx-tomselect Examples</h1>
+
+    <section class="mb-10">
+        <h2 class="text-xl font-semibold mb-3">Basic Usage</h2>
+        <pre><code>&lt;select 
+    hx-ext="tomselect" 
+    class="block w-full mt-1"
+&gt;
+    &lt;option value=""&gt;Select an option&lt;/option&gt;
+    &lt;option value="1"&gt;Option 1&lt;/option&gt;
+    &lt;option value="2"&gt;Option 2&lt;/option&gt;
+    &lt;option value="3"&gt;Option 3&lt;/option&gt;
+&lt;/select&gt;</code></pre>
+        <select hx-ext="tomselect" class="block w-full mt-1">
+            <option value="">Select</option>
+            <option value="1">Option 1</option>
+            <option value="2">Option 2</option>
+            <option value="3">Option 3</option>
+        </select>
+    </section>
+
+
+    <section class="mb-10">
+        <h2 class="text-xl font-semibold mb-3">Create</h2>
+        <pre><code>&lt;select 
+    hx-ext="tomselect" 
+    class="block w-full mt-1"
+&gt;
+    &lt;option value=""&gt;Select an option&lt;/option&gt;
+    &lt;option value="1"&gt;Option 1&lt;/option&gt;
+    &lt;option value="2"&gt;Option 2&lt;/option&gt;
+    &lt;option value="3"&gt;Option 3&lt;/option&gt;
+&lt;/select&gt;</code></pre>
+        <select hx-ext="tomselect" ts-create="true" class="block w-full mt-1">
+            <option value="">Select</option>
+            <option value="1">Option 1</option>
+            <option value="2">Option 2</option>
+            <option value="3">Option 3</option>
+        </select>
+    </section>
+
+    <section class="mb-10">
+        <h2 class="text-xl font-semibold mb-3">Multiple Selection with Max Options and Remove Button</h2>
+        <pre><code>&lt;select 
+            hx-ext="tomselect" 
+            max-options="3" 
+            remove-button-title="Remove this item" 
+            multiple 
+            class="block w-full mt-1"
+&gt;
+    &lt;option value=""&gt;N/A&lt;/option&gt;
+    &lt;option value="1"&gt;Option 1&lt;/option&gt;
+    &lt;option value="2"&gt;Option 2&lt;/option&gt;
+    &lt;option value="3"&gt;Option 3&lt;/option&gt;
+&lt;/select&gt;</code></pre>
+        <select hx-ext="tomselect" ts-max-options="3" ts-remove-button-title="Remove this item" multiple
+            class="block w-full mt-1">
+            <option value="">N/A</option>
+            <option value="1">Option 1</option>
+            <option value="2">Option 2</option>
+            <option value="3">Option 3</option>
+        </select>
+    </section>
+
+    <section class="mb-10">
+        <h2 class="text-xl font-semibold mb-3">Dynamically Loaded Options with Clear After Add</h2>
+        <select hx-ext="tomselect" hx-get="options.html" hx-trigger="load" hx-swap="innerHTML" ts-clear-after-add="true"
+            class="block w-full mt-1">
+            <option value="">Please choose...</option>
+            <!-- Dynamic options will be loaded here -->
+        </select>
+    </section>
+
+    <section class="mb-10">
+        <h2 class="text-xl font-semibold mb-3">Advanced Configuration with Raw Config</h2>
+        <select hx-ext="tomselect" ts-raw-config='{"create": true, "maxOptions":10, "plugins": {"dropdown_input": {}}}'
+            class="block w-full mt-1">
+            <option value="">Select</option>
+            <option value="1">Option 1</option>
+            <option value="2">Option 2</option>
+            <option value="3">Option 3</option>
+        </select>
+    </section>
+</body>
+
+</html>
