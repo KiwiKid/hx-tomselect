@@ -27,14 +27,14 @@
                 <option value="3">Option 3</option>
             </select>
             <pre><code>&lt;select 
-                hx-ext="tomselect" 
-                class="block w-full mt-1"
-            &gt;
-                &lt;option value=""&gt;Select an option&lt;/option&gt;
-                &lt;option value="1"&gt;Option 1&lt;/option&gt;
-                &lt;option value="2"&gt;Option 2&lt;/option&gt;
-                &lt;option value="3"&gt;Option 3&lt;/option&gt;
-            &lt;/select&gt;</code></pre>
+    hx-ext="tomselect" 
+    class="block w-full mt-1"
+&gt;
+    &lt;option value=""&gt;Select an option&lt;/option&gt;
+    &lt;option value="1"&gt;Option 1&lt;/option&gt;
+    &lt;option value="2"&gt;Option 2&lt;/option&gt;
+    &lt;option value="3"&gt;Option 3&lt;/option&gt;
+&lt;/select&gt;</code></pre>
         </section>
 
 
@@ -48,38 +48,47 @@
                 <option value="3">Option 3</option>
             </select>
             <pre><code>&lt;select 
-                hx-ext="tomselect" 
-                class="block w-full mt-1"
-            &gt;
-                &lt;option value=""&gt;Select an option&lt;/option&gt;
-                &lt;option value="1"&gt;Option 1&lt;/option&gt;
-                &lt;option value="2"&gt;Option 2&lt;/option&gt;
-                &lt;option value="3"&gt;Option 3&lt;/option&gt;
-            &lt;/select&gt;</code></pre>
+    hx-ext="tomselect" 
+    class="block w-full mt-1"
+&gt;
+    &lt;option value=""&gt;Select an option&lt;/option&gt;
+    &lt;option value="1"&gt;Option 1&lt;/option&gt;
+    &lt;option value="2"&gt;Option 2&lt;/option&gt;
+    &lt;option value="3"&gt;Option 3&lt;/option&gt;
+&lt;/select&gt;</code></pre>
         </section>
 
         <section class="mb-10">
             <h2 class="text-xl font-semibold mb-3">Multiple Selection with Max Options and Remove Button</h2>
 
-            <select hx-ext="tomselect" ts-max-options="3" ts-remove-button-title="Remove this item" multiple
-                class="block w-full mt-1">
+            <select hx-ext="tomselect" ts-max-options="3" ts-remove-button-title="Remove this item" multiple>
                 <option value="">N/A</option>
                 <option value="1">Option 1</option>
                 <option value="2">Option 2</option>
                 <option value="3">Option 3</option>
             </select>
+            <pre><code>&lt;button 
+                hx-get="another-place.html"
+                hx-trigger="click"
+            &gt;
+            &lt;/button&gt;</code></pre>
             <pre><code>&lt;select 
-                hx-ext="tomselect" 
-                max-options="3" 
-                remove-button-title="Remove this item" 
-                multiple 
-                class="block w-full mt-1"
-    &gt;
-        &lt;option value=""&gt;N/A&lt;/option&gt;
-        &lt;option value="1"&gt;Option 1&lt;/option&gt;
-        &lt;option value="2"&gt;Option 2&lt;/option&gt;
-        &lt;option value="3"&gt;Option 3&lt;/option&gt;
-    &lt;/select&gt;</code></pre>
+    hx-ext="tomselect" 
+    max-options="3" 
+    remove-button-title="Remove this item" 
+    multiple 
+&gt;
+    &lt;option value=""&gt;N/A&lt;/option&gt;
+    &lt;option value="1"&gt;Option 1&lt;/option&gt;
+    &lt;option value="2"&gt;Option 2&lt;/option&gt;
+    &lt;option value="3"&gt;Option 3&lt;/option&gt;
+&lt;/select&gt;</code></pre>
+
+            <button hx-get="another-place.html" hx-trigger="click" hx-target="#holder"
+                class="text-xl font-semibold mb-3">(Click to
+                dynamically
+                load options)</button>
+            <div id="holder"></div>
         </section>
 
         <section class="mb-10">
@@ -91,8 +100,7 @@
         <section class="mb-10">
             <h2 class="text-xl font-semibold mb-3">Advanced Configuration with Raw Config</h2>
             <select hx-ext="tomselect"
-                ts-raw-config='{"create": true, "maxOptions":10, "plugins": {"dropdown_input": {}}}'
-                class="block w-full mt-1">
+                ts-raw-config='{"create": true, "maxOptions":10, "plugins": {"dropdown_input": {}}}'>
                 <option value="">Select</option>
                 <option value="1">Option 1</option>
                 <option value="2">Option 2</option>
