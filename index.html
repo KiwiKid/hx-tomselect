@@ -77,7 +77,15 @@
 
 &lt;select ts-delete-confirm="Are you sure?"&gt; - after deleting item confirm with a message ('true' or message to confirm)&lt;/select&gt;
 
-&lt;select ts-add-post-url="/add/item"&gt; - after request post the value to this url&lt;/select&gt;
+&lt;select ts-add-post-url="[ts-add-post-url]"&gt; - after adding a new item, will POST the select value (named [body-value]) to this url&lt;/select&gt;
+
+&lt;select ts-add-post-url-body-value="[name-in-body]"&gt; - when posting, use this [body-value] as the name in the body &lt;/select&gt;
+
+The request will similar to:
+POST [ts-add-post-url]
+{
+    [ts-add-post-url-body-value]: value
+}
 
 &lt;select ts-create-filter="true"&gt; - add a regex on the add items (or 'true' for no commas)&lt;/select&gt;
 
@@ -190,7 +198,7 @@
                 <option value="2">Option 2</option>
                 <option value="3">Option 3</option>
             </select>
-            <pre class="mb-2"><code class="language-html">&lt;select hx-ext="tomselect" ts-create="true" &gt;
+            <pre class="mb-2"><code class="language-html">&lt;select hx-ext="tomselect" ts-create="true"&gt;
     &lt;option value=""&gt;Select an option&lt;/option&gt;
     &lt;option value="1"&gt;Option 1&lt;/option&gt;
     &lt;option value="2"&gt;Option 2&lt;/option&gt;
@@ -200,7 +208,8 @@
 
         <section class="mb-20">
             <h2 class="text-xl font-semibold mb-3">Create + Regex new item names</h2>
-            <p>'true' will prevent commas in the title, any other string will be used as a regex match</p>
+            <p>Allow creating new items + ts-create-filter="true" will prevent commas in the title, any other string
+                will be used as a regex match</p>
             <select hx-ext="tomselect" ts-create="true" ts-create-filter="^[^,]*$">
                 <option value="">Select</option>
                 <option value="1">ValidOption</option>
@@ -236,11 +245,11 @@
     multiple
     placeholder="Add options(s)..."
 &gt;
-&lt;option value=""&gt;Select&lt;/option&gt;
-&lt;option value="1"&gt;Option 1&lt;/option&gt;
-&lt;option value="2"&gt;Option 2&lt;/option&gt;
-&lt;option value="3"&gt;Option 3&lt;/option&gt;
-            &lt;/select&gt;
+    &lt;option value=""&gt;Select&lt;/option&gt;
+    &lt;option value="1"&gt;Option 1&lt;/option&gt;
+    &lt;option value="2"&gt;Option 2&lt;/option&gt;
+    &lt;option value="3"&gt;Option 3&lt;/option&gt;
+&lt;/select&gt;
 </code></pre>
         </section>
 

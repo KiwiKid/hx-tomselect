@@ -3,6 +3,7 @@
 Provides a hx-ext="tomselect" htmx extention tag
 
 [V0.2 - this is under active development, is provided as it, and future releases *may* introduce large breaking changes]
+
 [create a github pr/issue if you see any bugs/feature opportunities]
 
 
