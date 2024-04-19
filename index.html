@@ -27,12 +27,12 @@
 <body class="bg-gray-900 text-white  p-10">
     <div class=" max-w-4xl mx-auto">
 
-        <p class="p-4 text-2xl mb-10">
+        <p class="p-4 text-xl mb-10">
             <a class="underline" href="https://github.com/kiwiKid/hx-tomselect">hx-tomselect</a> - a <a
                 class="underline" href="https://v1.htmx.org/docs/#extensions" target="_">htmx extention</a> for <a
                 class="underline" href="https://tom-select.js.org/">tom-select.js</a>
         </p>
-        <h1 class="mb-2">Demo:</h1>
+        <h1 class="mb-2 text-xl">Demo:</h1>
         <section class="mb-20">
             <select hx-ext="tomselect" class="block w-full mb-2">
                 <option value="">Select</option>
@@ -48,17 +48,18 @@
 &lt;/select&gt;</code></pre>
         </section>
         <section class="mb-20">
-            <h1>Install</h1>
+            <h1 class="text-xl">Install:</h1>
             <pre
                 class="mb-2"><code class="language-html">&lt;script src="https://kiwikid.github.io/hx-tomselect/hx-tom-select.js"&gt;&lt;/script&gt;</code></pre>
 
-            This extention relies on <a href="https://v1.htmx.org">htmx</a> and <a
+            This extention relies on <a class="underline" href="https://v1.htmx.org">htmx</a> and <a class="underline"
                 href="https://tom-select.js.org/">tom-select.js</a> being loaded before it is included:
             <pre class="mb-2"><code class="language-html">&lt;script src="https://unpkg.com/htmx.org@1.9.12"&gt;&lt;/script&gt;
 &lt;link href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.css" rel="stylesheet" /&gt;
 &lt;script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"&gt;&lt;/script&gt;
 &lt;script src="https://kiwikid.github.io/hx-tomselect/hx-tom-select.js"&gt;&lt;/script&gt;
 </code></pre>
+            <h1>Configure:</h1>
             <p class="p-4">Config Options are prefixed with a `ts-` and generally match TomSelect config options:
 
             <pre><code class="language-html">
@@ -66,7 +67,7 @@
 
 &lt;select ts-max-items="3"&gt; - only allow selection of this many options&lt;/select&gt;
 
-&lt;select ts-max-options="3"&gt; - [todo]&lt;/select&gt;
+&lt;select ts-max-options="3"&gt; - the max number of options to display&lt;/select&gt;
 
 &lt;select ts-clear-after-add="true"&gt; - clear the search input after adding an item&lt;/select&gt;
 
@@ -84,9 +85,9 @@
 
 &lt;select ts-debug="true"&gt; - (wip) debug logging (may remove)&gt;&lt;/select&gt;
 
-&lt;select ts-sort="field"&gt; - (wip) sort by this &lt;/select&gt;
+&lt;select ts-sort="field"&gt; - sets config.sortField.field &lt;/select&gt;
 
-&lt;select ts-sort-direction="asc"&gt; - (wip) &lt;/select&gt;
+&lt;select ts-sort-direction="asc"&gt; - sets config.sortField.direction &lt;/select&gt;
                 </code></pre>
 
             </p>

@@ -1,6 +1,6 @@
 (function() {   
-    /** Stable Build - For prod */
-    const version = '03'
+    /** stable build*/
+    const version = '04'
 
     /**
      * @typedef {Object} ConfigChange
@@ -101,7 +101,7 @@
                          * @type {ConfigChange}
                          */
                         let config = {
-                            maxOptions: +s.getAttribute('ts-max-items') || 100,
+                            maxOptions: +s.getAttribute('ts-max-options') || 100,
                             maxItems: +s.getAttribute('ts-max-items') || 100,
                             plugins: {}
                         };
