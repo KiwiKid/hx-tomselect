@@ -129,8 +129,8 @@
         </section>
 
         <section class="mb-20">
-            <h2 class="text-xl font-semibold mb-3">Multiple Selection with 3 Max Options and Remove Button</h2>
-            <p class="p-4">ts-remove-button-title also takes an custom string message to show on delete confirm</p>
+            <h2 class="text-xl font-semibold mb-3">Add Delete button</h2>
+            <p class="p-4">(ts-remove-button-title also takes an custom string message)</p>
             <select hx-ext="tomselect" ts-max-items="3" ts-remove-button-title="true" multiple>
                 <option value="">N/A</option>
                 <option value="1">Option 1</option>
@@ -157,10 +157,7 @@
         </section>
         <section class="mb-20">
 
-            <p class="p-4">hx-oob swaps works too (and was the main motivation for writing this extention) + removing
-                that last
-                script
-                tag </code></p>
+            <p class="p-4">hx-oob swaps works too (and was the main motivation for writing this extention)</code></p>
             <button type="button" hx-get="another-place.html" hx-trigger="click"
                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">(Click
                 to
@@ -179,15 +176,16 @@
         <section class="mb-20">
             <h2 class="text-xl font-semibold mb-3">Configuring Item Deletion Confirmation</h2>
             <p class="p-4">Supports a custom message or `true` for default text</p>
-            <select hx-ext="tomselect" ts-delete-confirm="true" ts-remove-button-title="Remove this item" multiple>
-                <option value="1">Item 1</option>
-                <option value="2">Item 2</option>
-                <option value="3">Item 3</option>
+            <select hx-ext="tomselect" ts-delete-confirm="true" ts-remove-button-title="This DELETES THE ITEM!!"
+                multiple>
+                <option value="1" selected>Item 1</option>
+                <option value="2" selected>Item 2</option>
+                <option value="3" selected>Item 3</option>
             </select>
             <pre><code class="language-html">&lt;select 
     hx-ext="tomselect" 
     ts-delete-confirm="true"
-    ts-remove-button-title="How could you delete this item!?!?"
+    ts-remove-button-title="This DELETES THE ITEM!!"
     multiple
 &gt;
     &lt;option value="1"&gt;Item 1&lt;/option&gt;

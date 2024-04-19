@@ -54,6 +54,8 @@
         , 'ts-delete-confirm'
         , 'ts-add-post-url'
         , 'ts-create-filter'
+
+        , 'ts-no-active'
     ]
 
     /**
@@ -209,6 +211,7 @@
                     if(s.hasAttribute('ts-add-post-url')) {
                         deepAssign(config, {
                             onOptionAdd: function(value, item) {
+                                console.log('onOptionAdd')
                                 this.lock();
                                 fetch(s.getAttribute('ts-add-post-url'), {
                                     method: 'POST',
@@ -243,11 +246,9 @@
                         }})
                     }
 
-
                     if(debug || true) { console.log('hx-tomselect - tom-select-success - config', config) }
-                    new TomSelect(s, config);
-                    s.setAttribute('tom-select-success', `succes_${version}`);
-
+                        new TomSelect(s, config);
+                        s.setAttribute('tom-select-success', `succes_${version}`);
                     })
 
                 } catch (err) {
