@@ -17,8 +17,8 @@
 <body class="bg-gray-900 text-white  p-10">
     <div class=" max-w-4xl mx-auto">
 
-        <p class="p-4">
-            A <code class="language-html">hx-ext="tomselect"</code> <a class="underline"
+        <p class="p-4 text-lg">
+            <code class="language-html">hx-ext="tomselect"</code> - a <a class="underline"
                 href="https://v1.htmx.org/docs/#extensions" target="_">htmx extention tag</a> for <a class="underline"
                 href="https://tom-select.js.org/">tom-select.js</a>
         </p>
@@ -38,17 +38,17 @@
 &lt;/select&gt;</code></pre>
         </section>
         <section class="mb-20">
-            <h1>quick start:</h1>
+            <h1>direct extention link</h1>
             <pre
                 class="mb-2"><code class="language-html">&lt;script src="https://kiwikid.github.io/hx-tomselect/hx-tom-select.js"&gt;&lt;/script&gt;</code></pre>
 
-            This extention relies on htmx and tom-select being loaded before it is included:
+            This extention relies on <a href="https://v1.htmx.org">htmx</a> and <a
+                href="https://tom-select.js.org/">tom-select.js</a> being loaded before it is included:
             <pre class="mb-2"><code class="language-html">&lt;script src="https://unpkg.com/htmx.org@1.9.12"&gt;&lt;/script&gt;
 &lt;link href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.css" rel="stylesheet" /&gt;
 &lt;script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"&gt;&lt;/script&gt;
-&lt;script src="https://kiwikid.github.io/hx-tomselect/hx-tom-select.js"&gt;&lt;/script&gt;</code></pre>
-
-
+&lt;script src="https://kiwikid.github.io/hx-tomselect/hx-tom-select.js"&gt;&lt;/script&gt;
+</code></pre>
             <p class="p-4">Config Options are prefixed with a `ts-` and generally match TomSelect config options:
 
             <pre><code class="language-html">
@@ -136,7 +136,7 @@
             <pre class="mb-2"><code class="language-html">&lt;select
     hx-ext="tomselect" 
     ts-max-items="3"
-    ts-remove-button-title="Remove this item"
+    ts-remove-button-title="true"
     multiple
 &gt;
     &lt;option value=""&gt;Select an option&lt;/option&gt;
@@ -152,7 +152,7 @@
                 script
                 tag </code></p>
             <button type="button" hx-get="another-place.html" hx-trigger="click"
-                class="text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">(Click
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">(Click
                 to
                 dynamically
                 load options)</button>
@@ -161,11 +161,48 @@
                 <pre class="mb-2"><code class="language-html">&lt;button 
     hx-get="another-place.html"
     hx-trigger="click"
-&gt;
-            &lt;/button&gt;</code></pre>
+&gt;(Click to dynamically load options)&lt;/button&gt;</code></pre>
             </div>
-
         </section>
+
+
+        <section class="mb-20">
+            <h2 class="text-xl font-semibold mb-3">Configuring Item Deletion Confirmation</h2>
+            <p class="p-4">Supports a custom message or `true` for default text</p>
+            <select hx-ext="tomselect" ts-delete-confirm="true" ts-remove-button-title="Remove this item" multiple>
+                <option value="1">Item 1</option>
+                <option value="2">Item 2</option>
+                <option value="3">Item 3</option>
+            </select>
+            <pre><code class="language-html">&lt;select 
+    hx-ext="tomselect" 
+    ts-delete-confirm="true"
+    ts-remove-button-title="How could you delete this item!?!?"
+    multiple
+&gt;
+    &lt;option value="1"&gt;Item 1&lt;/option&gt;
+    &lt;option value="2"&gt;Item 2&lt;/option&gt;
+    &lt;option value="3"&gt;Item 3&lt;/option&gt;
+&lt;/select&gt;</code></pre>
+        </section>
+
+        <section class="mb-20">
+            <h2 class="text-xl font-semibold mb-3">Custom Filter on Creation</h2>
+            <p>'true' will prevent commas in the title, any other string will be used as a regex match</p>
+            <select hx-ext="tomselect" ts-create="true" ts-create-filter="^[^,]*$">
+                <option value="">Select</option>
+                <option value="1">ValidOption</option>
+            </select>
+            <pre><code class="language-html-dark">&lt;select 
+    hx-ext="tomselect" 
+    ts-create="true"
+    ts-create-filter="^[^,]*$"
+&gt;
+    &lt;option value=""&gt;Select an option&lt;/option&gt;
+    &lt;option value="1"&gt;ValidOption&lt;/option&gt;
+&lt;/select&gt;</code></pre>
+        </section>
+
 
         <section class="mb-20">
             <h2 class="text-xl font-semibold mb-3">Allow Empty Options and Sort Field</h2>
@@ -176,72 +213,17 @@
                 <option value="3">Charlie</option>
             </select>
             <pre><code class="language-html">&lt;select 
-            hx-ext="tomselect" 
-            ts-allow-empty-options="true"
-            ts-sort="name"
-            ts-sort-direction="desc"
-        &gt;
-            &lt;option value=""&gt;Select an option&lt;/option&gt;
-            &lt;option value="1"&gt;Alice&lt;/option&gt;
-            &lt;option value="2"&gt;Bob&lt;/option&gt;
-            &lt;option value="3"&gt;Charlie&lt;/option&gt;
-        &lt;/select&gt;</code></pre>
+    hx-ext="tomselect" 
+    ts-allow-empty-options="true"
+    ts-sort="name"
+    ts-sort-direction="desc"
+&gt;
+    &lt;option value=""&gt;Select an option&lt;/option&gt;
+    &lt;option value="1"&gt;Alice&lt;/option&gt;
+    &lt;option value="2"&gt;Bob&lt;/option&gt;
+    &lt;option value="3"&gt;Charlie&lt;/option&gt;
+&lt;/select&gt;</code></pre>
         </section>
-
-        <section class="mb-20">
-            <h2 class="text-xl font-semibold mb-3">Configuring Item Deletion Confirmation</h2>
-            <p class="p-4">Supports `true`</p>
-            <select hx-ext="tomselect" ts-delete-confirm="true" ts-remove-button-title="Remove this item" multiple>
-                <option value="1">Item 1</option>
-                <option value="2">Item 2</option>
-                <option value="3">Item 3</option>
-            </select>
-            <pre><code class="language-html">&lt;select 
-            hx-ext="tomselect" 
-            ts-delete-confirm="true"
-            ts-remove-button-title="Remove this item"
-            multiple
-        &gt;
-            &lt;option value="1"&gt;Item 1&lt;/option&gt;
-            &lt;option value="2"&gt;Item 2&lt;/option&gt;
-            &lt;option value="3"&gt;Item 3&lt;/option&gt;
-        &lt;/select&gt;</code></pre>
-
-            <p class="p-4">Or a custom message:</p>
-            <select hx-ext="tomselect" ts-delete-confirm="How could you delete this item!?!?"
-                ts-remove-button-title="Remove this item" multiple>
-                <option value="1">Item 1</option>
-                <option value="2">Item 2</option>
-                <option value="3">Item 3</option>
-            </select>
-            <pre><code class="language-html">&lt;select 
-            hx-ext="tomselect" 
-            ts-delete-confirm="How could you delete this item!?!?"
-            ts-remove-button-title="Remove this item"
-            multiple
-        &gt;
-            &lt;option value="1"&gt;Item 1&lt;/option&gt;
-            &lt;option value="2"&gt;Item 2&lt;/option&gt;
-            &lt;option value="3"&gt;Item 3&lt;/option&gt;
-        &lt;/select&gt;</code></pre>
-        </section>
-
-        <section class="mb-20">
-            <h2 class="text-xl font-semibold mb-3">Custom Filter on Creation</h2>
-            <select hx-ext="tomselect" ts-create="true" ts-create-filter="^[^,]*$">
-                <option value="">Select</option>
-                <option value="1">ValidOption</option>
-            </select>
-            <pre><code class="language-html-dark">&lt;select 
-            hx-ext="tomselect" 
-            ts-create="true"
-            ts-create-filter="^[^,]*$"
-        &gt;
-            &lt;option value=""&gt;Select an option&lt;/option&gt;
-            &lt;option value="1"&gt;ValidOption&lt;/option&gt;
-        &lt;/select&gt;</code></pre>
-        </section>
-
 
         <section class="mb-20">
             <h2 class="text-xl font-semibold mb-3">Advanced Configuration with Raw Config</h2>

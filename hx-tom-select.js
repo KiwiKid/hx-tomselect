@@ -171,6 +171,8 @@
                             onDelete: function(values) {
                                 if(s.getAttribute('ts-delete-confirm') == "true"){
                                     return confirm(values.length > 1 ? 'Are you sure you want to remove these ' + values.length + ' items?' : 'Are you sure you want to remove "' + values[0] + '"?');
+                                }else {
+                                    return confirm(s.getAttribute('ts-delete-confirm'));
                                 }
                                 
                             }
