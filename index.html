@@ -110,34 +110,18 @@
 
         </section>
 
-        <section class="mb-20">
-            <h2 class="text-xl font-semibold mb-3">Create</h2>
-            <p class="p-4">Allow creating new items</p>
 
-            <select hx-ext="tomselect" ts-create="true" class="block w-full mb-2">
-                <option value="">Select</option>
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
-                <option value="3">Option 3</option>
-            </select>
-            <pre class="mb-2"><code class="language-html">&lt;select hx-ext="tomselect" ts-create="true" &gt;
-    &lt;option value=""&gt;Select an option&lt;/option&gt;
-    &lt;option value="1"&gt;Option 1&lt;/option&gt;
-    &lt;option value="2"&gt;Option 2&lt;/option&gt;
-    &lt;option value="3"&gt;Option 3&lt;/option&gt;
-&lt;/select&gt;</code></pre>
-        </section>
 
         <section class="mb-20">
             <h2 class="text-xl font-semibold mb-3">Add Delete button</h2>
             <p class="p-4">(ts-remove-button-title also takes an custom string message)</p>
             <select hx-ext="tomselect" ts-max-items="3" ts-remove-button-title="true" multiple>
                 <option value="">N/A</option>
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
-                <option value="3">Option 3</option>
-                <option value="4">Option 4</option>
-                <option value="5">Option 5</option>
+                <option selected value="1">Option 1</option>
+                <option selected value="2">Option 2</option>
+                <option selected value="3">Option 3</option>
+                <option selected value="4">Option 4</option>
+                <option selected value="5">Option 5</option>
                 <option value="6">Option 6</option>
                 <option value="7">Option 7</option>
                 <option value="8">Option 8</option>
@@ -176,15 +160,15 @@
         <section class="mb-20">
             <h2 class="text-xl font-semibold mb-3">Configuring Item Deletion Confirmation</h2>
             <p class="p-4">Supports a custom message or `true` for default text</p>
-            <select hx-ext="tomselect" ts-delete-confirm="true" ts-remove-button-title="This DELETES THE ITEM!!"
-                multiple>
+            <select hx-ext="tomselect" ts-delete-confirm="ARE YOU SURE!?!"
+                ts-remove-button-title="This DELETES THE ITEM!!" multiple>
                 <option value="1" selected>Item 1</option>
                 <option value="2" selected>Item 2</option>
                 <option value="3" selected>Item 3</option>
             </select>
             <pre><code class="language-html">&lt;select 
     hx-ext="tomselect" 
-    ts-delete-confirm="true"
+    ts-delete-confirm="ARE YOU SURE!?!"
     ts-remove-button-title="This DELETES THE ITEM!!"
     multiple
 &gt;
@@ -194,8 +178,27 @@
 &lt;/select&gt;</code></pre>
         </section>
 
+
         <section class="mb-20">
-            <h2 class="text-xl font-semibold mb-3">Regex new item names</h2>
+            <h2 class="text-xl font-semibold mb-3">Create</h2>
+            <p class="p-4">Allow creating new items</p>
+
+            <select hx-ext="tomselect" ts-create="true" class="block w-full mb-2">
+                <option value="">Select</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+            </select>
+            <pre class="mb-2"><code class="language-html">&lt;select hx-ext="tomselect" ts-create="true" &gt;
+    &lt;option value=""&gt;Select an option&lt;/option&gt;
+    &lt;option value="1"&gt;Option 1&lt;/option&gt;
+    &lt;option value="2"&gt;Option 2&lt;/option&gt;
+    &lt;option value="3"&gt;Option 3&lt;/option&gt;
+&lt;/select&gt;</code></pre>
+        </section>
+
+        <section class="mb-20">
+            <h2 class="text-xl font-semibold mb-3">Create + Regex new item names</h2>
             <p>'true' will prevent commas in the title, any other string will be used as a regex match</p>
             <select hx-ext="tomselect" ts-create="true" ts-create-filter="^[^,]*$">
                 <option value="">Select</option>
@@ -211,26 +214,33 @@
 &lt;/select&gt;</code></pre>
         </section>
 
-
         <section class="mb-20">
-            <h2 class="text-xl font-semibold mb-3">Allow Empty Options and Sort Field</h2>
-            <select hx-ext="tomselect" ts-allow-empty-options="true" ts-sort="name" ts-sort-direction="desc">
+            <h2 class="text-xl font-semibold mb-3">Create + POST request</h2>
+            <p>(type to add a new option and see the network tab)</p>
+            <select id="select-fine" hx-ext="tomselect" ts-create-filter="true" ts-clear-after-add="true"
+                ts-no-active="true" ts-add-post-url="/this-could-be-your-new-thing-api" ts-persist="true" multiple
+                placeholder="Add options(s)..." class="border border-gray-300 rounded-md text-gray-700 flex-grow mb-2">
                 <option value="">Select</option>
-                <option value="1">Alice</option>
-                <option value="2">Bob</option>
-                <option value="3">Charlie</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
             </select>
-            <pre><code class="language-html">&lt;select 
-    hx-ext="tomselect" 
-    ts-allow-empty-options="true"
-    ts-sort="name"
-    ts-sort-direction="desc"
+            <pre><code class="language-html">&lt;select
+    hx-ext="tomselect"
+    ts-create-filter="true"
+    ts-clear-after-add="true"
+    ts-no-active="true"
+    ts-add-post-url="/yourpostapi"
+    ts-persist="true"
+    multiple
+    placeholder="Add options(s)..."
 &gt;
-    &lt;option value=""&gt;Select an option&lt;/option&gt;
-    &lt;option value="1"&gt;Alice&lt;/option&gt;
-    &lt;option value="2"&gt;Bob&lt;/option&gt;
-    &lt;option value="3"&gt;Charlie&lt;/option&gt;
-&lt;/select&gt;</code></pre>
+&lt;option value=""&gt;Select&lt;/option&gt;
+&lt;option value="1"&gt;Option 1&lt;/option&gt;
+&lt;option value="2"&gt;Option 2&lt;/option&gt;
+&lt;option value="3"&gt;Option 3&lt;/option&gt;
+            &lt;/select&gt;
+</code></pre>
         </section>
 
         <section class="mb-20">
