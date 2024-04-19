@@ -1,6 +1,6 @@
 (function() {   
     /** Stable Build - For prod */
-    const version = '02'
+    const version = '03'
 
     /**
      * @typedef {Object} ConfigChange
@@ -139,6 +139,7 @@
 
                     if (s.hasAttribute('ts-clear-after-add')) {
                         const clearAfterItemAddConfig = {
+                            create: true,
                             onItemAdd: function() {
                                 this.setTextboxValue('');
                                 this.refreshOptions();
@@ -196,45 +197,56 @@
                         })
                     }
 
-                    // Not sure how useful this one is...
-                    if(s.hasAttribute('ts-add-post-url')) {
-                        this.lock();
-                        fetch(s.getAttribute('ts-add-post-url'), {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({ reason: value }),
-                        })
-                        .then(response => {
-                            if (response.ok) {
-                                htmx.process(response.body)
-                                return response.json();
-                                
-                            } else { 
-                                console.error('Error adding item', error)
-                                s.setAttribute('tom-select-warning', `ts-add-post-url - request error - ${JSON.stringify(error, )}`, )
+                    if(s.getAttribute('ts-no-active') == "true"){
+                        deepAssign(config, {
+                            plugins: {
+                                no_active_items: 'true',
                             }
                         })
-                        .then(data => {
-                            console.log(data.message); // Log the success message
-                            // The item is already added to the select; you might want to do something else here
-                        })
-                        .catch(error => {
-                            console.error('Error adding item', error)
-                            s.setAttribute('tom-select-warning', `ts-add-post-url - Error processing item: ${JSON.stringify(error)}`);
-                                // Remove the item if the server request failed
-                            this.removeItem(value);
-                        })
-                        .finally(() => {
-                            this.unlock();
-                        });
+                    }
+
+                    // Not sure how useful this one is...
+                    if(s.hasAttribute('ts-add-post-url')) {
+                        deepAssign(config, {
+                            onOptionAdd: function(value, item) {
+                                this.lock();
+                                fetch(s.getAttribute('ts-add-post-url'), {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({ reason: value }),
+                                })
+                                .then(response => {
+                                    if (response.ok) {
+                                        htmx.process(response.body)
+                                        return response.json();
+                                        
+                                    } else { 
+                                        console.error('Error adding item', error)
+                                        s.setAttribute('tom-select-warning', `ts-add-post-url - request error - ${JSON.stringify(error, )}`, )
+                                    }
+                                })
+                                .then(data => {
+                                    console.log(data.message); // Log the success message
+                                    // The item is already added to the select; you might want to do something else here
+                                })
+                                .catch(error => {
+                                    console.error('Error adding item', error)
+                                    s.setAttribute('tom-select-warning', `ts-add-post-url - Error processing item: ${JSON.stringify(error)}`);
+                                        // Remove the item if the server request failed
+                                    this.removeItem(value);
+                                })
+                                .finally(() => {
+                                    this.unlock();
+                                });
+                        }})
                     }
 
 
                     if(debug || true) { console.log('hx-tomselect - tom-select-success - config', config) }
                     new TomSelect(s, config);
-                    s.setAttribute('tom-select-success', "true");
+                    s.setAttribute('tom-select-success', `succes_${version}`);
 
                     })
 

@@ -6,8 +6,9 @@ Provides a hx-ext="tomselect" htmx extention tag
 [create a github pr/issue if you see any bugs/feature opportunities]
 
 
-<a href="https://kiwikid.github.io/hx-tomselect/index.html">See examples for a full list</a>
+<a href="https://kiwikid.github.io/hx-tomselect/index.html">Examples/Full docs</a>
 
+### Install
 ```html
 <script src="https://kiwikid.github.io/hx-tomselect/hx-tom-select.js"></script>
 ```
@@ -15,22 +16,24 @@ Provides a hx-ext="tomselect" htmx extention tag
 
 (Include htmx and tom-select before the extention)
 ```html
+<script src="https://unpkg.com/htmx.org"></script>
 <link href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.css" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"></script>
+<script src="https://kiwikid.github.io/hx-tomselect/hx-tom-select.js"></script>
 ```
 
 
 
-Example Usage:
+### Example Usage:
 ```go
 <select hx-ext="tomselect" ts-max-options="20" ts-remove-button-title="Remove this player" multiple>
-	<option value="">N/A</option>
-	<option value="1">Option 1</option>
-	<option value="2">Option 2</option>
+ <option value="">N/A</option>
+ <option value="1">Option 1</option>
+ <option value="2">Option 2</option>
 </select>
 ```
 
-Config Optionss are prefixed with a `ts-` and generally match TomSelect config options. If a non-valid key is found on an element a warning will be issued
+Config Options are prefixed with a `ts-` and generally match TomSelect config options. If a non-valid key is found on an element a warning will be issued
 
 After processing, one of three attributes will be added to each select box:
 
@@ -40,7 +43,7 @@ After processing, one of three attributes will be added to each select box:
 
 hx-oob swaps works too (and was the main motivation for writing this extention)
 
-A full list of support attributes:
+### Supported Attributes:
 ```html
 ts-debug
 ts-create
@@ -65,16 +68,11 @@ Check the code for details how how each attribute works
 
 ```html
 <div hx-swap-oob="true" id="select-oob"> 
-	<label>Options</label>
-  <select
-    hx-ext="tomselect"
-    name="inputName"
-    class="mt-1 w-full border-gray-300  bg-white rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-	>
-      <option value="">N/A</option>
-      <option value = "1">Option 1</option>
-      <option value = "2">Option 2</option>
-	</select>
+ <select hx-ext="tomselect" name="inputName">
+   <option value="">N/A</option>
+   <option value = "1">Option 1</option>
+   <option value = "2">Option 2</option>
+</select>
 </div>
 ```
 
