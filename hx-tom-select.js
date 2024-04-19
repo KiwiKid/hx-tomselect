@@ -213,12 +213,13 @@
                             onOptionAdd: function(value, item) {
                                 console.log('onOptionAdd')
                                 this.lock();
+                                const valueKeyName = s.getAttribute('ts-add-post-url-body-value') ?? 'value'
                                 fetch(s.getAttribute('ts-add-post-url'), {
                                     method: 'POST',
                                     headers: {
                                         'Content-Type': 'application/json',
                                     },
-                                    body: JSON.stringify({ reason: value }),
+                                    body: JSON.stringify({ valueKeyName: value }),
                                 })
                                 .then(response => {
                                     if (response.ok) {
