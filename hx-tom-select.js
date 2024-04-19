@@ -251,9 +251,13 @@
                     }
 
                     if(s.hasAttribute('ts-remove-selector-on-select')) {
-                        const toRemove = document.getElementById(s.getAttribute('ts-remove-selector-on-select'))
-                        toRemove.forEach((elm) => {
-                            elm.remove()
+                        deepAssign(config, {
+                            onOptionAdd: function(opt){
+                                const toRemove = document.getElementById(s.getAttribute('ts-remove-selector-on-select'))
+                                toRemove.forEach((elm) => {
+                                    elm.remove()
+                                })
+                            }
                         })
                     }
 
