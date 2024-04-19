@@ -12,17 +12,27 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet">
     <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.0/themes/prism.min.css" />-->
     <link href="./prism-holi-theme.css" rel="stylesheet" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-S2BDGEP73W"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-S2BDGEP73W');
+    </script>
+
 </head>
 
 <body class="bg-gray-900 text-white  p-10">
     <div class=" max-w-4xl mx-auto">
 
-        <p class="p-4 text-lg">
-            <code class="language-html">hx-ext="tomselect"</code> - a <a class="underline"
-                href="https://v1.htmx.org/docs/#extensions" target="_">htmx extention tag</a> for <a class="underline"
-                href="https://tom-select.js.org/">tom-select.js</a>
+        <p class="p-4 text-2xl mb-10">
+            <a class="underline" href="https://github.com/kiwiKid/hx-tomselect">hx-tomselect</a> - a <a
+                class="underline" href="https://v1.htmx.org/docs/#extensions" target="_">htmx extention</a> for <a
+                class="underline" href="https://tom-select.js.org/">tom-select.js</a>
         </p>
-
+        <h1 class="mb-2">Demo:</h1>
         <section class="mb-20">
             <select hx-ext="tomselect" class="block w-full mb-2">
                 <option value="">Select</option>
@@ -38,7 +48,7 @@
 &lt;/select&gt;</code></pre>
         </section>
         <section class="mb-20">
-            <h1>direct extention link</h1>
+            <h1>Install</h1>
             <pre
                 class="mb-2"><code class="language-html">&lt;script src="https://kiwikid.github.io/hx-tomselect/hx-tom-select.js"&gt;&lt;/script&gt;</code></pre>
 
