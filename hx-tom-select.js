@@ -56,6 +56,7 @@
         , 'ts-create-filter'
 
         , 'ts-no-active'
+        , 'ts-remove-selector-on-select'
     ]
 
     /**
@@ -249,10 +250,19 @@
                         }})
                     }
 
+                    if(s.hasAttribute('ts-remove-selector-on-select')) {
+                        const toRemove = document.getElementById(s.getAttribute('ts-remove-selector-on-select'))
+                        toRemove.forEach((elm) => {
+                            elm.remove()
+                        })
+                    }
+
                     if(debug || true) { console.log('hx-tomselect - tom-select-success - config', config) }
                         new TomSelect(s, config);
-                        s.setAttribute('tom-select-success', `succes_${version}`);
+                        s.setAttribute('tom-select-success', `success_v${version}`);
                     })
+
+                   
 
                 } catch (err) {
                     s.setAttribute('tom-select-error', JSON.stringify(err));
