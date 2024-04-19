@@ -41,18 +41,19 @@
      * @type {Array<TomSelectConfigKey>}
      */
     const attributes = [
-        'ts-debug'
+         'ts-debug'
         , 'ts-create'
         , 'ts-max-items'
         , 'ts-max-options'
         , 'ts-sort'
         , 'ts-sort-direction'
         , 'ts-allow-empty-options'
-        , 'ts-config'
         , 'ts-clear-after-add'
         , 'ts-raw-config'
         , 'ts-remove-button-title'
         , 'ts-delete-confirm'
+        , 'ts-add-post-url'
+        , 'ts-create-filter'
     ]
 
     /**
@@ -155,10 +156,11 @@
 
                     // Additional configuration based on attributes
                     if (s.hasAttribute('ts-remove-button-title')) {
+                        const title = s.getAttribute('ts-remove-button-title') == "true" ? "Are you sure you want to delete this item?" : s.getAttribute('ts-remove-button-title')
                         deepAssign(config,{
                             plugins: {
                                 remove_button: {
-                                    title: s.getAttribute('ts-remove-button-title')
+                                    title: title
                                 },
                             },
                         })
@@ -167,12 +169,64 @@
                     if(s.hasAttribute('ts-delete-confirm')){
                         deepAssign(config, {
                             onDelete: function(values) {
-                                if(s.hasAttribute('ts-delete-confirm') == "true"){
+                                if(s.getAttribute('ts-delete-confirm') == "true"){
                                     return confirm(values.length > 1 ? 'Are you sure you want to remove these ' + values.length + ' items?' : 'Are you sure you want to remove "' + values[0] + '"?');
                                 }
                                 
                             }
                         })
+                    }
+
+                    if(s.hasAttribute('ts-create-filter')){
+                        deepAssign(config, {
+                            createFilter: function(input) {
+                                try {
+                                    const filter = s.getAttribute('ts-create-filter')
+                                    const matchEx = filter == "true" ? /^[^,]*$/ : s.getAttribute('ts-create-filter')
+                                    var match = input.match(matchEx); // Example filter: disallow commas in input
+                                    if(match) return !this.options.hasOwnProperty(input);
+                                    s.setAttribute('tom-select-warning', JSON.stringify(err));
+                                    return false;
+                                } catch (err) {
+                                    return false
+                                }
+                            }
+                        })
+                    }
+
+                    // Not sure how useful this one is...
+                    if(s.hasAttribute('ts-add-post-url')) {
+                        this.lock();
+                        fetch(s.getAttribute('ts-add-post-url'), {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ reason: value }),
+                        })
+                        .then(response => {
+                            if (response.ok) {
+                                htmx.process(response.body)
+                                return response.json();
+                                
+                            } else { 
+                                console.error('Error adding item', error)
+                                s.setAttribute('tom-select-warning', `ts-add-post-url - request error - ${JSON.stringify(error, )}`, )
+                            }
+                        })
+                        .then(data => {
+                            console.log(data.message); // Log the success message
+                            // The item is already added to the select; you might want to do something else here
+                        })
+                        .catch(error => {
+                            console.error('Error adding item', error)
+                            s.setAttribute('tom-select-warning', `ts-add-post-url - Error processing item: ${JSON.stringify(error)}`);
+                                // Remove the item if the server request failed
+                            this.removeItem(value);
+                        })
+                        .finally(() => {
+                            this.unlock();
+                        });
                     }
 
 

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hx-tomselect</title>
+    <script src="https://unpkg.com/htmx.org"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tom-select@latest/dist/css/tom-select.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/tom-select@latest/dist/js/tom-select.complete.min.js"></script>
+    <script src="./hx-tom-select.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet">
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.0/themes/prism.min.css" />-->
+    <link href="./prism-holi-theme.css" rel="stylesheet" />
+</head>
+
+<body class="bg-gray-900 text-white  p-10">
+    <div class=" max-w-4xl mx-auto">
+
+        <p class="p-4">
+            A <code class="language-html">hx-ext="tomselect"</code> <a class="underline"
+                href="https://v1.htmx.org/docs/#extensions" target="_">htmx extention tag</a> for <a class="underline"
+                href="https://tom-select.js.org/">tom-select.js</a>
+        </p>
+
+        <section class="mb-20">
+            <select hx-ext="tomselect" class="block w-full mb-2">
+                <option value="">Select</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+            </select>
+            <pre class="mb-2"><code class="language-html">&lt;select hx-ext="tomselect"&gt;
+    &lt;option value=""&gt;Select an option&lt;/option&gt;
+    &lt;option value="1"&gt;Option 1&lt;/option&gt;
+    &lt;option value="2"&gt;Option 2&lt;/option&gt;
+    &lt;option value="3"&gt;Option 3&lt;/option&gt;
+&lt;/select&gt;</code></pre>
+        </section>
+        <section class="mb-20">
+            <h1>quick start:</h1>
+            <pre
+                class="mb-2"><code class="language-html">&lt;script src="https://kiwikid.github.io/hx-tomselect/hx-tom-select.js"&gt;&lt;/script&gt;</code></pre>
+
+            This extention relies on htmx and tom-select being loaded before it is included:
+            <pre class="mb-2"><code class="language-html">&lt;script src="https://unpkg.com/htmx.org@1.9.12"&gt;&lt;/script&gt;
+&lt;link href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.css" rel="stylesheet" /&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"&gt;&lt;/script&gt;
+&lt;script src="https://kiwikid.github.io/hx-tomselect/hx-tom-select.js"&gt;&lt;/script&gt;</code></pre>
+
+
+            <p class="p-4">Config Options are prefixed with a `ts-` and generally match TomSelect config options:
+
+            <pre><code class="language-html">
+&lt;select ts-create="true"&gt; - allow item create&lt;/select&gt;
+
+&lt;select ts-max-items="3"&gt; - only allow selection of this many options&lt;/select&gt;
+
+&lt;select ts-max-options="3"&gt; - [todo]&lt;/select&gt;
+
+&lt;select ts-clear-after-add="true"&gt; - clear the search input after adding an item&lt;/select&gt;
+
+&lt;select ts-raw-config="{JsonConfig}"&gt; - use raw tom-select config&lt;/select&gt;
+
+&lt;select ts-remove-button-title="Remove this"&gt; - add a remove button with this hover text&lt;/select&gt;
+
+&lt;select ts-delete-confirm="Are you sure?"&gt; - after deleting item confirm with a message ('true' or message to confirm)&lt;/select&gt;
+
+&lt;select ts-add-post-url="/add/item"&gt; - after request post the value to this url&lt;/select&gt;
+
+&lt;select ts-create-filter="true"&gt; - add a regex on the add items (or 'true' for no commas)&lt;/select&gt;
+
+&lt;select ts-allow-empty-options="true"&gt;&lt;/select&gt;
+
+&lt;select ts-debug="true"&gt; - (wip) debug logging (may remove)&gt;&lt;/select&gt;
+
+&lt;select ts-sort="field"&gt; - (wip) sort by this &lt;/select&gt;
+
+&lt;select ts-sort-direction="asc"&gt; - (wip) &lt;/select&gt;
+                </code></pre>
+
+            </p>
+            <p class="p-4">If a non-valid key
+                is
+                found on an element a warning will be logged to the console and a `tom-select-warning` attribute added
+                to
+                the &lt;select&gt; tag
+            </p>
+            <p class="p-4">After processing, one of three attributes will be added to each select box:</p>
+            <ul>
+                <li>- <code class="language-html">tom-select-success="true"</code></li>
+                <li>- <code class="language-html">tom-select-warning="[warning details]"</code> - non-breaking error
+                    (e.g.
+                    tag name is no recognised)</li>
+                <li>- <code class="language-html">tom-select-error="[error details]"</code> - Breaking error</li>
+            </ul>
+
+
+
+
+        </section>
+
+        <section class="mb-20">
+            <h2 class="text-xl font-semibold mb-3">Create</h2>
+            <p class="p-4">Allow creating new items</p>
+
+            <select hx-ext="tomselect" ts-create="true" class="block w-full mb-2">
+                <option value="">Select</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+            </select>
+            <pre class="mb-2"><code class="language-html">&lt;select hx-ext="tomselect" ts-create="true" &gt;
+    &lt;option value=""&gt;Select an option&lt;/option&gt;
+    &lt;option value="1"&gt;Option 1&lt;/option&gt;
+    &lt;option value="2"&gt;Option 2&lt;/option&gt;
+    &lt;option value="3"&gt;Option 3&lt;/option&gt;
+&lt;/select&gt;</code></pre>
+        </section>
+
+        <section class="mb-20">
+            <h2 class="text-xl font-semibold mb-3">Multiple Selection with 3 Max Options and Remove Button</h2>
+            <p class="p-4">ts-remove-button-title also takes an custom string message to show on delete confirm</p>
+            <select hx-ext="tomselect" ts-max-items="3" ts-remove-button-title="true" multiple>
+                <option value="">N/A</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+                <option value="4">Option 4</option>
+                <option value="5">Option 5</option>
+                <option value="6">Option 6</option>
+                <option value="7">Option 7</option>
+                <option value="8">Option 8</option>
+                <option value="9">Option 9</option>
+            </select>
+            <pre class="mb-2"><code class="language-html">&lt;select
+    hx-ext="tomselect" 
+    ts-max-items="3"
+    ts-remove-button-title="Remove this item"
+    multiple
+&gt;
+    &lt;option value=""&gt;Select an option&lt;/option&gt;
+    &lt;option value="1"&gt;Option 1&lt;/option&gt;
+    &lt;option value="2"&gt;Option 2&lt;/option&gt;
+    ...
+&lt;/select&gt;</code></pre>
+        </section>
+        <section class="mb-20">
+
+            <p class="p-4">hx-oob swaps works too (and was the main motivation for writing this extention) + removing
+                that last
+                script
+                tag </code></p>
+            <button type="button" hx-get="another-place.html" hx-trigger="click"
+                class="text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">(Click
+                to
+                dynamically
+                load options)</button>
+            <div id="holder"></div>
+            <div id="source-holder">
+                <pre class="mb-2"><code class="language-html">&lt;button 
+    hx-get="another-place.html"
+    hx-trigger="click"
+&gt;
+            &lt;/button&gt;</code></pre>
+            </div>
+
+        </section>
+
+        <section class="mb-20">
+            <h2 class="text-xl font-semibold mb-3">Allow Empty Options and Sort Field</h2>
+            <select hx-ext="tomselect" ts-allow-empty-options="true" ts-sort="name" ts-sort-direction="desc">
+                <option value="">Select</option>
+                <option value="1">Alice</option>
+                <option value="2">Bob</option>
+                <option value="3">Charlie</option>
+            </select>
+            <pre><code class="language-html">&lt;select 
+            hx-ext="tomselect" 
+            ts-allow-empty-options="true"
+            ts-sort="name"
+            ts-sort-direction="desc"
+        &gt;
+            &lt;option value=""&gt;Select an option&lt;/option&gt;
+            &lt;option value="1"&gt;Alice&lt;/option&gt;
+            &lt;option value="2"&gt;Bob&lt;/option&gt;
+            &lt;option value="3"&gt;Charlie&lt;/option&gt;
+        &lt;/select&gt;</code></pre>
+        </section>
+
+        <section class="mb-20">
+            <h2 class="text-xl font-semibold mb-3">Configuring Item Deletion Confirmation</h2>
+            <p class="p-4">Supports `true`</p>
+            <select hx-ext="tomselect" ts-delete-confirm="true" ts-remove-button-title="Remove this item" multiple>
+                <option value="1">Item 1</option>
+                <option value="2">Item 2</option>
+                <option value="3">Item 3</option>
+            </select>
+            <pre><code class="language-html">&lt;select 
+            hx-ext="tomselect" 
+            ts-delete-confirm="true"
+            ts-remove-button-title="Remove this item"
+            multiple
+        &gt;
+            &lt;option value="1"&gt;Item 1&lt;/option&gt;
+            &lt;option value="2"&gt;Item 2&lt;/option&gt;
+            &lt;option value="3"&gt;Item 3&lt;/option&gt;
+        &lt;/select&gt;</code></pre>
+
+            <p class="p-4">Or a custom message:</p>
+            <select hx-ext="tomselect" ts-delete-confirm="How could you delete this item!?!?"
+                ts-remove-button-title="Remove this item" multiple>
+                <option value="1">Item 1</option>
+                <option value="2">Item 2</option>
+                <option value="3">Item 3</option>
+            </select>
+            <pre><code class="language-html">&lt;select 
+            hx-ext="tomselect" 
+            ts-delete-confirm="How could you delete this item!?!?"
+            ts-remove-button-title="Remove this item"
+            multiple
+        &gt;
+            &lt;option value="1"&gt;Item 1&lt;/option&gt;
+            &lt;option value="2"&gt;Item 2&lt;/option&gt;
+            &lt;option value="3"&gt;Item 3&lt;/option&gt;
+        &lt;/select&gt;</code></pre>
+        </section>
+
+        <section class="mb-20">
+            <h2 class="text-xl font-semibold mb-3">Custom Filter on Creation</h2>
+            <select hx-ext="tomselect" ts-create="true" ts-create-filter="^[^,]*$">
+                <option value="">Select</option>
+                <option value="1">ValidOption</option>
+            </select>
+            <pre><code class="language-html-dark">&lt;select 
+            hx-ext="tomselect" 
+            ts-create="true"
+            ts-create-filter="^[^,]*$"
+        &gt;
+            &lt;option value=""&gt;Select an option&lt;/option&gt;
+            &lt;option value="1"&gt;ValidOption&lt;/option&gt;
+        &lt;/select&gt;</code></pre>
+        </section>
+
+
+        <section class="mb-20">
+            <h2 class="text-xl font-semibold mb-3">Advanced Configuration with Raw Config</h2>
+            <select hx-ext="tomselect"
+                ts-raw-config='{"create": true, "maxOptions":10, "plugins": {"dropdown_input": {}}}'>
+                <option value="">Select</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+            </select>
+        </section>
+
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.0/prism.min.js"></script>
+</body>
+
+</html>
