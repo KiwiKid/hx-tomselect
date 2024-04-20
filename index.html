@@ -32,6 +32,32 @@
                 class="underline" href="https://v1.htmx.org/docs/#extensions" target="_">htmx extention</a> for <a
                 class="underline" href="https://tom-select.js.org/">tom-select.js</a>
         </p>
+        <section class="mb-20">
+            <h1 class="text-xl">Install:</h1>
+            <pre
+                class="mb-2"><code class="language-html">&lt;script src="https://kiwikid.github.io/hx-tomselect/hx-tom-select.js"&gt;&lt;/script&gt;</code></pre>
+
+            This extention relies on <a class="underline" href="https://v1.htmx.org">htmx</a> and <a class="underline"
+                href="https://tom-select.js.org/">tom-select.js</a> being loaded before it is included:
+            <pre class="mb-2"><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;script src="https://unpkg.com/htmx.org@1.9.12"&gt;&lt;/script&gt;
+        &lt;link href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.css" rel="stylesheet" /&gt;
+        &lt;script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"&gt;&lt;/script&gt;
+        &lt;script src="https://kiwikid.github.io/hx-tomselect/hx-tom-select.js"&gt;&lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;select hx-ext="tomselect"&gt;
+            &lt;option value=""&gt;Select an option&lt;/option&gt;
+            &lt;option value="1"&gt;Option 1&lt;/option&gt;
+            &lt;option value="2"&gt;Option 2&lt;/option&gt;
+            &lt;option value="3"&gt;Option 3&lt;/option&gt;
+        &lt;/select&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+                    </code></pre>
+        </section>
         <h1 class="mb-2 text-xl">Demo:</h1>
         <section class="mb-20">
             <select hx-ext="tomselect" class="block w-full mb-2">
@@ -40,7 +66,37 @@
                 <option value="2">Option 2</option>
                 <option value="3">Option 3</option>
             </select>
-            <pre class="mb-2"><code class="language-html">&lt;select hx-ext="tomselect"&gt;
+        </section>
+
+        <section class="mb-20">
+            <h2 class="text-xl font-semibold mb-3">Input</h2>
+            <p class="p-4">Allow creating new items</p>
+
+            <select hx-ext="tomselect" ts-create="true" ts-create-on-blur="true" class="block w-full mb-2">
+                <option value="">Brilliant</option>
+                <option value="1">Excellent</option>
+                <option value="2">Top Notch</option>
+                <option value="3">Awesome</option>
+            </select>
+            <pre class="mb-2"><code class="language-html">&lt;select hx-ext="tomselect" ts-create="true"&gt;
+    &lt;option value=""&gt;Select an option&lt;/option&gt;
+    &lt;option value="1"&gt;Option 1&lt;/option&gt;
+    &lt;option value="2"&gt;Option 2&lt;/option&gt;
+    &lt;option value="3"&gt;Option 3&lt;/option&gt;
+&lt;/select&gt;</code></pre>
+        </section>
+
+        <section class="mb-20">
+            <h2 class="text-xl font-semibold mb-3">Select</h2>
+            <p class="p-4">Allow selecting multiple items</p>
+
+            <select hx-ext="tomselect" ts-create="true" ts-createOnBlur="true" class="block w-full mb-2">
+                <option value="">Brilliant</option>
+                <option value="1">Excellent</option>
+                <option value="2">Top Notch</option>
+                <option value="3">Awesome</option>
+            </select>
+            <pre class="mb-2"><code class="language-html">&lt;select hx-ext="tomselect" multiple&gt;
     &lt;option value=""&gt;Select an option&lt;/option&gt;
     &lt;option value="1"&gt;Option 1&lt;/option&gt;
     &lt;option value="2"&gt;Option 2&lt;/option&gt;
@@ -48,55 +104,6 @@
 &lt;/select&gt;</code></pre>
         </section>
         <section class="mb-20">
-            <h1 class="text-xl">Install:</h1>
-            <pre
-                class="mb-2"><code class="language-html">&lt;script src="https://kiwikid.github.io/hx-tomselect/hx-tom-select.js"&gt;&lt;/script&gt;</code></pre>
-
-            This extention relies on <a class="underline" href="https://v1.htmx.org">htmx</a> and <a class="underline"
-                href="https://tom-select.js.org/">tom-select.js</a> being loaded before it is included:
-            <pre class="mb-2"><code class="language-html">&lt;script src="https://unpkg.com/htmx.org@1.9.12"&gt;&lt;/script&gt;
-&lt;link href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.css" rel="stylesheet" /&gt;
-&lt;script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"&gt;&lt;/script&gt;
-&lt;script src="https://kiwikid.github.io/hx-tomselect/hx-tom-select.js"&gt;&lt;/script&gt;
-</code></pre>
-
-
-            <section class="mb-20">
-                <h2 class="text-xl font-semibold mb-3">Input</h2>
-                <p class="p-4">Allow creating new items</p>
-
-                <select hx-ext="tomselect" ts-create="true" ts-create-on-blur="true" class="block w-full mb-2">
-                    <option value="">Brilliant</option>
-                    <option value="1">Excellent</option>
-                    <option value="2">Top Notch</option>
-                    <option value="3">Awesome</option>
-                </select>
-                <pre class="mb-2"><code class="language-html">&lt;select hx-ext="tomselect" ts-create="true"&gt;
-&lt;option value=""&gt;Select an option&lt;/option&gt;
-&lt;option value="1"&gt;Option 1&lt;/option&gt;
-&lt;option value="2"&gt;Option 2&lt;/option&gt;
-&lt;option value="3"&gt;Option 3&lt;/option&gt;
-&lt;/select&gt;</code></pre>
-            </section>
-
-            <section class="mb-20">
-                <h2 class="text-xl font-semibold mb-3">Select</h2>
-                <p class="p-4">Allow selecting multiple items</p>
-
-                <select hx-ext="tomselect" ts-create="true" ts-createOnBlur="true" class="block w-full mb-2">
-                    <option value="">Brilliant</option>
-                    <option value="1">Excellent</option>
-                    <option value="2">Top Notch</option>
-                    <option value="3">Awesome</option>
-                </select>
-                <pre class="mb-2"><code class="language-html">&lt;select hx-ext="tomselect" multiple&gt;
-    &lt;option value=""&gt;Select an option&lt;/option&gt;
-    &lt;option value="1"&gt;Option 1&lt;/option&gt;
-    &lt;option value="2"&gt;Option 2&lt;/option&gt;
-    &lt;option value="3"&gt;Option 3&lt;/option&gt;
-&lt;/select&gt;</code></pre>
-            </section>
-
             <h2 class="text-xl font-semibold mb-3">Configure:</h2>
             <p class="p-4">Config Options are prefixed with a `ts-` and generally match <a
                     href="https://tom-select.js.org/docs/" class="underline">TomSelect config options:</a>
@@ -104,21 +111,30 @@
             <pre><code class="language-html">
 &lt;select ts-create="true"&gt; - allow item create&lt;/select&gt;
 
-&lt;select ts-max-items="3"&gt; - only allow selection of this many options&lt;/select&gt;
+&lt;select ts-max-items="10"&gt; - (default 1) only allow selection of this many options&lt;/select&gt;
+&lt;!-- (ensure the select tag has the 'multiple' attribute) --&gt
 
 &lt;select ts-max-options="3"&gt; - the max number of options to display&lt;/select&gt;
-
-&lt;select ts-clear-after-add="true"&gt; - clear the search input after adding an item&lt;/select&gt;
-
-&lt;select ts-raw-config="{JsonConfig}"&gt; - use raw tom-select config&lt;/select&gt;
 
 &lt;select ts-remove-button-title="Remove this"&gt; - add a remove button with this hover text&lt;/select&gt;
 
 &lt;select ts-delete-confirm="Are you sure?"&gt; - after deleting item confirm with a message ('true' or message to confirm)&lt;/select&gt;
 
-&lt;select ts-add-post-url="[ts-add-post-url]"&gt; - after adding a new item, will POST the select value (named [body-value]) to this url&lt;/select&gt;
+&lt;select ts-create-filter="true"&gt; - add a regex on the add items (or 'true' for no commas)&lt;/select&gt;
 
-&lt;select ts-add-post-url-body-value="[name-in-body]"&gt; - when posting, use this [body-value] as the name in the body &lt;/select&gt;
+&lt;select ts-allow-empty-options="true"&gt;&lt;/select&gt;
+
+&lt;select ts-sort="field"&gt; - sets config.sortField.field &lt;/select&gt;
+
+&lt;select ts-sort-direction="asc"&gt; - sets config.sortField.direction &lt;/select&gt;
+
+&lt;select ts-raw-config="{JsonConfig}"&gt; - use raw tom-select config&lt;/select&gt;
+
+&lt;!--  Non-standard config options --&gt;
+&lt;select ts-debug="true"&gt; - (wip) debug logging (may remove)&gt;&lt;/select&gt;
+
+&lt;select ts-add-post-url="[ts-add-post-url]"&gt; - after input of a new item, make a POST request to this url&lt;/select&gt;
+&lt;select ts-add-post-url-body-value="[name-in-body]"&gt; - when making a POST request, use this [body-value] as the name in the body of the request&lt;/select&gt;
 
 The request will similar to:
 POST [ts-add-post-url]
@@ -126,15 +142,8 @@ POST [ts-add-post-url]
     [ts-add-post-url-body-value]: value
 }
 
-&lt;select ts-create-filter="true"&gt; - add a regex on the add items (or 'true' for no commas)&lt;/select&gt;
+&lt;select ts-clear-after-add="true"&gt; - clear the search input after adding an item&lt;/select&gt;
 
-&lt;select ts-allow-empty-options="true"&gt;&lt;/select&gt;
-
-&lt;select ts-debug="true"&gt; - (wip) debug logging (may remove)&gt;&lt;/select&gt;
-
-&lt;select ts-sort="field"&gt; - sets config.sortField.field &lt;/select&gt;
-
-&lt;select ts-sort-direction="asc"&gt; - sets config.sortField.direction &lt;/select&gt;
                 </code></pre>
 
             </p>

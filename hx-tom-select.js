@@ -104,7 +104,7 @@
                          */
                         let config = {
                             maxOptions: +s.getAttribute('ts-max-options') || 100,
-                            maxItems: +s.getAttribute('ts-max-items') || 100,
+                            maxItems: +s.getAttribute('ts-max-items') || 1,
                             plugins: {}
                         };
 
