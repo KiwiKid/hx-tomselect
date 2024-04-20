@@ -72,7 +72,8 @@
             <h2 class="text-xl font-semibold mb-3">Input</h2>
             <p class="p-4">Allow creating new items</p>
 
-            <select hx-ext="tomselect" ts-create="true" ts-create-on-blur="true" class="block w-full mb-2">
+            <select hx-ext="tomselect" ts-create="true" ts-create-on-blur="true" ts-max-items="10"
+                class="block w-full mb-2">
                 <option value="">Brilliant</option>
                 <option value="1">Excellent</option>
                 <option value="2">Top Notch</option>
@@ -238,13 +239,13 @@ POST [ts-add-post-url]
             <h2 class="text-xl font-semibold mb-3">Create + Regex new item names</h2>
             <p>Allow creating new items + ts-create-filter="true" will prevent commas in the title, any other string
                 will be used as a regex match</p>
-            <select hx-ext="tomselect" ts-create="true" ts-create-filter="^[^,]*$">
+            <select hx-ext="tomselect" ts-create="true" ts-max-items="10" ts-create-filter="^[^,]*$">
                 <option value="">Select</option>
                 <option value="1">ValidOption</option>
             </select>
             <pre><code class="language-html-dark">&lt;select 
-    hx-ext="tomselect" 
-    ts-create="true"
+    hx-ext="tomselect"
+    ts-max-items="10"
     ts-create-filter="^[^,]*$"
 &gt;
     &lt;option value=""&gt;Select an option&lt;/option&gt;
