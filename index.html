@@ -204,16 +204,16 @@ POST [ts-add-post-url]
         <section class="mb-20">
             <h2 class="text-xl font-semibold mb-3">Configuring Item Deletion Confirmation</h2>
             <p class="p-4">Supports a custom message or `true` for default text</p>
-            <select hx-ext="tomselect" ts-delete-confirm="ARE YOU SURE!?!"
-                ts-remove-button-title="This DELETES THE ITEM!!" multiple>
+            <select hx-ext="tomselect" ts-remove-button-title="This DELETES THE ITEM!!"
+                ts-delete-confirm="ARE YOU SURE!?!" multiple>
                 <option value="1" selected>Item 1</option>
                 <option value="2" selected>Item 2</option>
                 <option value="3" selected>Item 3</option>
             </select>
             <pre><code class="language-html">&lt;select 
     hx-ext="tomselect" 
-    ts-delete-confirm="ARE YOU SURE!?!"
     ts-remove-button-title="This DELETES THE ITEM!!"
+    ts-delete-confirm="ARE YOU SURE!?!"
     multiple
 &gt;
     &lt;option value="1"&gt;Item 1&lt;/option&gt;
@@ -262,7 +262,6 @@ POST [ts-add-post-url]
     ts-add-post-url="/yourpostapi"
     ts-persist="true"
     multiple
-    placeholder="Add options(s)..."
 &gt;
     &lt;option value=""&gt;Select&lt;/option&gt;
     &lt;option value="1"&gt;Option 1&lt;/option&gt;
