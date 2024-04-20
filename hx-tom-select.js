@@ -32,7 +32,7 @@
      */
 
     /**
-     * @typedef {'ts-max-items' | 'ts-max-options' | 'ts-create' | 'ts-sort' | 'ts-sort-direction' | 'ts-allow-empty-options', 'ts-clear-after-add', 'ts-raw-config'} TomSelectConfigKey
+     * @typedef {'ts-max-items' | 'ts-max-options' | 'ts-create' | 'ts-sort' | 'ts-sort-direction' | 'ts-allow-empty-option', 'ts-clear-after-add', 'ts-raw-config', 'ts-create-on-blur', 'ts-no-delete'} TomSelectConfigKey
      * Defines the valid keys for configuration options in TomSelect.
      * Each key is a string literal corresponding to a specific property that can be configured in TomSelect.
      */
@@ -41,22 +41,23 @@
      * @type {Array<TomSelectConfigKey>}
      */
     const attributes = [
-         'ts-debug'
+        'ts-debug'
         , 'ts-create'
+        , 'ts-create-on-blur'
         , 'ts-max-items'
         , 'ts-max-options'
         , 'ts-sort'
         , 'ts-sort-direction'
-        , 'ts-allow-empty-options'
+        , 'ts-allow-empty-option'
         , 'ts-clear-after-add'
         , 'ts-raw-config'
         , 'ts-remove-button-title'
         , 'ts-delete-confirm'
         , 'ts-add-post-url'
         , 'ts-create-filter'
-
         , 'ts-no-active'
         , 'ts-remove-selector-on-select'
+        , 'ts-no-delete'
     ]
 
     /**
@@ -114,6 +115,13 @@
                             })
                         }
 
+                        if (s.hasAttribute('ts-create-on-blur')) {
+                            deepAssign(config, {
+                                createOnBlur: s.getAttribute('ts-create-on-blur'),
+                                ...config
+                            })
+                        }
+
                         if(s.hasAttribute('ts-sort')){
                             deepAssign(config, {
                                 sortField: {
@@ -123,9 +131,16 @@
                             })
                         }
 
-                        if (s.hasAttribute('ts-allow-empty-options')) {
+                        if (s.hasAttribute('ts-allow-empty-option')) {
                             deepAssign(config, {
-                                allowEmptyOption: s.getAttribute('ts-allow-empty-options'),
+                                allowEmptyOption: s.getAttribute('ts-allow-empty-option'),
+                                ...config
+                            })
+                        }
+
+                        if(s.hasAttribute('ts-no-delete')){
+                            deepAssign(config, {
+                                onDelete: () => { return false},
                                 ...config
                             })
                         }
@@ -248,17 +263,6 @@
                                     this.unlock();
                                 });
                         }})
-                    }
-
-                    if(s.hasAttribute('ts-remove-selector-on-select')) {
-                        deepAssign(config, {
-                            onOptionAdd: function(opt){
-                                const toRemove = document.getElementById(s.getAttribute('ts-remove-selector-on-select'))
-                                toRemove.forEach((elm) => {
-                                    elm.remove()
-                                })
-                            }
-                        })
                     }
 
                     if(debug || true) { console.log('hx-tomselect - tom-select-success - config', config) }
