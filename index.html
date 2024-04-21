@@ -91,7 +91,7 @@
             <h2 class="text-xl font-semibold mb-3">Select</h2>
             <p class="p-4">Allow selecting multiple items</p>
 
-            <select hx-ext="tomselect" ts-create="true" ts-createOnBlur="true" class="block w-full mb-2">
+            <select hx-ext="tomselect" ts-create="true" ts-create-on-blur="true" class="block w-full mb-2">
                 <option value="">Brilliant</option>
                 <option value="1">Excellent</option>
                 <option value="2">Top Notch</option>
@@ -104,6 +104,67 @@
     &lt;option value="3"&gt;Option 3&lt;/option&gt;
 &lt;/select&gt;</code></pre>
         </section>
+
+
+
+
+        <section class="mb-20">
+            <h2 class="text-xl font-semibold mb-3">Delete</h2>
+            <p class="p-4">(ts-remove-button-title also takes an custom string message)</p>
+            <select hx-ext="tomselect" ts-max-items="3" ts-remove-button-title="true" multiple>
+                <option value="">N/A</option>
+                <option selected value="1">Option 1</option>
+                <option selected value="2">Option 2</option>
+                <option selected value="3">Option 3</option>
+                <option selected value="4">Option 4</option>
+                <option selected value="5">Option 5</option>
+                <option value="6">Option 6</option>
+                <option value="7">Option 7</option>
+                <option value="8">Option 8</option>
+                <option value="9">Option 9</option>
+            </select>
+            <pre class="mb-2"><code class="language-html">&lt;select
+    hx-ext="tomselect" 
+    ts-max-items="3"
+    ts-remove-button-title="true"
+    multiple
+&gt;
+    &lt;option value=""&gt;Select an option&lt;/option&gt;
+    &lt;option value="1"&gt;Option 1&lt;/option&gt;
+    &lt;option value="2"&gt;Option 2&lt;/option&gt;
+    ...
+&lt;/select&gt;</code></pre>
+        </section>
+
+        <section class="mb-20">
+            <h2 class="text-xl font-semibold mb-3 text-2xl">Customisable</h2>
+            <select class="text-3xl" hx-ext="tomselect" ts-item-class="text-3xl  py-3"
+                ts-option-class="text-3xl w-full py-3 bg-green-100" multiple>
+                <option value="">N/A</option>
+                <option selected value="1">Option 1</option>
+                <option selected value="2">Option 2</option>
+                <option selected value="3">Option 3</option>
+                <option selected value="4">Option 4</option>
+                <option selected value="5">Option 5</option>
+                <option value="6">Option 6</option>
+                <option value="7">Option 7</option>
+                <option value="8">Option 8</option>
+                <option value="9">Option 9</option>
+            </select>
+            <pre class="mb-2 text-md"><code class="language-html">&lt;select
+    hx-ext="tomselect" 
+    ts-item-class="text-3xl py-3"
+    ts-option-class="text-3xl w-full py-3 bg-red-100"
+    multiple
+&gt;
+    &lt;option value=""&gt;Select an option&lt;/option&gt;
+    &lt;option value="1"&gt;Option 1&lt;/option&gt;
+    &lt;option value="2"&gt;Option 2&lt;/option&gt;
+    ...
+&lt;/select&gt;</code></pre>
+        </section>
+
+
         <section class="mb-20">
             <h2 class="text-xl font-semibold mb-3">Configure:</h2>
             <p class="p-4">Config Options are prefixed with a `ts-` and generally match <a
@@ -165,39 +226,10 @@ POST [ts-add-post-url]
 
         </section>
 
-
-
-        <section class="mb-20">
-            <h2 class="text-xl font-semibold mb-3">Delete</h2>
-            <p class="p-4">(ts-remove-button-title also takes an custom string message)</p>
-            <select hx-ext="tomselect" ts-max-items="3" ts-remove-button-title="true" multiple>
-                <option value="">N/A</option>
-                <option selected value="1">Option 1</option>
-                <option selected value="2">Option 2</option>
-                <option selected value="3">Option 3</option>
-                <option selected value="4">Option 4</option>
-                <option selected value="5">Option 5</option>
-                <option value="6">Option 6</option>
-                <option value="7">Option 7</option>
-                <option value="8">Option 8</option>
-                <option value="9">Option 9</option>
-            </select>
-            <pre class="mb-2"><code class="language-html">&lt;select
-    hx-ext="tomselect" 
-    ts-max-items="3"
-    ts-remove-button-title="true"
-    multiple
-&gt;
-    &lt;option value=""&gt;Select an option&lt;/option&gt;
-    &lt;option value="1"&gt;Option 1&lt;/option&gt;
-    &lt;option value="2"&gt;Option 2&lt;/option&gt;
-    ...
-&lt;/select&gt;</code></pre>
-        </section>
         <section class="mb-20">
 
             <p class="p-4">hx-oob swaps works too (and was the main motivation for writing this extention)</code></p>
-            <button type="button" hx-get="another-place.html" hx-trigger="click"
+            <button type="button" hx-get="another-place.html" hx-trigger="click" hx-swap="outerHTML"
                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                 (Click to dynamically load options)
             </button>
@@ -256,8 +288,8 @@ POST [ts-add-post-url]
         <section class="mb-20">
             <h2 class="text-xl font-semibold mb-3">Create + POST request</h2>
             <p>(type to add a new option and see the network tab)</p>
-            <select id="select-fine" hx-ext="tomselect" ts-create-filter="true" ts-clear-after-add="true"
-                ts-no-active="true" ts-add-post-url="/this-could-be-your-new-thing-api" ts-persist="true" multiple
+            <select id="select-fine" hx-ext="tomselect" ts-create="true" ts-create-filter="true"
+                ts-clear-after-add="true" ts-add-post-url="/this-could-be-your-new-thing-api" ts-persist="true" multiple
                 placeholder="Add options(s)..." class="border border-gray-300 rounded-md text-gray-700 flex-grow mb-2">
                 <option value="">Select</option>
                 <option value="1">Option 1</option>
@@ -291,6 +323,8 @@ POST [ts-add-post-url]
                 <option value="3">Option 3</option>
             </select>
         </section>
+
+
 
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.0/prism.min.js"></script>
