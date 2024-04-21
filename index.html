@@ -289,7 +289,7 @@ POST [ts-add-post-url]
             <h2 class="text-xl font-semibold mb-3">Create + POST request</h2>
             <p>(type to add a new option and see the network tab)</p>
             <select id="select-fine" hx-ext="tomselect" ts-create="true" ts-create-filter="true"
-                ts-clear-after-add="true" ts-add-post-url="/this-could-be-your-new-thing-api" ts-persist="true" multiple
+                ts-add-post-url="/this-could-be-your-new-thing-api" ts-persist="true" multiple
                 placeholder="Add options(s)..." class="border border-gray-300 rounded-md text-gray-700 flex-grow mb-2">
                 <option value="">Select</option>
                 <option value="1">Option 1</option>
@@ -299,7 +299,6 @@ POST [ts-add-post-url]
             <pre><code class="language-html">&lt;select
     hx-ext="tomselect"
     ts-create-filter="true"
-    ts-clear-after-add="true"
     ts-no-active="true"
     ts-add-post-url="/yourpostapi"
     ts-persist="true"
