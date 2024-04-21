@@ -3,17 +3,6 @@
     const version = '04'
 
     /**
-     * @typedef {Object} ConfigChange
-     * Represents changes or settings that can be applied to TomSelect configuration.
-     * Each property name here should match a possible configuration key in TomSelect, and the type should match the expected configuration value type.
-     * @property {boolean} [persist] - Whether to keep selected items across page reloads.
-     * @property {boolean} [createOnBlur] - Whether to create a new item when input loses focus.
-     * @property {boolean} [create] - Whether to allow creation of new items not found in the options list.
-     * @property {boolean} [allowEmptyOption] - Whether to allow a select dropdown with no options.
-     * @property {SortField} [sortField] - Specifies how to sort items in the dropdown list.
-     */
-
-    /**
      * @typedef {Object} SortField
      * Defines sorting options for TomSelect.
      * @property {string} field - The field to sort by (e.g., 'text', 'value').
@@ -24,8 +13,28 @@
      * @typedef {Object} SupportedAttribute
      * Defines an attribute supported by a configuration modification system.
      * @property {string} key - The key of the configuration attribute to modify.
-     * @property {ConfigChange} [configChange] - The modifications to apply to the TomSelect configuration.
+     * @property {ConfigChange} configChange - The modifications to apply to the TomSelect configuration.
      */
+
+    /**
+     * @typedef {'simple' | 'callback'} AttributeType
+     */
+      /**
+     * @typedef {function(HTMLElement, Object):void} CallbackFunction
+     * Description of what the callback does and its parameters.
+     * @param {string} a - The first number parameter.
+     
+     */
+      /**
+     * @typedef {Object} AttributeConfig
+     * Defines an attribute supported by a configuration modification system.
+     * @property {string} key - The key of the configuration attribute to modify.
+     * @property {AttributeType} type - The key of the configuration attribute to modify.
+     * @property {CallbackFunction|string|null} configChange - The modifications to apply to the TomSelect configuration.
+     * 
+     */
+
+
 
     /**
      * @type {SupportedAttribute[]}
@@ -38,26 +47,136 @@
      */
 
     /**
-     * @type {Array<TomSelectConfigKey>}
+     * @type {Array<AttributeConfig>}
      */
-    const attributes = [
-        'ts-debug'
-        , 'ts-create'
-        , 'ts-create-on-blur'
-        , 'ts-max-items'
-        , 'ts-max-options'
-        , 'ts-sort'
-        , 'ts-sort-direction'
-        , 'ts-allow-empty-option'
-        , 'ts-clear-after-add'
-        , 'ts-raw-config'
-        , 'ts-remove-button-title'
-        , 'ts-delete-confirm'
-        , 'ts-add-post-url'
-        , 'ts-create-filter'
-        , 'ts-no-active'
-        , 'ts-remove-selector-on-select'
-        , 'ts-no-delete'
+    const attributeConfigs = [
+        {
+            key: 'ts-create',
+            type: 'simple',
+            configChange: 'create'
+        },{
+            key: 'ts-persist',
+            type: 'simple',
+            configChange: 'persist'
+        },{
+            key: 'ts-create-on-blur',
+            type: 'simple',
+            configChange: 'createOnBlur'
+        },{
+            key: 'ts-max-items',
+            type: 'simple',
+            configChange: 'maxItems'
+        },{
+            key: 'ts-max-options',
+            type: 'simple',
+            configChange: 'maxOptions'
+        },{
+            key: 'ts-sort',
+            type: 'simple',
+            configChange: (elm, config) => deepAssign(config, {
+                sortField: {
+                    field: elm.getAttribute('ts-sort'),
+                },
+            })
+        },{
+            key: 'ts-sort-direction',
+            type: 'simple',
+            configChange: {
+                sortField: {
+                    direction: s.getAttribute('ts-sort-direction')
+                },
+            }
+        },{
+            key: 'ts-allow-empty-option',
+            type: 'simple',
+            configChange: 'allowEmptyOption'
+        },{
+            key: 'ts-clear-after-add',
+            type: 'simple',
+            configChange: {
+                create: true,
+                onItemAdd: function() {
+                    this.setTextboxValue('');
+                    this.refreshOptions();
+                }
+            }
+        },{
+            key: 'ts-remove-button-title',
+            type: 'simple',
+            configChange: (attribute, config) => deepAssign(config,{
+                plugins: {
+                    remove_button: {
+                        title: attribute.value
+                    }
+                },
+            })
+        },{
+            key: 'ts-delete-confirm',
+            type: 'simple',
+            configChange: {
+                onDelete: function(values) {
+                    if(s.getAttribute('ts-delete-confirm') == "true"){
+                        return confirm(values.length > 1 ? 'Are you sure you want to remove these ' + values.length + ' items?' : 'Are you sure you want to remove "' + values[0] + '"?');
+                    }else {
+                        return confirm(s.getAttribute('ts-delete-confirm'));
+                    }
+                    
+                }
+            }
+        },{
+            key: 'ts-add-post-url',
+            type: 'simple',
+            configChange: {
+                plugins: {
+                    no_active_items: 'true',
+                }
+            }
+        },
+        {
+            key: 'ts-no-active',
+            type: 'simple',
+            configChange: {
+                onDelete: () => { return false},
+                ...config
+            }
+        },{
+            key: 'ts-remove-selector-on-select',
+            type: 'simple',
+            configChange: null
+        },{
+            key: 'ts-no-delete',
+            type: 'simple',
+            configChange: {
+                onDelete: () => { return false},
+                ...config
+            }
+        },{
+            key: 'ts-create-filter',
+            type: 'simple',
+            configChange: {
+                createFilter: function(input) {
+                    try {
+                        const filter = s.getAttribute('ts-create-filter')
+                        const matchEx = filter == "true" ? /^[^,]*$/ : s.getAttribute('ts-create-filter')
+                        var match = input.match(matchEx); // Example filter: disallow commas in input
+                        if(match) return !this.options.hasOwnProperty(input);
+                        s.setAttribute('tom-select-warning', JSON.stringify(err));
+                        return false;
+                    } catch (err) {
+                        return false
+                    }
+                }
+            }
+        },
+        {
+            key: 'ts-raw-config',
+            type: 'simple',
+            configChange: (elm, config) => deepAssign(config, {
+                sortField: {
+                    field: elm.getAttribute('ts-sort'),
+                },
+            })
+        }
     ]
 
     /**
@@ -86,6 +205,29 @@
                     var elt = evt.detail.elt;
                     const selects = document.querySelectorAll('select[hx-ext="tomselect"]:not([tom-select-success]):not([tom-select-error])')
                     selects.forEach((s) => {
+                        let config = {
+                            plugins: {}
+                        };
+                        s.attributes.forEach((a) => {
+                            const attributeConfig = attributeConfigs.find((ac) => ac.key == a.name)
+                            if (attributeConfig != null){
+                                const configChange = {}
+                                if(typeof attributeConfig.configChange == 'string'){
+                                    configChange[attributeConfig.configChange] = a.value
+                                }else if(typeof attributeConfig.configChange == 'function'){
+                                    attributeConfig.configChange(a, config)
+                                }else if(typeof attributeConfig.configChange == 'object'){
+                                    deepAssign(config, attributeConfig.configChange)
+                                }else {
+                                    console.warn(`Could not find config match:${JSON.stringify(attributeConfig)}`)
+                                }
+                               
+                                deepAssign(config, configChange)
+                            }else if(a.name.startsWith('ts-')){
+                                console.warn(`Invalid config key found: ${attr.name}`);
+                                s.setAttribute(`tom-select-warning_${attr.name}`, `Invalid config key found`);
+                            }
+                        })
 
                         
 
@@ -98,17 +240,13 @@
                             s.setAttribute('tom-select-warning', `Invalid config key found: ${attr.name}`);
                         });
 
-                        const debug = s.getAttribute('ts-debug')
+                      //  const debug = s.getAttribute('ts-debug')
                         /**
                          * @type {ConfigChange}
                          */
-                        let config = {
-                            maxOptions: +s.getAttribute('ts-max-options') || 100,
-                            maxItems: +s.getAttribute('ts-max-items') || 1,
-                            plugins: {}
-                        };
+                        
 
-                        if (s.hasAttribute('ts-create')) {
+                   /*     if (s.hasAttribute('ts-create')) {
                             deepAssign(config, {
                                 create: s.getAttribute('ts-create'),
                                 ...config
@@ -151,20 +289,8 @@
                                 persist: s.getAttribute('ts-persist') == "true",
                                 ...config
                             })
-                        }
+                        }*/
 
-                    
-
-                    if (s.hasAttribute('ts-clear-after-add')) {
-                        const clearAfterItemAddConfig = {
-                            create: true,
-                            onItemAdd: function() {
-                                this.setTextboxValue('');
-                                this.refreshOptions();
-                            }
-                        }
-                        deepAssign(config, clearAfterItemAddConfig);
-                    }
 
                     if (s.hasAttribute('ts-raw-config')) {
                         let rawConfig = JSON.parse(s.getAttribute('ts-raw-config'));
@@ -176,51 +302,11 @@
                     // Additional configuration based on attributes
                     if (s.hasAttribute('ts-remove-button-title')) {
                         const title = s.getAttribute('ts-remove-button-title') == "true" ? "Are you sure you want to delete this item?" : s.getAttribute('ts-remove-button-title')
-                        deepAssign(config,{
-                            plugins: {
-                                remove_button: {
-                                    title: title
-                                },
-                            },
-                        })
-                    }
-
-                    if(s.hasAttribute('ts-delete-confirm')){
-                        deepAssign(config, {
-                            onDelete: function(values) {
-                                if(s.getAttribute('ts-delete-confirm') == "true"){
-                                    return confirm(values.length > 1 ? 'Are you sure you want to remove these ' + values.length + ' items?' : 'Are you sure you want to remove "' + values[0] + '"?');
-                                }else {
-                                    return confirm(s.getAttribute('ts-delete-confirm'));
-                                }
-                                
-                            }
-                        })
-                    }
-
-                    if(s.hasAttribute('ts-create-filter')){
-                        deepAssign(config, {
-                            createFilter: function(input) {
-                                try {
-                                    const filter = s.getAttribute('ts-create-filter')
-                                    const matchEx = filter == "true" ? /^[^,]*$/ : s.getAttribute('ts-create-filter')
-                                    var match = input.match(matchEx); // Example filter: disallow commas in input
-                                    if(match) return !this.options.hasOwnProperty(input);
-                                    s.setAttribute('tom-select-warning', JSON.stringify(err));
-                                    return false;
-                                } catch (err) {
-                                    return false
-                                }
-                            }
-                        })
+                        deepAssign(config,)
                     }
 
                     if(s.getAttribute('ts-no-active') == "true"){
-                        deepAssign(config, {
-                            plugins: {
-                                no_active_items: 'true',
-                            }
-                        })
+                        deepAssign(config, )
                     }
 
                     // Not sure how useful this one is...
