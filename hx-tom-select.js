@@ -124,7 +124,7 @@
             configChange: (elm, config) => deepAssign(config,{
                 plugins: {
                     remove_button: {
-                        title: elm.getAttribute('ts-remove-button-title')
+                        title: elm.getAttribute('ts-remove-button-title') == 'true' ? 'Remove this item' : elm.getAttribute('ts-remove-button-title')
                     }
                 },
             })
