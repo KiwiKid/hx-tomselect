@@ -90,6 +90,10 @@
             key: 'ts-hide-selected',
             configChange: 'hideSelected'
         },{
+            key: 'tx-close-after-select',
+            configChange: 'closeAfterSelect'
+        },
+        {
             key: 'ts-max-options',
             configChange: 'maxOptions'
         },{
