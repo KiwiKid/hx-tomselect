@@ -81,7 +81,7 @@
             key: 'ts-persist',
             configChange: 'persist'
         },{
-            key: 'ts-open-on-foucs',
+            key: 'ts-open-on-focus',
             configChange: 'openOnFocus'
         },{
             key: 'ts-max-items',
