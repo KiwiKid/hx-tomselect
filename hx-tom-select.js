@@ -182,10 +182,17 @@
                         });
                 }
             })
+        },{
+            key: 'ts-add-post-url-body-value',
+            configChange: ''
         },
         {
             key: 'ts-no-active',
-            configChange: ''
+            configChange: {
+                plugins: ['no_active_items'],
+                persist: false,
+                create: true
+            }
         },{
             key: 'ts-remove-selector-on-select',
             type: 'simple',
