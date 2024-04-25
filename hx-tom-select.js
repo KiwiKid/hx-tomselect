@@ -95,7 +95,7 @@
         },{
             key: 'tx-duplicates',
             configChange: 'duplicates'
-        }
+        },
         {
             key: 'ts-max-options',
             configChange: 'maxOptions'
