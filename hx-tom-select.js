@@ -253,51 +253,52 @@
     htmx.defineExtension('tomselect', {
         onEvent: function (name, evt) {
             if (name === "htmx:afterProcessNode") {
-                    var elt = evt.detail.elt;
-                    const selects = document.querySelectorAll('select[hx-ext="tomselect"]:not([tom-select-success]):not([tom-select-error])')
+                    const selects = document.querySelectorAll('select[hx-ext*="tomselect"]:not([tom-select-success]):not([tom-select-error])')
                     selects.forEach((s) => {
-                        if(s.attributes?.length == 0){
-                            throw new Error("no attributes on select?")
-                        }
                         try {
-                        let config = {
-                            maxItems: 999,
-                            plugins: {}
-                        };
-                        console.log(s.attributes)
-                        Array.from(s.attributes).forEach((a) => {
-                            const attributeConfig = attributeConfigs.find((ac) => ac.key == a.name)
-                            if (attributeConfig != null){
-                                let configChange = {}
-                                if(typeof attributeConfig.configChange == 'string'){
-                                    configChange[attributeConfig.configChange] = a.value
-                                }else if(typeof attributeConfig.configChange == 'function'){
-                                    configChange = attributeConfig.configChange(s, config)
-                                }else if(typeof attributeConfig.configChange == 'object'){
-                                    configChange = attributeConfig.configChange
-                                }else if(a.name.startsWith('ts-')) {
-                                    s.setAttribute('tom-select-warning', `Invalid config key found: ${attr.name}`);
-                                    console.warn(`Could not find config match:${JSON.stringify(attributeConfig)}`)
-                                }
-                               
-                                deepAssign(config, configChange)
-                            }else if(a.name.startsWith('ts-')){
-                                console.warn(`Invalid config key found: ${a.name}`);
-                                s.setAttribute(`tom-select-warning_${a.name}`, `Invalid config key found`);
+                            if(s.attributes?.length == 0){
+                                throw new Error("no attributes on select?")
                             }
-                        })
+                            
+                            let config = {
+                                maxItems: 999,
+                                plugins: {}
+                            };
+                            const debug = s.getAttribute('hx-ext')?.split(',').map(item => item.trim()).includes('debug');
+                            if (debug) { console.log(s.attributes) }
+                            Array.from(s.attributes).forEach((a) => {
+                                const attributeConfig = attributeConfigs.find((ac) => ac.key == a.name)
+                                if (attributeConfig != null){
+                                    let configChange = {}
+                                    if(typeof attributeConfig.configChange == 'string'){
+                                        configChange[attributeConfig.configChange] = a.value
+                                    }else if(typeof attributeConfig.configChange == 'function'){
+                                        configChange = attributeConfig.configChange(s, config)
+                                    }else if(typeof attributeConfig.configChange == 'object'){
+                                        configChange = attributeConfig.configChange
+                                    }else if(a.name.startsWith('ts-')) {
+                                        s.setAttribute('tom-select-warning', `Invalid config key found: ${attr.name}`);
+                                        console.warn(`Could not find config match:${JSON.stringify(attributeConfig)}`)
+                                    }
+                                
+                                    deepAssign(config, configChange)
+                                }else if(a.name.startsWith('ts-')){
+                                    console.warn(`Invalid config key found: ${a.name}`);
+                                    s.setAttribute(`tom-select-warning_${a.name}`, `Invalid config key found`);
+                                }
+                            })
 
-                    console.info('hx-tomselect - tom-select-success - config', config)
-                    new TomSelect(s, config);
-                    s.setAttribute('tom-select-success', `success_v${version}`);
+                        if (debug) {  console.info('hx-tomselect - tom-select-success - config', config) }
+                        new TomSelect(s, config);
+                        s.setAttribute('tom-select-success', `success_v${version}`);
 
-                } catch (err) {
-                    s.setAttribute('tom-select-error', JSON.stringify(err));
-                    console.error(`htmx-tomselect - Failed to load hx-tomsselect ${err}`);
-                }
-            })
+                    } catch (err) {
+                        s.setAttribute('tom-select-error', JSON.stringify(err));
+                        console.error(`htmx-tomselect - Failed to load hx-tomsselect ${err}`);
+                    }
+                })
+            }
         }
-    }
-});
+    });
 
 })();
