@@ -92,7 +92,10 @@
         },{
             key: 'tx-close-after-select',
             configChange: 'closeAfterSelect'
-        },
+        },{
+            key: 'tx-duplicates',
+            configChange: 'duplicates'
+        }
         {
             key: 'ts-max-options',
             configChange: 'maxOptions'
