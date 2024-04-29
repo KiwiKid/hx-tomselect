@@ -165,15 +165,11 @@
                         .then(response => {
                             if (response.ok) {
                                 htmx.process(response.body)
-                                return response.json();
-                                
+                         //       return response.json();
                             } else { 
                                 console.error('Error adding item', error)
                                 elm.setAttribute('tom-select-warning', `ts-add-post-url - request error - ${JSON.stringify(error, )}`, )
                             }
-                        })
-                        .then(data => {
-                            console.info(data.message);
                         })
                         .catch(error => {
                             console.error('Error adding item', error)
@@ -299,13 +295,13 @@
                 })
 
                 // When the DOM changes, this block ensures TomSelect will reflect the current html state (i.e. new <option selected></option> will be respected)
-                const selectors = document.querySelectorAll('select[hx-ext*="tomselect"]')
+             /*   const selectors = document.querySelectorAll('select[hx-ext*="tomselect"]')
                 selectors.forEach((s) => {
                     console.log('SYNC RAN')
                     s.tomselect.clear();
                     s.tomselect.clearOptions();
                     s.tomselect.sync(); 
-                })
+                })*/
 
             }
         }
