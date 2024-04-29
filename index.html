@@ -60,7 +60,7 @@
         </section>
         <h1 class="mb-2 text-xl">Demo:</h1>
         <section class="mb-20">
-            <select hx-ext="tomselect" class="block w-full mb-2">
+            <select hx-ext="tomselect,debug" class="block w-full mb-2">
                 <option value="">Select</option>
                 <option value="1">Option 1</option>
                 <option value="2">Option 2</option>
@@ -171,8 +171,27 @@
             <h2 class="text-xl font-semibold mb-3">Configure:</h2>
             <p class="p-4">Config Options are prefixed with a `ts-` and generally match <a
                     href="https://tom-select.js.org/docs/" class="underline">TomSelect config options:</a>
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        var attributeConfigs = window.hxTomSelectAttributeConfigOptions;
+                        var configString = '';
 
-            <pre><code class="language-html">
+                        if (attributeConfigs && Array.isArray(attributeConfigs)) {
+                            // Build the string representation of the array
+                            attributeConfigs.forEach(function (config) {
+                                configString += JSON.stringify(config, null, 2) + ',\n';
+                            });
+
+                            // Trim the trailing comma and newline
+                            configString = configString.replace(/,\s*$/, '');
+
+                            // Insert the string into the <code> element
+                            document.getElementById('attributeConfigsOutput').textContent = configString;
+                        }
+                    });
+                </script>
+            <pre><code class="language-html" id="attributeConfigsOutput">
+               
 &lt;select ts-create="true"&gt; - allow item create&lt;/select&gt;
 
 &lt;select ts-max-items="10"&gt; - (default 1) only allow selection of this many options&lt;/select&gt;

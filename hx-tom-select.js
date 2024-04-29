@@ -262,6 +262,10 @@
                             };
                             const debug = s.getAttribute('hx-ext')?.split(',').map(item => item.trim()).includes('debug');
                             if (debug) { console.log(s.attributes) }
+                            if (debug) { 
+                                console.log('(debug mode - set hxTomSelectAttributeConfigOptions to window)')
+                                window.hxTomSelectAttributeConfigOptions = attributeConfigs 
+                            }
                             Array.from(s.attributes).forEach((a) => {
                                 const attributeConfig = attributeConfigs.find((ac) => ac.key == a.name)
                                 if (attributeConfig != null){
