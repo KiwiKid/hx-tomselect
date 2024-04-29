@@ -163,7 +163,7 @@
                         })
                         .then(response => {
                             if (response.ok) {
-                                htmx.process(response.body)
+                              //  htmx.process(response.body)
                          //       return response.json();
                             } else { 
                                 console.error('Error adding item', error)
