@@ -1,6 +1,6 @@
 (function() {   
     /** stable build*/
-    const version = '05'
+    const version = '06'
 
     /**
      * @typedef {Object} SupportedAttribute
