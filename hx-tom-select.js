@@ -297,6 +297,15 @@
                         console.error(`htmx-tomselect - Failed to load hx-tomsselect ${err}`);
                     }
                 })
+
+                // When the DOM changes, this block ensures TomSelect will reflect the current html state (i.e. new <option selected></option> will be respected)
+                const selectors = document.querySelectorAll('select[hx-ext*="tomselect"]')
+                selectors.forEach((s) => {
+                    tsto.clear();
+                    tsto.clearOptions();
+                    tsto.sync(); 
+                })
+
             }
         }
     });
