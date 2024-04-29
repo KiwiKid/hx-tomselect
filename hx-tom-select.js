@@ -23,6 +23,7 @@
      * Defines an attribute supported by a configuration modification system.
      * @property {string} key - The key of the configuration attribute to modify.
      * @property {AttributeType} type - The key of the configuration attribute to modify.
+     * @property {string} _description
      * @property {CallbackFunction|string|null} configChange - The modifications to apply to the TomSelect configuration.
      * 
      */
@@ -45,13 +46,11 @@
     const attributeConfigs = [
         {
             key: 'ts-create',
-            configChange: 'create'
+            configChange: 'create',
+            _description: 'Allow creating new items'
         },{
             key: 'ts-create-on-blur',
             configChange: 'createOnBlur'
-        },{
-            key: 'ts-create',
-            configChange: 'create'
         },{
             key: 'ts-create-filter',
             configChange:  (elm, config) => ({
