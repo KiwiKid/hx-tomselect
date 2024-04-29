@@ -177,26 +177,27 @@
                         var configString = '';
 
                         if (attributeConfigs && Array.isArray(attributeConfigs)) {
-                            // Build the string representation of the array
                             attributeConfigs.forEach(function (config) {
                                 switch (typeof config.configChange) {
-                                    case 'string':
-                                    /*     configString += `${config.key} - "${config.configChange}"\n${config?._description ? `${config?._description}\n` : ''} ` + '\n\n\n';
-                                         break;
-                                     }*/
-                                    case 'object':
-                                        configString += `${config.key}\n${config?._description ? `${config?._description}\n` : ''}${JSON.stringify(config.configChange, null, 2)}` + '\n\n\n';
-                                        break;
-                                    case 'function':
-                                        configString += `${config.key}\n${config?._description ? `${config?._description}\n` : ''}[custom-js-function]:\n\t\t${config.configChange} ` + '\n\n\n';
-                                        break;
+                                    case 'string': {
+                                        configString += `${config.key} - "${config.configChange}"\n${config?._description ? `${config?._description}\n` : ''} ` + '\n\n';
+                                        break
+                                    }
+                                    case 'function': {
+                                        configString += `${config.key}\n${config?._description ? `${config?._description}\n` : ''}[custom-js-function]:\n\t\t${config.configChange} ` + '\n\n';
+                                        break
+                                    }
+                                    default:
+                                    case 'object': {
+                                        configString += `${config.key}\n${config?._description ? `${config?._description}\n` : ''}${JSON.stringify(config.configChange, null, 2)}` + '\n\n';
+                                        break
+                                    }
                                 }
+
                             });
 
-                            // Trim the trailing comma and newline
-                            configString = configString.replace(/,\s*$/, '');
+                            configString = configString += "\n"
 
-                            // Insert the string into the <code> element
                             document.getElementById('attributeConfigsOutput').textContent = configString;
                         }
                     });
