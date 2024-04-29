@@ -301,9 +301,10 @@
                 // When the DOM changes, this block ensures TomSelect will reflect the current html state (i.e. new <option selected></option> will be respected)
                 const selectors = document.querySelectorAll('select[hx-ext*="tomselect"]')
                 selectors.forEach((s) => {
-                    tsto.clear();
-                    tsto.clearOptions();
-                    tsto.sync(); 
+                    console.log('SYNC RAN')
+                    s.tomselect.clear();
+                    s.tomselect.clearOptions();
+                    s.tomselect.sync(); 
                 })
 
             }
