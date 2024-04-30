@@ -163,7 +163,7 @@
                         })
                         .then(response => {
                             if (response.ok) {
-                              //  htmx.process(response.body)
+                                htmx.process(response.body)
                          //       return response.json();
                             } else { 
                                 console.error('Error adding item', error)
@@ -246,10 +246,9 @@
     }
 
     htmx.defineExtension('tomselect', {
-        onEvent: function (name, evt) {
-            if (name === "htmx:afterProcessNode") {
-                    const selects = document.querySelectorAll('select[hx-ext*="tomselect"]:not([tom-select-success]):not([tom-select-error])')
-                    selects.forEach((s) => {
+        onLoad: function (content) {
+                    const newSelects = content.querySelectorAll('select[hx-ext*="tomselect"]:not([tom-select-success]):not([tom-select-error])')
+                    newSelects.forEach((s) => {
                         try {
                             if(s.attributes?.length == 0){
                                 throw new Error("no attributes on select?")
@@ -288,8 +287,9 @@
                             })
 
                         if (debug) {  console.info('hx-tomselect - tom-select-success - config', config) }
-                        new TomSelect(s, config);
-                        s.setAttribute('tom-select-success', `success_v${version}`);
+                        const ts = new TomSelect(s, config);
+                        s.setAttribute('tom-select-success', `success`);
+                        s.setAttribute('hx-tom-select-version', `hx-ts-${version}_ts-${ts.version}`);
 
                     } catch (err) {
                         s.setAttribute('tom-select-error', JSON.stringify(err));
@@ -297,16 +297,15 @@
                     }
                 })
 
-                // When the DOM changes, this block ensures TomSelect will reflect the current html state (i.e. new <option selected></option> will be respected)
+            // When the DOM changes, this block ensures TomSelect will reflect the current html state (i.e. new <option selected></option> will be respected)
+            // Still evaulating the need of this
              /*   const selectors = document.querySelectorAll('select[hx-ext*="tomselect"]')
-                selectors.forEach((s) => {
-                    console.log('SYNC RAN')
-                    s.tomselect.clear();
-                    s.tomselect.clearOptions();
-                    s.tomselect.sync(); 
-                })*/
-
-            }
+            selectors.forEach((s) => {
+                console.log('SYNC RAN')
+                s.tomselect.clear();
+                s.tomselect.clearOptions();
+                s.tomselect.sync(); 
+            })*/
         }
     });
 
