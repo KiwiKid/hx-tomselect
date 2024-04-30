@@ -248,64 +248,68 @@
         return target;
     }
 
+    function attachTomSelect(s){
+        try {
+            if(s.attributes?.length == 0){
+                throw new Error("no attributes on select?")
+            }
+            
+            let config = {
+                maxItems: 999,
+                plugins: {}
+            };
+            const debug = s.getAttribute('hx-ext')?.split(',').map(item => item.trim()).includes('debug');
+            if (debug) { console.log(s.attributes) }
+
+            Array.from(s.attributes).forEach((a) => {
+                const attributeConfig = attributeConfigs.find((ac) => ac.key == a.name)
+                if (attributeConfig != null){
+                    let configChange = {}
+                    if(typeof attributeConfig.configChange == 'string'){
+                        configChange[attributeConfig.configChange] = a.value
+                    }else if(typeof attributeConfig.configChange == 'function'){
+                        configChange = attributeConfig.configChange(s, config)
+                    }else if(typeof attributeConfig.configChange == 'object'){
+                        configChange = attributeConfig.configChange
+                    }else if(a.name.startsWith('ts-')) {
+                        s.setAttribute('tom-select-warning', `Invalid config key found: ${attr.name}`);
+                        console.warn(`Could not find config match:${JSON.stringify(attributeConfig)}`)
+                    }
+                
+                    deepAssign(config, configChange)
+                }else if(a.name.startsWith('ts-')){
+                    console.warn(`Invalid config key found: ${a.name}`);
+                    s.setAttribute(`tom-select-warning_${a.name}`, `Invalid config key found`);
+                }
+            })
+
+        if (debug) {  console.info('hx-tomselect - tom-select-success - config', config) }
+        const ts = new TomSelect(s, config);
+        s.setAttribute('tom-select-success', `success`);
+        s.setAttribute('hx-tom-select-version', `hx-ts-${version}_ts-${ts.version}`);
+
+    } catch (err) {
+        s.setAttribute('tom-select-error', JSON.stringify(err));
+        console.error(`htmx-tomselect - Failed to load hx-tomsselect ${err}`);
+    }
+    }
+
     htmx.defineExtension('tomselect', {
-        onEvent: function(evt, elt){
-            console.log('onEvent')
-           // const debug = elt.getAttribute('hx-ext')?.split(',').map(item => item.trim()).includes('debug');
-            if (!window.hxTomSelectAttributeConfigOptions) { 
-                console.log('(debug mode - set hxTomSelectAttributeConfigOptions to window)')
-                window.hxTomSelectAttributeConfigOptions = attributeConfigs 
+        // This is doing all the tom-select attachment at this stage, but relies on this full document scan (would prefer onLoad of speicfic content):
+        onEvent: function (name, evt) {
+            if (name === "htmx:afterProcessNode") {
+                const newSelects =document.querySelectorAll('select[hx-ext*="tomselect"]:not([tom-select-success]):not([tom-select-error])')
+                newSelects.forEach((s) => {
+                    attachTomSelect(s)
+                })
             }
         },
         onLoad: function (content) {
             console.log('onLoad')
                     const newSelects = content.querySelectorAll('select[hx-ext*="tomselect"]:not([tom-select-success]):not([tom-select-error])')
-                    debugger
                     newSelects.forEach((s) => {
-                        try {
-                            if(s.attributes?.length == 0){
-                                throw new Error("no attributes on select?")
-                            }
-                            
-                            let config = {
-                                maxItems: 999,
-                                plugins: {}
-                            };
-                            const debug = s.getAttribute('hx-ext')?.split(',').map(item => item.trim()).includes('debug');
-                            if (debug) { console.log(s.attributes) }
-
-                            Array.from(s.attributes).forEach((a) => {
-                                const attributeConfig = attributeConfigs.find((ac) => ac.key == a.name)
-                                if (attributeConfig != null){
-                                    let configChange = {}
-                                    if(typeof attributeConfig.configChange == 'string'){
-                                        configChange[attributeConfig.configChange] = a.value
-                                    }else if(typeof attributeConfig.configChange == 'function'){
-                                        configChange = attributeConfig.configChange(s, config)
-                                    }else if(typeof attributeConfig.configChange == 'object'){
-                                        configChange = attributeConfig.configChange
-                                    }else if(a.name.startsWith('ts-')) {
-                                        s.setAttribute('tom-select-warning', `Invalid config key found: ${attr.name}`);
-                                        console.warn(`Could not find config match:${JSON.stringify(attributeConfig)}`)
-                                    }
-                                
-                                    deepAssign(config, configChange)
-                                }else if(a.name.startsWith('ts-')){
-                                    console.warn(`Invalid config key found: ${a.name}`);
-                                    s.setAttribute(`tom-select-warning_${a.name}`, `Invalid config key found`);
-                                }
-                            })
-
-                        if (debug) {  console.info('hx-tomselect - tom-select-success - config', config) }
-                        const ts = new TomSelect(s, config);
-                        s.setAttribute('tom-select-success', `success`);
-                        s.setAttribute('hx-tom-select-version', `hx-ts-${version}_ts-${ts.version}`);
-
-                    } catch (err) {
-                        s.setAttribute('tom-select-error', JSON.stringify(err));
-                        console.error(`htmx-tomselect - Failed to load hx-tomsselect ${err}`);
-                    }
-                })
+                        attachTomSelect(s)
+                    })
 
             // When the DOM changes, this block ensures TomSelect will reflect the current html state (i.e. new <option selected></option> will be respected)
             // Still evaulating the need of this
