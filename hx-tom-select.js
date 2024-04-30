@@ -12,6 +12,7 @@
     /**
      * @typedef {'simple' | 'callback'} AttributeType
      */
+
       /**
      * @typedef {function(HTMLElement, Object):void} CallbackFunction
      * Description of what the callback does and its parameters.
@@ -22,8 +23,8 @@
      * @typedef {Object} AttributeConfig
      * Defines an attribute supported by a configuration modification system.
      * @property {string} key - The key of the configuration attribute to modify.
-     * @property {AttributeType} type - The key of the configuration attribute to modify.
      * @property {string} _description
+     * @property {ConfidenceLevel} _isBeta
      * @property {CallbackFunction|string|null} configChange - The modifications to apply to the TomSelect configuration.
      * 
      */
@@ -47,12 +48,15 @@
         {
             key: 'ts-create',
             configChange: 'create',
-            _description: 'Allow creating new items'
+            _description: 'Allow creating new items',
+            _isBeta: false,
         },{
             key: 'ts-create-on-blur',
-            configChange: 'createOnBlur'
+            configChange: 'createOnBlur',
+            _isBeta: false,
         },{
             key: 'ts-create-filter',
+            _isBeta: false,
             configChange:  (elm, config) => ({
                 createFilter: function(input) {
                     try {
@@ -69,53 +73,66 @@
             })
         },{
             key: 'ts-delimiter',
-            configChange: 'delimiter'
+            configChange: 'delimiter',
+            _isBeta: false,
         },{
             key: 'ts-highlight',
-            configChange: 'highlight'
+            configChange: 'highlight',
+            _isBeta: false,
         },{
             key: 'ts-multiple',
-            configChange: 'multiple'
+            configChange: 'multiple',
+            _isBeta: false,
         },{
             key: 'ts-persist',
-            configChange: 'persist'
+            configChange: 'persist',
+            _isBeta: false,
         },{
             key: 'ts-open-on-focus',
-            configChange: 'openOnFocus'
+            configChange: 'openOnFocus',
+            _isBeta: false,
         },{
             key: 'ts-max-items',
-            configChange: 'maxItems'
+            configChange: 'maxItems',
+            _isBeta: false,
         },{
             key: 'ts-hide-selected',
-            configChange: 'hideSelected'
+            configChange: 'hideSelected',
+            _isBeta: false,
         },{
             key: 'tx-close-after-select',
-            configChange: 'closeAfterSelect'
+            configChange: 'closeAfterSelect',
+            _isBeta: false,
         },{
             key: 'tx-duplicates',
-            configChange: 'duplicates'
+            configChange: 'duplicates',
+            _isBeta: false,
         },
         {
             key: 'ts-max-options',
-            configChange: 'maxOptions'
+            configChange: 'maxOptions',
+            _isBeta: false,
         },{
             key: 'ts-sort',
             configChange: (elm, config) => ({
                 sortField: {
                     field: elm.getAttribute('ts-sort'),
                 },
-            })
+            }),
+            _isBeta: false,
         },{
             key: 'ts-sort-direction',
             configChange: (elm, config) => ({
                 sortField: {
                     direction: elm.getAttribute('ts-sort-direction') ?? 'asc'
                 },
-            })
+            }),
+            _isBeta: false,
         },{
             key: 'ts-allow-empty-option',
             type: 'simple',
-            configChange: 'allowEmptyOption'
+            configChange: 'allowEmptyOption',
+            _isBeta: false,
         },{
             key: 'ts-clear-after-add',
             configChange: {
@@ -124,7 +141,8 @@
                     this.setTextboxValue('');
                     this.refreshOptions();
                 }
-            }
+            },
+            _isBeta: false,
         },{
             key: 'ts-remove-button-title',
             configChange: (elm, config) => deepAssign(config,{
@@ -133,7 +151,8 @@
                         title: elm.getAttribute('ts-remove-button-title') == 'true' ? 'Remove this item' : elm.getAttribute('ts-remove-button-title')
                     }
                 },
-            })
+            }),
+            _isBeta: false,
         },{
             key: 'ts-delete-confirm',
             configChange: (elm, config) => ({
@@ -145,7 +164,8 @@
                     }
                     
                 }
-            })
+            }),
+            _isBeta: false,
         },{
             key: 'ts-add-post-url',
             configChange: (elm, config) => ({
@@ -179,10 +199,12 @@
                             this.unlock();
                         });
                 }
-            })
+            }),
+            _isBeta: true,
         },{
             key: 'ts-add-post-url-body-value',
-            configChange: ''
+            configChange: '',
+            _isBeta: true,
         },
         {
             key: 'ts-no-active',
@@ -190,24 +212,29 @@
                 plugins: ['no_active_items'],
                 persist: false,
                 create: true
-            }
+            },
+            _isBeta: false,
         },{
             key: 'ts-remove-selector-on-select',
             type: 'simple',
-            configChange: null
+            configChange: null,
+            _isBeta: false,
         },{
             key: 'ts-no-delete',
             configChange: {
                 onDelete: () => { return false},
-            }
+            },
+            _isBeta: false,
         },{
             key: 'ts-option-class',
-            configChange: 'optionClass'
+            configChange: 'optionClass',
+            _isBeta: false,
         },{
             key: 'ts-option-class-ext',
             configChange: (elm, config) => ({
                 'optionClass': `${elm.getAttribute('ts-option-class-ext')} option`
-            })
+            }),
+            _isBeta: false,
         },{
             key: 'ts-item-class',
             configChange: 'itemClass'
@@ -218,11 +245,13 @@
                 configChange: {
                     'itemClass': `${elm.getAttribute('ts-option-class-ext')} item`
                 }
-            })
+            }),
+            _isBeta: false,
         },
         {
             key: 'ts-raw-config',
-            configChange: (elm, config) => elm.getAttribute('ts-raw-config')
+            configChange: (elm, config) => elm.getAttribute('ts-raw-config'),
+            _isBeta: false,
         }
     ]
 
