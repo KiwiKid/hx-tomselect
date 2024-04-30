@@ -24,7 +24,7 @@ Provides a hx-ext="tomselect" htmx extention tag
 
 
 ### Example Usage:
-```go
+```html
 <select hx-ext="tomselect" ts-max-options="20" ts-remove-button-title="Remove this player" multiple>
  <option value="">N/A</option>
  <option value="1">Option 1</option>
@@ -41,23 +41,6 @@ After processing, one of three attributes will be added to each select box:
 - tom-select-error - Breaking error - (i.e. invalid TomConfig json in ts-raw-config)
 
 hx-oob swaps works too (and was the main motivation for writing this extention)
-
-### Supported Attributes:
-```html
-ts-debug
-ts-create
-ts-max-items
-ts-max-options
-ts-sort
-ts-sort-direction
-ts-allow-empty-options
-ts-clear-after-add
-ts-raw-config
-ts-remove-button-title
-ts-delete-confirm
-ts-add-post-url
-ts-create-filter
-```
 
 Check the code for details how how each attribute works
 

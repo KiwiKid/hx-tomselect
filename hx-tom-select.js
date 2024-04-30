@@ -246,8 +246,16 @@
     }
 
     htmx.defineExtension('tomselect', {
+        onEvent: function(evt, elt){
+           // const debug = elt.getAttribute('hx-ext')?.split(',').map(item => item.trim()).includes('debug');
+            if (!window.hxTomSelectAttributeConfigOptions) { 
+                console.log('(debug mode - set hxTomSelectAttributeConfigOptions to window)')
+                window.hxTomSelectAttributeConfigOptions = attributeConfigs 
+            }
+        },
         onLoad: function (content) {
                     const newSelects = content.querySelectorAll('select[hx-ext*="tomselect"]:not([tom-select-success]):not([tom-select-error])')
+                    debugger
                     newSelects.forEach((s) => {
                         try {
                             if(s.attributes?.length == 0){
@@ -260,10 +268,7 @@
                             };
                             const debug = s.getAttribute('hx-ext')?.split(',').map(item => item.trim()).includes('debug');
                             if (debug) { console.log(s.attributes) }
-                            if (debug) { 
-                                console.log('(debug mode - set hxTomSelectAttributeConfigOptions to window)')
-                                window.hxTomSelectAttributeConfigOptions = attributeConfigs 
-                            }
+
                             Array.from(s.attributes).forEach((a) => {
                                 const attributeConfig = attributeConfigs.find((ac) => ac.key == a.name)
                                 if (attributeConfig != null){

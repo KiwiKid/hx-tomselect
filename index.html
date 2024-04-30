@@ -172,24 +172,27 @@
             <p class="p-4">Config Options are prefixed with a `ts-` and generally match <a
                     href="https://tom-select.js.org/docs/" class="underline">TomSelect config options:</a>
                 <script>
+                    debugger
                     document.addEventListener('DOMContentLoaded', function () {
+                        debugger
                         var attributeConfigs = window.hxTomSelectAttributeConfigOptions;
                         var configString = '';
 
                         if (attributeConfigs && Array.isArray(attributeConfigs)) {
+                            debugger;
                             attributeConfigs.forEach(function (config) {
                                 switch (typeof config.configChange) {
                                     case 'string': {
                                         configString += `${config.key} - "${config.configChange}"\n${config?._description ? `${config?._description}\n` : ''} ` + '\n\n';
                                         break
                                     }
-                                    case 'function': {
+                                    case 'function': /*{
                                         configString += `${config.key}\n${config?._description ? `${config?._description}\n` : ''}[custom-js-function]:\n\t\t${config.configChange} ` + '\n\n';
                                         break
-                                    }
+                                    }*/
                                     default:
                                     case 'object': {
-                                        configString += `${config.key}\n${config?._description ? `${config?._description}\n` : ''}${JSON.stringify(config.configChange, null, 2)}` + '\n\n';
+                                        configString += `${config.key}\n${config?._description ? `${config?._description}\n` : ''}${JSON.stringify(config, null, 2)}` + '\n\n';
                                         break
                                     }
                                 }
