@@ -48,15 +48,12 @@
         {
             key: 'ts-create',
             configChange: 'create',
-            _description: 'Allow creating new items',
-            _isBeta: false,
+            _description: 'Allow creating new items'
         },{
             key: 'ts-create-on-blur',
-            configChange: 'createOnBlur',
-            _isBeta: false,
+            configChange: 'createOnBlur'
         },{
             key: 'ts-create-filter',
-            _isBeta: false,
             configChange:  (elm, config) => ({
                 createFilter: function(input) {
                     try {
@@ -73,66 +70,53 @@
             })
         },{
             key: 'ts-delimiter',
-            configChange: 'delimiter',
-            _isBeta: false,
+            configChange: 'delimiter'
         },{
             key: 'ts-highlight',
-            configChange: 'highlight',
-            _isBeta: false,
+            configChange: 'highlight'
         },{
             key: 'ts-multiple',
-            configChange: 'multiple',
-            _isBeta: false,
+            configChange: 'multiple'
         },{
             key: 'ts-persist',
-            configChange: 'persist',
-            _isBeta: false,
+            configChange: 'persist'
         },{
             key: 'ts-open-on-focus',
-            configChange: 'openOnFocus',
-            _isBeta: false,
+            configChange: 'openOnFocus'
         },{
             key: 'ts-max-items',
-            configChange: 'maxItems',
-            _isBeta: false,
+            configChange: 'maxItems'
         },{
             key: 'ts-hide-selected',
-            configChange: 'hideSelected',
-            _isBeta: false,
+            configChange: 'hideSelected'
         },{
             key: 'tx-close-after-select',
-            configChange: 'closeAfterSelect',
-            _isBeta: false,
+            configChange: 'closeAfterSelect'
         },{
             key: 'tx-duplicates',
-            configChange: 'duplicates',
-            _isBeta: false,
+            configChange: 'duplicates'
         },
         {
             key: 'ts-max-options',
-            configChange: 'maxOptions',
-            _isBeta: false,
+            configChange: 'maxOptions'
         },{
             key: 'ts-sort',
             configChange: (elm, config) => ({
                 sortField: {
                     field: elm.getAttribute('ts-sort'),
                 },
-            }),
-            _isBeta: false,
+            })
         },{
             key: 'ts-sort-direction',
             configChange: (elm, config) => ({
                 sortField: {
                     direction: elm.getAttribute('ts-sort-direction') ?? 'asc'
                 },
-            }),
-            _isBeta: false,
+            })
         },{
             key: 'ts-allow-empty-option',
             type: 'simple',
-            configChange: 'allowEmptyOption',
-            _isBeta: false,
+            configChange: 'allowEmptyOption'
         },{
             key: 'ts-clear-after-add',
             configChange: {
@@ -141,8 +125,7 @@
                     this.setTextboxValue('');
                     this.refreshOptions();
                 }
-            },
-            _isBeta: false,
+            }
         },{
             key: 'ts-remove-button-title',
             configChange: (elm, config) => deepAssign(config,{
@@ -151,8 +134,7 @@
                         title: elm.getAttribute('ts-remove-button-title') == 'true' ? 'Remove this item' : elm.getAttribute('ts-remove-button-title')
                     }
                 },
-            }),
-            _isBeta: false,
+            })
         },{
             key: 'ts-delete-confirm',
             configChange: (elm, config) => ({
@@ -164,8 +146,7 @@
                     }
                     
                 }
-            }),
-            _isBeta: false,
+            })
         },{
             key: 'ts-add-post-url',
             configChange: (elm, config) => ({
@@ -212,29 +193,24 @@
                 plugins: ['no_active_items'],
                 persist: false,
                 create: true
-            },
-            _isBeta: false,
+            }
         },{
             key: 'ts-remove-selector-on-select',
             type: 'simple',
-            configChange: null,
-            _isBeta: false,
+            configChange: null
         },{
             key: 'ts-no-delete',
             configChange: {
                 onDelete: () => { return false},
-            },
-            _isBeta: false,
+            }
         },{
             key: 'ts-option-class',
-            configChange: 'optionClass',
-            _isBeta: false,
+            configChange: 'optionClass'
         },{
             key: 'ts-option-class-ext',
             configChange: (elm, config) => ({
                 'optionClass': `${elm.getAttribute('ts-option-class-ext')} option`
-            }),
-            _isBeta: false,
+            })
         },{
             key: 'ts-item-class',
             configChange: 'itemClass'
@@ -245,13 +221,11 @@
                 configChange: {
                     'itemClass': `${elm.getAttribute('ts-option-class-ext')} item`
                 }
-            }),
-            _isBeta: false,
+            })
         },
         {
             key: 'ts-raw-config',
-            configChange: (elm, config) => elm.getAttribute('ts-raw-config'),
-            _isBeta: false,
+            configChange: (elm, config) => elm.getAttribute('ts-raw-config')
         }
     ]
 
@@ -276,6 +250,7 @@
 
     htmx.defineExtension('tomselect', {
         onEvent: function(evt, elt){
+            console.log('onEvent')
            // const debug = elt.getAttribute('hx-ext')?.split(',').map(item => item.trim()).includes('debug');
             if (!window.hxTomSelectAttributeConfigOptions) { 
                 console.log('(debug mode - set hxTomSelectAttributeConfigOptions to window)')
@@ -283,6 +258,7 @@
             }
         },
         onLoad: function (content) {
+            console.log('onLoad')
                     const newSelects = content.querySelectorAll('select[hx-ext*="tomselect"]:not([tom-select-success]):not([tom-select-error])')
                     debugger
                     newSelects.forEach((s) => {

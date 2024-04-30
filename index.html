@@ -176,14 +176,15 @@
                     document.addEventListener('DOMContentLoaded', function () {
                         debugger
                         var attributeConfigs = window.hxTomSelectAttributeConfigOptions;
-                        var configString = '';
+                        var configString = '', betaConfigString = '';
 
                         if (attributeConfigs && Array.isArray(attributeConfigs)) {
-                            debugger;
-                            attributeConfigs.forEach(function (config) {
+                            attributeConfigs.filter((ac) => !ac?._isBeta).forEach(function (config) {
+                                var strToAdd = ""
+
                                 switch (typeof config.configChange) {
                                     case 'string': {
-                                        configString += `${config.key} - "${config.configChange}"\n${config?._description ? `${config?._description}\n` : ''} ` + '\n\n';
+                                        strToAdd = `${config.key} - "${config.configChange}"\n${config?._description ? `${config?._description}\n` : ''} ` + '\n\n';
                                         break
                                     }
                                     case 'function': /*{
@@ -192,9 +193,14 @@
                                     }*/
                                     default:
                                     case 'object': {
-                                        configString += `${config.key}\n${config?._description ? `${config?._description}\n` : ''}${JSON.stringify(config, null, 2)}` + '\n\n';
+                                        strToAdd = `${config.key}\n${config?._description ? `${config?._description}\n` : ''}${JSON.stringify(config, null, 2)}` + '\n\n';
                                         break
                                     }
+                                }
+                                if (config._isBeta) {
+                                    betaConfigString += strToAdd
+                                } else {
+                                    configString += strToAdd
                                 }
 
                             });
@@ -202,6 +208,7 @@
                             configString = configString += "\n"
 
                             document.getElementById('attributeConfigsOutput').textContent = configString;
+                            document.getElementById('betaAttributeConfigsOutput').textContent = betaConfigString;
                         }
                     });
                 </script>
@@ -209,6 +216,9 @@
                
                 </code></pre>
 
+            <pre><code class="language-html" id="betaAttributeConfigsOutput">
+               
+                </code></pre>
             </p>
             <p class="p-4">If a non-valid key
                 is
