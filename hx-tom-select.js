@@ -123,7 +123,7 @@
                 create: true,
                 onItemAdd: function() {
                     this.setTextboxValue('');
-                    this.refreshOptions();
+               //     this.refreshOptions();
                 }
             }
         },{
@@ -162,15 +162,13 @@
                             },
                             body: JSON.stringify(body),
                         })
-                        .then(response => {
-                            if (response.ok) {
-                                htmx.process(response.body)
-                         //       return response.json();
-                            } else { 
-                                console.error('Error adding item', error)
-                                elm.setAttribute('tom-select-warning', `ts-add-post-url - request error - ${JSON.stringify(error, )}`, )
-                            }
-                        })
+						.then((res) => {
+							if (!res.ok) {
+								throw new Error(`HTTP status ${res.status}`);
+							}
+							return res.text();
+						})
+                        .then((responseHtml) => htmx.process(elm, responseHtml))
                         .catch(error => {
                             console.error('Error adding item', error)
                             elm.setAttribute('tom-select-warning', `ts-add-post-url - Error processing item: ${JSON.stringify(error)}`);
@@ -298,7 +296,7 @@
         // This is doing all the tom-select attachment at this stage, but relies on this full document scan (would prefer onLoad of speicfic content):
         onEvent: function (name, evt) {
             if (name === "htmx:afterProcessNode") {
-                const newSelects =document.querySelectorAll('select[hx-ext*="tomselect"]:not([tom-select-success]):not([tom-select-error])')
+                const newSelects = document.querySelectorAll('select[hx-ext*="tomselect"]:not([tom-select-success]):not([tom-select-error])')
                 newSelects.forEach((s) => {
                     attachTomSelect(s)
                 })
@@ -319,8 +317,12 @@
                 s.tomselect.clear();
                 s.tomselect.clearOptions();
                 s.tomselect.sync(); 
-            })*/
-        }
+            })
+        },
+		beforeHistorySave: function(){
+			document.querySelectorAll('select[hx-ext*="tomselect"]')
+            	.forEach(elt => elt.tomselect.destroy())*/
+		}
     });
 
 })();
