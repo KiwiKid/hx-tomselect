@@ -9,7 +9,7 @@ Provides a hx-ext="tomselect" htmx extention tag
 
 ### Install
 ```html
-<script src="https://kiwikid.github.io/hx-tomselect/hx-tom-select.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/KiwiKid/hx-tomselect/hx-tomselect.js"></script>
 ```
 
 
@@ -18,7 +18,7 @@ Provides a hx-ext="tomselect" htmx extention tag
 <script src="https://unpkg.com/htmx.org"></script>
 <link href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.css" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"></script>
-<script src="https://kiwikid.github.io/hx-tomselect/hx-tom-select.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/KiwiKid/hx-tomselect/hx-tomselect.js"></script>
 ```
 
 

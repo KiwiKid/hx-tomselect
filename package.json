@@ -1,0 +1,23 @@
+{
+  "name": "hx-tomselect",
+  "version": "1.0.1",
+  "description": "Provides a hx-ext=\"tomselect\" htmx extention tag",
+  "main": "hx-tomselect.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KiwiKid/hx-tomselect.git"
+  },
+  "keywords": [
+    "htmx",
+    "tom-select"
+  ],
+  "author": "Greg C.",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/KiwiKid/hx-tomselect/issues"
+  },
+  "homepage": "https://github.com/KiwiKid/hx-tomselect#readme"
+}
