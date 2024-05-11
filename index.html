@@ -111,14 +111,14 @@
 
         <section class="mb-20">
             <h2 class="text-xl font-semibold mb-3">Delete</h2>
-            <p class="p-4">(ts-remove-button-title also takes an custom string message)</p>
+            <p class="p-4">(max 3 selections, takes an custom string message)</p>
             <select hx-ext="tomselect" ts-max-items="3" ts-remove-button-title="true" multiple>
                 <option value="">N/A</option>
                 <option selected value="1">Option 1</option>
                 <option selected value="2">Option 2</option>
-                <option selected value="3">Option 3</option>
-                <option selected value="4">Option 4</option>
-                <option selected value="5">Option 5</option>
+                <option value="3">Option 3</option>
+                <option value="4">Option 4</option>
+                <option value="5">Option 5</option>
                 <option value="6">Option 6</option>
                 <option value="7">Option 7</option>
                 <option value="8">Option 8</option>
@@ -172,51 +172,200 @@
             <p class="p-4">Config Options are prefixed with a `ts-` and generally match <a
                     href="https://tom-select.js.org/docs/" class="underline">TomSelect config options:</a>
                 <script>
+                    const attributeConfigs = [
+                        {
+                            key: 'ts-create',
+                            configChange: 'create',
+                            _description: 'Allow creating new items'
+                        }, {
+                            key: 'ts-create-on-blur',
+                            configChange: 'createOnBlur'
+                        }, {
+                            key: 'ts-create-filter',
+                            configChange: (elm, config) => ({
+                                createFilter: function (input) {
+                                    try {
+                                        const filter = elm.getAttribute('ts-create-filter')
+                                        const matchEx = filter == "true" ? /^[^,]*$/ : elm.getAttribute('ts-create-filter')
+                                        var match = input.match(matchEx); // Example filter: disallow commas in input
+                                        if (match) return !this.options.hasOwnProperty(input);
+                                        elm.setAttribute('tom-select-warning', JSON.stringify(err));
+                                        return false;
+                                    } catch (err) {
+                                        return false
+                                    }
+                                }
+                            })
+                        }, {
+                            key: 'ts-delimiter',
+                            configChange: 'delimiter'
+                        }, {
+                            key: 'ts-highlight',
+                            configChange: 'highlight'
+                        }, {
+                            key: 'ts-multiple',
+                            configChange: 'multiple'
+                        }, {
+                            key: 'ts-persist',
+                            configChange: 'persist'
+                        }, {
+                            key: 'ts-open-on-focus',
+                            configChange: 'openOnFocus'
+                        }, {
+                            key: 'ts-max-items',
+                            configChange: 'maxItems'
+                        }, {
+                            key: 'ts-hide-selected',
+                            configChange: 'hideSelected'
+                        }, {
+                            key: 'tx-close-after-select',
+                            configChange: 'closeAfterSelect'
+                        }, {
+                            key: 'tx-duplicates',
+                            configChange: 'duplicates'
+                        },
+                        {
+                            key: 'ts-max-options',
+                            configChange: 'maxOptions'
+                        }, {
+                            key: 'ts-sort',
+                            configChange: (elm, config) => ({
+                                sortField: {
+                                    field: elm.getAttribute('ts-sort'),
+                                },
+                            })
+                        }, {
+                            key: 'ts-sort-direction',
+                            configChange: (elm, config) => ({
+                                sortField: {
+                                    direction: elm.getAttribute('ts-sort-direction') ?? 'asc'
+                                },
+                            })
+                        }, {
+                            key: 'ts-allow-empty-option',
+                            type: 'simple',
+                            configChange: 'allowEmptyOption'
+                        }, {
+                            key: 'ts-clear-after-add',
+                            configChange: {
+                                create: true,
+                                onItemAdd: function () {
+                                    this.setTextboxValue('');
+                                    //     this.refreshOptions();
+                                }
+                            }
+                        }, {
+                            key: 'ts-remove-button-title',
+                            configChange: (elm, config) => deepAssign(config, {
+                                plugins: {
+                                    remove_button: {
+                                        title: elm.getAttribute('ts-remove-button-title') == 'true' ? 'Remove this item' : elm.getAttribute('ts-remove-button-title')
+                                    }
+                                },
+                            })
+                        }, {
+                            key: 'ts-delete-confirm',
+                            configChange: (elm, config) => ({
+                                onDelete: function (values) {
+                                    if (elm.getAttribute('ts-delete-confirm') == "true") {
+                                        return confirm(values.length > 1 ? 'Are you sure you want to remove these ' + values.length + ' items?' : 'Are you sure you want to remove "' + values[0] + '"?');
+                                    } else {
+                                        return confirm(elm.getAttribute('ts-delete-confirm'));
+                                    }
+
+                                }
+                            })
+                        }, {
+                            key: 'ts-add-post-url',
+                            configChange: (elm, config) => ({
+                                onOptionAdd: function (value, item) {
+                                    this.lock();
+                                    const valueKeyName = elm.getAttribute('ts-add-post-url-body-value') ?? 'value'
+                                    const body = {}
+                                    body[valueKeyName] = value
+                                    fetch(elm.getAttribute('ts-add-post-url'), {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                        },
+                                        body: JSON.stringify(body),
+                                    })
+                                        .then((res) => {
+                                            if (!res.ok) {
+                                                throw new Error(`HTTP status ${res.status}`);
+                                            }
+                                            return res.text();
+                                        })
+                                        .then((responseHtml) => htmx.process(elm, responseHtml))
+                                        .catch(error => {
+                                            console.error('Error adding item', error)
+                                            elm.setAttribute('tom-select-warning', `ts-add-post-url - Error processing item: ${JSON.stringify(error)}`);
+                                            this.removeItem(value);
+                                        })
+                                        .finally(() => {
+                                            this.unlock();
+                                        });
+                                }
+                            }),
+                            _isBeta: true,
+                        }, {
+                            key: 'ts-add-post-url-body-value',
+                            configChange: '',
+                            _isBeta: true,
+                        },
+                        {
+                            key: 'ts-no-active',
+                            configChange: {
+                                plugins: ['no_active_items'],
+                                persist: false,
+                                create: true
+                            }
+                        }, {
+                            key: 'ts-remove-selector-on-select',
+                            type: 'simple',
+                            configChange: null
+                        }, {
+                            key: 'ts-no-delete',
+                            configChange: {
+                                onDelete: () => { return false },
+                            }
+                        }, {
+                            key: 'ts-option-class',
+                            configChange: 'optionClass'
+                        }, {
+                            key: 'ts-option-class-ext',
+                            configChange: (elm, config) => ({
+                                'optionClass': `${elm.getAttribute('ts-option-class-ext')} option`
+                            })
+                        }, {
+                            key: 'ts-item-class',
+                            configChange: 'itemClass'
+                        }, {
+                            key: 'ts-item-class-ext',
+                            configChange: (elm, config) => ({
+                                key: 'ts-option-class-ext',
+                                configChange: {
+                                    'itemClass': `${elm.getAttribute('ts-option-class-ext')} item`
+                                }
+                            })
+                        },
+                        {
+                            key: 'ts-raw-config',
+                            configChange: (elm, config) => elm.getAttribute('ts-raw-config')
+                        }
+                    ]
                     document.addEventListener('DOMContentLoaded', function () {
-                        var attributeConfigs = window.hxTomSelectAttributeConfigOptions;
-                        var configString = '', betaConfigString = '';
-
+                        var configString = ""
+                        var betaConfigString = ""
                         if (attributeConfigs && Array.isArray(attributeConfigs)) {
-                            attributeConfigs.filter((ac) => !ac?._isBeta).forEach(function (config) {
-                                var strToAdd = ""
-
-                                switch (typeof config.configChange) {
-                                    case 'string': {
-                                        strToAdd = `${config.key} - "${config.configChange}"\n${config?._description ? `${config?._description}\n` : ''} ` + '\n\n';
-                                        break
-                                    }
-                                    case 'function': /*{
-                                        configString += `${config.key}\n${config?._description ? `${config?._description}\n` : ''}[custom-js-function]:\n\t\t${config.configChange} ` + '\n\n';
-                                        break
-                                    }*/
-                                    default:
-                                    case 'object': {
-                                        strToAdd = `${config.key}\n${config?._description ? `${config?._description}\n` : ''}${JSON.stringify(config, null, 2)}` + '\n\n';
-                                        break
-                                    }
-                                }
-                                if (config._isBeta) {
-                                    betaConfigString += strToAdd
-                                } else {
-                                    configString += strToAdd
-                                }
-
-                            });
-
-                            configString = configString += "\n"
-
-                            document.getElementById('attributeConfigsOutput').textContent = configString;
-                            document.getElementById('betaAttributeConfigsOutput').textContent = betaConfigString;
+                            document.getElementById('attributeConfigsOutput').textContent = JSON.stringify(attributeConfigs, null, 4);
                         }
                     });
                 </script>
-            <pre><code class="language-html" id="attributeConfigsOutput">
+            <pre><code class="language-json" id="attributeConfigsOutput">
                
                 </code></pre>
 
-            <pre><code class="language-html" id="betaAttributeConfigsOutput">
-               
-                </code></pre>
             </p>
             <p class="p-4">If a non-valid key
                 is
