@@ -2,9 +2,6 @@
 
 Provides a hx-ext="tomselect" htmx extention tag
 
-[create a github pr/issue if you see any bugs/feature opportunities]
-
-
 <a href="https://kiwikid.github.io/hx-tomselect/">Full Examples List</a>
 
 ### Install
