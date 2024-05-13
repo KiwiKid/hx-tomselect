@@ -40,8 +40,6 @@ After processing, one of three attributes will be added to each select box:
 - tom-select-warning - non-breaking error (e.g. tag name is no recognised)
 - tom-select-error - Breaking error - (i.e. invalid TomConfig json in ts-raw-config)
 
-hx-oob swaps works too (and was the main motivation for writing this extention)
-
 Check the code for details how how each attribute works
 
 ```html

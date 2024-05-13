@@ -27,8 +27,20 @@
 <body class="bg-gray-900 text-white  p-10">
     <div class=" max-w-4xl mx-auto">
         <style>
-            code[class="language-markup"] {
-                font-size: 0.2rem !important;
+            code[class*="language-markup"] {
+                font-size: calc(0.8rem + 0.5vw);
+                /* Light grey background for code */
+                padding: 0.5rem;
+                /* Padding around text */
+                border-radius: 5px;
+                /* Optional: rounded corners */
+                overflow-wrap: break-word;
+                /* Ensures long lines wrap */
+            }
+
+            .ts-dropdown-content {
+                font-size: calc(1.2rem + 0.5vw);
+                padding: 1px
             }
         </style>
         <p class="p-4 text-xl mb-10">
@@ -39,11 +51,11 @@
         <section class="mb-20">
             <h1 class="text-xl">Install:</h1>
             <pre
-                class="mb-2"><code class="language-markup">&lt;script src="https://kiwikid.github.io/hx-tomselect/hx-tom-select.js"&gt;&lt;/script&gt;</code></pre>
+                class="mb-2 code-container"><code class="language-markup wrap">&lt;script src="https://kiwikid.github.io/hx-tomselect/hx-tom-select.js"&gt;&lt;/script&gt;</code></pre>
 
             This extention relies on <a class="underline" href="https://v1.htmx.org">htmx</a> and <a class="underline"
                 href="https://tom-select.js.org/">tom-select.js</a> being loaded before it is included:
-            <pre class="mb-2"><code class="language-markup">&lt;!DOCTYPE html&gt;
+            <pre class="mb-2 code-container"><code class="language-markup">&lt;!DOCTYPE html&gt;
 &lt;html&gt;
     &lt;head&gt;
         &lt;script src="https://unpkg.com/htmx.org@1.9.12"&gt;
@@ -174,7 +186,11 @@
         <section class="mb-20">
             <h2 class="text-xl font-semibold mb-3">Configure:</h2>
             <p class="p-4">Config Options are prefixed with a `ts-` and generally match <a
-                    href="https://tom-select.js.org/docs/" class="underline">TomSelect config options:</a>
+                    href="https://tom-select.js.org/docs/" class="underline">TomSelect config options</a>
+                The full list is
+                <a href="https://github.com/KiwiKid/hx-tomselect/blob/5e4f884966f13184ac2908bba0c6a97d8d279f95/hx-tomselect.js#L47"
+                    class="underline">here</a>
+
                 <script>
                     const attributeConfigs = [
                         {
@@ -362,13 +378,13 @@
                         var configString = ""
                         var betaConfigString = ""
                         if (attributeConfigs && Array.isArray(attributeConfigs)) {
-                            document.getElementById('attributeConfigsOutput').textContent = JSON.stringify(attributeConfigs, null, 4);
+                            //     document.getElementById('attributeConfigsOutput').textContent = JSON.stringify(attributeConfigs, null, 4);
                         }
                     });
                 </script>
-            <pre><code class="language-markdown" id="attributeConfigsOutput">
+                <!-- <pre><code class="language-markdown" id="attributeConfigsOutput">
                
-                </code></pre>
+                </code></pre>-->
 
             </p>
             <p class="p-4">If a non-valid key
@@ -390,7 +406,7 @@
 
         <section class="mb-20">
 
-            <p class="p-4">hx-oob swaps works too (and was the main motivation for writing this extention)</code></p>
+            <p class="p-4">hx-oob swaps works too</code></p>
             <button type="button" hx-get="another-place.html" hx-trigger="click" hx-swap="outerHTML"
                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                 (Click to dynamically load options)
@@ -431,7 +447,8 @@
 
         <section class="mb-20">
             <h2 class="text-xl font-semibold mb-3">Create + Regex new item names</h2>
-            <p>Allow creating new items + ts-create-filter="true" will prevent commas in the title, any other string
+            <p>Allow creating new items - try typing below - ts-create-filter="true" will prevent commas in the title,
+                any other string
                 will be used as a regex match</p>
             <select hx-ext="tomselect" ts-create="true" ts-max-items="10" ts-create-filter="^[^,]*$">
                 <option value="">Select</option>
@@ -449,7 +466,7 @@
 
         <section class="mb-20">
             <h2 class="text-xl font-semibold mb-3">Create + POST request</h2>
-            <p>(type to add a new option and see the network tab)</p>
+            <p>type to add a new option > Click 'Add [New Item]' > see the network tab for POST request</p>
             <select id="select-fine" hx-ext="tomselect" ts-create="true" ts-create-filter="true"
                 ts-add-post-url="/this-could-be-your-new-thing-api" ts-persist="true" multiple
                 placeholder="Add options(s)..." class="border border-gray-300 rounded-md text-gray-700 flex-grow mb-2">
@@ -473,20 +490,6 @@
 &lt;/select&gt;
 </code></pre>
         </section>
-
-        <section class="mb-20">
-            <h2 class="text-xl font-semibold mb-3">Advanced Configuration with Raw Config</h2>
-            <select hx-ext="tomselect"
-                ts-raw-config='{"create": true, "maxOptions":10, "plugins": {"dropdown_input": {}}}'>
-                <option value="">Select</option>
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
-                <option value="3">Option 3</option>
-            </select>
-        </section>
-
-
-
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.0/prism.min.js"></script>
 </body>
