@@ -257,6 +257,7 @@
                 plugins: {}
             };
             const debug = s.getAttribute('hx-ext')?.split(',').map(item => item.trim()).includes('debug');
+            if (debug) { console.log(`\n\nattachTomSelect\n\n   ${version}`) }
             if (debug) { console.log(s.attributes) }
 
             Array.from(s.attributes).forEach((a) => {
@@ -281,7 +282,7 @@
                 }
             })
 
-        if (debug) {  console.info('hx-tomselect - tom-select-success - config', config) }
+            if (debug) {  console.info('hx-tomselect - tom-select-success - config', config) }
         const ts = new TomSelect(s, config);
         s.setAttribute('tom-select-success', `success`);
         s.setAttribute('hx-tom-select-version', `hx-ts-${version}_ts-${ts.version}`);
@@ -298,6 +299,7 @@
             if (name === "htmx:afterProcessNode") {
                 const newSelects = document.querySelectorAll('select[hx-ext*="tomselect"]:not([tom-select-success]):not([tom-select-error])')
                 newSelects.forEach((s) => {
+                    if(debug){ console.log('onEvent/htmx:afterProcessNode - newSelects', s)}
                     attachTomSelect(s)
                 })
             }
@@ -306,6 +308,7 @@
             console.log('onLoad')
                     const newSelects = content.querySelectorAll('select[hx-ext*="tomselect"]:not([tom-select-success]):not([tom-select-error])')
                     newSelects.forEach((s) => {
+                        if(debug){ console.log('onLoad - newSelects', s)}
                         attachTomSelect(s)
                     })
 
