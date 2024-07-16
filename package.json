@@ -1,6 +1,6 @@
 {
   "name": "hx-tomselect",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Provides a hx-ext=\"tomselect\" htmx extention tag",
   "main": "hx-tomselect.js",
   "scripts": {

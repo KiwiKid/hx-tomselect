@@ -1,6 +1,6 @@
 (function() {   
     /** stable build*/
-    const version = '07'
+    const version = '08'
 
     /**
      * @typedef {Object} SupportedAttribute
@@ -28,8 +28,6 @@
      * @property {CallbackFunction|string|null} configChange - The modifications to apply to the TomSelect configuration.
      * 
      */
-
-
 
     /**
      * @type {SupportedAttribute[]}
