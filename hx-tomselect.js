@@ -1,6 +1,6 @@
 (function() {   
     /** stable build*/
-    const version = '08'
+    const version = '09'
 
     /**
      * @typedef {Object} SupportedAttribute
@@ -254,9 +254,12 @@
                 maxItems: 999,
                 plugins: {}
             };
-            const debug = s.getAttribute('hx-ext')?.split(',').map(item => item.trim()).includes('debug');
-            if (debug) { console.log(`\n\nattachTomSelect\n\n   ${version}`) }
-            if (debug) { console.log(s.attributes) }
+
+            const debug = s.getAttribute('hx-ext')?.split(',').map(item => item.trim()).includes('debug') || window.tsSelectDebugOn;
+            if (debug) { 
+                console.log(`\n\nattachTomSelect\n\n   ${version}`) 
+                console.log(s.attributes)
+            }
 
             Array.from(s.attributes).forEach((a) => {
                 const attributeConfig = attributeConfigs.find((ac) => ac.key == a.name)
@@ -297,7 +300,7 @@
             if (name === "htmx:afterProcessNode") {
                 const newSelects = document.querySelectorAll('select[hx-ext*="tomselect"]:not([tom-select-success]):not([tom-select-error])')
                 newSelects.forEach((s) => {
-                    if(debug){ console.log('onEvent/htmx:afterProcessNode - newSelects', s)}
+                    if(window.tsSelectDebugOn){ console.log('onEvent/htmx:afterProcessNode - newSelects', s) }
                     attachTomSelect(s)
                 })
             }
@@ -306,7 +309,7 @@
             console.log('onLoad')
                     const newSelects = content.querySelectorAll('select[hx-ext*="tomselect"]:not([tom-select-success]):not([tom-select-error])')
                     newSelects.forEach((s) => {
-                        if(debug){ console.log('onLoad - newSelects', s)}
+                        if(window.tsSelectDebugOn){  console.log('onLoad - newSelects', s) }
                         attachTomSelect(s)
                     })
 
