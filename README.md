@@ -15,7 +15,7 @@ Provides a hx-ext="tomselect" htmx extention tag
 <script src="https://unpkg.com/htmx.org@latest"></script>
 <link href="https://cdn.jsdelivr.net/npm/tom-select@latest/dist/css/tom-select.css" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/tom-select@latest/dist/js/tom-select.complete.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/KiwiKid/hx-tomselect/hx-tomselect.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/hx-tomselect/hx-tomselect.js"></script>
 ```
 
 
