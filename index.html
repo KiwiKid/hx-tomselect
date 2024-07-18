@@ -51,7 +51,7 @@
         <section class="mb-20">
             <h1 class="text-xl">Install:</h1>
             <pre
-                class="mb-2 code-container"><code class="language-markup wrap">&lt;script src="https://kiwikid.github.io/hx-tomselect/hx-tom-select.js"&gt;&lt;/script&gt;</code></pre>
+                class="mb-2 code-container"><code class="language-markup wrap">&lt;script src="https://unpkg.com/hx-tomselect/hx-tomselect.js"&gt;&lt;/script&gt;</code></pre>
 
             This extention relies on <a class="underline" href="https://v1.htmx.org">htmx</a> and <a class="underline"
                 href="https://tom-select.js.org/">tom-select.js</a> being loaded before it is included:
@@ -83,7 +83,6 @@
                 <option value="3">Option 3</option>
             </select>
         </section>
-        <p>(Not really interested in publishing on npm, can on request)</p>
 
         <section class="mb-20">
             <h2 class="text-xl font-semibold mb-3">Input</h2>
@@ -121,9 +120,6 @@
     &lt;option value="3"&gt;Option 3&lt;/option&gt;
 &lt;/select&gt;</code></pre>
         </section>
-
-
-
 
         <section class="mb-20">
             <h2 class="text-xl font-semibold mb-3">Delete</h2>
@@ -187,7 +183,10 @@
             <h2 class="text-xl font-semibold mb-3">Configure:</h2>
             <p class="p-4">Config Options are prefixed with a `ts-` and generally match <a
                     href="https://tom-select.js.org/docs/" class="underline">TomSelect config options</a>
-                The full list is
+                The full list of currently support attributes is here:
+                <div hx-get="https://github.com/KiwiKid/hx-tomselect/blob/5e4f884966f13184ac2908bba0c6a97d8d279f95/hx-tomselect.js#L47" hx-trigger="load once" hx-target="this"></div>
+
+
                 <a href="https://github.com/KiwiKid/hx-tomselect/blob/5e4f884966f13184ac2908bba0c6a97d8d279f95/hx-tomselect.js#L47"
                     class="underline">here</a>
 
@@ -394,10 +393,9 @@
                 to
                 the &lt;select&gt; tag
             </p>
-            <p class="p-4">After processing, one of three attributes will be added to each select box:</p>
-            <pre><code class="language-markup"><span class="text-sm">- &lt;select tom-select-success="true"&gt;
-- &lt;select tom-select-warning="could not find tag 'example'"&gt; - non-breaking error (e.g. tag name is not recognised)
-- &lt;select tom-select-error="TomSelect was not found"&gt; - Breaking error</span></code></pre>
+            <p class="p-4">After processing, one of three attributes will be added to each select box:</p><pre><code class="language-markup"><span class="text-sm">&lt;select tom-select-success="true"&gt;
+ &lt;select tom-select-warning="could not find tag 'example'"&gt; - non-breaking error (e.g. tag name is not recognized)
+ &lt;select tom-select-error="TomSelect was not found"&gt; - Breaking error</span></code></pre>
 
 
 
