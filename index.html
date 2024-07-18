@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>hx-tomselect</title>
     <script defer src="./hx-tomselect.js"></script>
+    <script src="https://unpkg.com/htmx.org@latest"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tom-select@latest/dist/css/tom-select.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/tom-select@latest/dist/js/tom-select.complete.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.0/themes/prism.min.css" />
     <link href="./prism-holi-theme.css" rel="stylesheet" />
@@ -55,10 +58,10 @@
             <pre class="mb-2 code-container"><code class="language-markup">&lt;!DOCTYPE html&gt;
 &lt;html&gt;
     &lt;head&gt;
-        &lt;script src="https://unpkg.com/htmx.org@1.9.12"&gt;
-        &lt;link href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.css" rel="stylesheet" /&gt;
-        &lt;script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"&gt;
-        &lt;script src="https://cdn.jsdelivr.net/gh/KiwiKid/hx-tomselect/hx-tomselect.js"/&gt;
+        &lt;script src="https://unpkg.com/htmx.org@latest"&gt;
+        &lt;link href="https://unpkg.com/tom-select@latest/dist/css/tom-select.css" rel="stylesheet" /&gt;
+        &lt;script src="https://unpkg.com/tom-select@latest/dist/js/tom-select.complete.min.js"&gt;
+        &lt;script src="https://unpkg.com/hx-tomselect/hx-tomselect.js"/&gt;
     &lt;/head&gt;
     &lt;body&gt;
         &lt;select hx-ext="tomselect"&gt;

@@ -6,16 +6,16 @@ Provides a hx-ext="tomselect" htmx extention tag
 
 ### Install
 ```html
-<script src="https://cdn.jsdelivr.net/gh/KiwiKid/hx-tomselect/hx-tomselect.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/hx-tomselect@latest/hx-tomselect.js"></script>
 ```
 
 
 (Include htmx and tom-select before the extention)
 ```html
-<script src="https://unpkg.com/htmx.org"></script>
-<link href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.css" rel="stylesheet"/>
-<script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/KiwiKid/hx-tomselect/hx-tomselect.js"></script>
+<script src="https://unpkg.com/htmx.org@latest"></script>
+<link href="https://cdn.jsdelivr.net/npm/tom-select@latest/dist/css/tom-select.css" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/tom-select@latest/dist/js/tom-select.complete.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/KiwiKid/hx-tomselect/hx-tomselect.js"></script>
 ```
 
 
