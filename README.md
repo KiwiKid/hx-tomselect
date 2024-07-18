@@ -2,7 +2,12 @@
 
 Provides a hx-ext="tomselect" htmx extention tag
 
+<a href="https://lassebomh.github.io/htmx-playground/?url=https%253A%252F%252Fraw.githubusercontent.com%252FKiwiKid%252Fhx-tomselect%252Fmain%252Fplayground%252Fbasic.json">Playground</a>
+
+
 <a href="https://kiwikid.github.io/hx-tomselect/">Full Examples List</a>
+
+
 
 ### Install
 ```html
