@@ -44,20 +44,22 @@
             }
         </style>
         <p class="p-4 text-xl mb-10">
-            <a class="underline" href="https://unpkg.com/hx-tomselect@latest/hx-tomselect.js">hx-tomselect</a> - a <a
+            <a class="underline" href="https://github.com/KiwiKid/hx-tomselect">hx-tomselect</a> - a <a
                 class="underline" href="https://v1.htmx.org/docs/#extensions" target="_">htmx extention</a> for <a
                 class="underline" href="https://tom-select.js.org/">tom-select.js</a>
         </p>
         <section class="mb-20">
-            <a href="https://lassebomh.github.io/htmx-playground/?url=https%253A%252F%252Fraw.githubusercontent.com%252FKiwiKid%252Fhx-tomselect%252Fmain%252Fplayground%252Fbasic.json" class="underline">Playground</a>
+            <a href="https://lassebomh.github.io/htmx-playground/?url=https%253A%252F%252Fraw.githubusercontent.com%252FKiwiKid%252Fhx-tomselect%252Fmain%252Fplayground%252Fbasic.json" class="underline">playground</a> / <a class="underline" href="https://github.com/KiwiKid/hx-tomselect">github</a>
+
         </section>
+
         <section class="mb-20">
             <h1 class="text-xl">Install:</h1>
 
             <pre
                 class="mb-2 code-container"><code class="language-markup wrap">&lt;script src="https://unpkg.com/hx-tomselect/hx-tomselect.js"&gt;&lt;/script&gt;</code></pre>
 
-            This extention relies on <a class="underline" href="https://v1.htmx.org">htmx</a> and <a class="underline"
+            this extention relies on <a class="underline" href="https://v1.htmx.org">htmx</a> and <a class="underline"
                 href="https://tom-select.js.org/">tom-select.js</a> being loaded before it is included:
             <pre class="mb-2 code-container"><code class="language-markup">&lt;!DOCTYPE html&gt;
 &lt;html&gt;
@@ -90,7 +92,7 @@
 
         <section class="mb-20">
             <h2 class="text-xl font-semibold mb-3">Input</h2>
-            <p class="p-4">Allow creating new items and selecting multiple items</p>
+            <p class="p-4">allow creating new items and selecting multiple items</p>
 
             <select hx-ext="tomselect" ts-create="true" ts-create-on-blur="true" ts-max-items="10" ts-remove-button-title="true" multiple
                 class="block w-full mb-2">
@@ -183,7 +185,7 @@
         </section>
         <section class="mb-20">
             <h2 class="text-xl font-semibold mb-3">Create + Regex new item names</h2>
-            <p>Allow creating new items - try typing below - ts-create-filter="true" will prevent commas in the title,
+            <p>allow creating new items - try typing below - ts-create-filter="true" will prevent commas in the title,
                 any other string
                 will be used as a regex match</p>
             <select hx-ext="tomselect" ts-create="true" ts-max-items="10" ts-create-filter="^[^,]*$">
