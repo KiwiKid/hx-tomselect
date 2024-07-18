@@ -87,66 +87,20 @@
 
         <section class="mb-20">
             <h2 class="text-xl font-semibold mb-3">Input</h2>
-            <p class="p-4">Allow creating new items</p>
+            <p class="p-4">Allow creating new items and selecting multiple items</p>
 
-            <select hx-ext="tomselect" ts-create="true" ts-create-on-blur="true" ts-max-items="10"
+            <select hx-ext="tomselect" ts-create="true" ts-create-on-blur="true" ts-max-items="10" ts-remove-button-title="true" multiple
                 class="block w-full mb-2">
                 <option value="">Brilliant</option>
                 <option value="1">Excellent</option>
                 <option value="2">Top Notch</option>
                 <option value="3">Awesome</option>
             </select>
-            <pre class="mb-2"><code class="language-markup">&lt;select hx-ext="tomselect" ts-create="true"&gt;
+            <pre class="mb-2"><code class="language-markup">&lt;select hx-ext="tomselect" ts-create="true" ts-remove-button-title="true" multiple&gt;
     &lt;option value=""&gt;Select an option&lt;/option&gt;
     &lt;option value="1"&gt;Option 1&lt;/option&gt;
     &lt;option value="2"&gt;Option 2&lt;/option&gt;
     &lt;option value="3"&gt;Option 3&lt;/option&gt;
-&lt;/select&gt;</code></pre>
-        </section>
-
-        <section class="mb-20">
-            <h2 class="text-xl font-semibold mb-3">Select</h2>
-            <p class="p-4">Allow selecting multiple items</p>
-
-            <select hx-ext="tomselect" ts-create="true" ts-create-on-blur="true" class="block w-full mb-2">
-                <option value="">Brilliant</option>
-                <option value="1">Excellent</option>
-                <option value="2">Top Notch</option>
-                <option value="3">Awesome</option>
-            </select>
-            <pre class="mb-2"><code class="language-markup">&lt;select hx-ext="tomselect" multiple&gt;
-    &lt;option value=""&gt;Select an option&lt;/option&gt;
-    &lt;option value="1"&gt;Option 1&lt;/option&gt;
-    &lt;option value="2"&gt;Option 2&lt;/option&gt;
-    &lt;option value="3"&gt;Option 3&lt;/option&gt;
-&lt;/select&gt;</code></pre>
-        </section>
-
-        <section class="mb-20">
-            <h2 class="text-xl font-semibold mb-3">Delete</h2>
-            <p class="p-4">(max 3 selections, takes an custom string message)</p>
-            <select hx-ext="tomselect" ts-max-items="3" ts-remove-button-title="true" multiple>
-                <option value="">N/A</option>
-                <option selected value="1">Option 1</option>
-                <option selected value="2">Option 2</option>
-                <option value="3">Option 3</option>
-                <option value="4">Option 4</option>
-                <option value="5">Option 5</option>
-                <option value="6">Option 6</option>
-                <option value="7">Option 7</option>
-                <option value="8">Option 8</option>
-                <option value="9">Option 9</option>
-            </select>
-            <pre class="mb-2"><code class="language-markup">&lt;select
-    hx-ext="tomselect" 
-    ts-max-items="3"
-    ts-remove-button-title="true"
-    multiple
-&gt;
-    &lt;option value=""&gt;Select an option&lt;/option&gt;
-    &lt;option value="1"&gt;Option 1&lt;/option&gt;
-    &lt;option value="2"&gt;Option 2&lt;/option&gt;
-    ...
 &lt;/select&gt;</code></pre>
         </section>
 
@@ -219,7 +173,24 @@
 &gt;(Click to dynamically load options)&lt;/button&gt;</code></pre>
             </div>
         </section>
-
+        <section class="mb-20">
+            <h2 class="text-xl font-semibold mb-3">Create + Regex new item names</h2>
+            <p>Allow creating new items - try typing below - ts-create-filter="true" will prevent commas in the title,
+                any other string
+                will be used as a regex match</p>
+            <select hx-ext="tomselect" ts-create="true" ts-max-items="10" ts-create-filter="^[^,]*$">
+                <option value="">Select</option>
+                <option value="1">ValidOption</option>
+            </select>
+            <pre><code class="language-html-dark">&lt;select 
+    hx-ext="tomselect"
+    ts-max-items="10"
+    ts-create-filter="^[^,]*$"
+&gt;
+    &lt;option value=""&gt;Select an option&lt;/option&gt;
+    &lt;option value="1"&gt;ValidOption&lt;/option&gt;
+&lt;/select&gt;</code></pre>
+        </section>
 
         <section class="mb-20">
             <h2 class="text-xl font-semibold mb-3">Configuring Item Deletion Confirmation</h2>
@@ -245,24 +216,7 @@
 
 
 
-        <section class="mb-20">
-            <h2 class="text-xl font-semibold mb-3">Create + Regex new item names</h2>
-            <p>Allow creating new items - try typing below - ts-create-filter="true" will prevent commas in the title,
-                any other string
-                will be used as a regex match</p>
-            <select hx-ext="tomselect" ts-create="true" ts-max-items="10" ts-create-filter="^[^,]*$">
-                <option value="">Select</option>
-                <option value="1">ValidOption</option>
-            </select>
-            <pre><code class="language-html-dark">&lt;select 
-    hx-ext="tomselect"
-    ts-max-items="10"
-    ts-create-filter="^[^,]*$"
-&gt;
-    &lt;option value=""&gt;Select an option&lt;/option&gt;
-    &lt;option value="1"&gt;ValidOption&lt;/option&gt;
-&lt;/select&gt;</code></pre>
-        </section>
+        
 
         <section class="mb-20">
             <h2 class="text-xl font-semibold mb-3">Create + POST request</h2>
