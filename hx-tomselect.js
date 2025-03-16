@@ -1,6 +1,6 @@
 (function() {   
     /** stable build*/
-    const version = '10'
+    const version = '11'
 
     /**
      * @typedef {Object} SupportedAttribute
@@ -252,6 +252,7 @@
             
             let config = {
                 maxItems: 999,
+                multiple: true,
                 plugins: {}
             };
 
