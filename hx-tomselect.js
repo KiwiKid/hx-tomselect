@@ -287,7 +287,7 @@
             if (debug) {  console.info('hx-tomselect - tom-select-success - config', config) }
         const ts = new TomSelect(s, config);
         s.setAttribute('tom-select-success', `success`);
-        s.setAttribute('hx-tom-select-version', `hx-ts-${version}_ts-${ts.version}`);
+        s.setAttribute('hx-tom-select-version', `hx_ts-${ts.version}`);
 
     } catch (err) {
         s.setAttribute('tom-select-error', JSON.stringify(err));
