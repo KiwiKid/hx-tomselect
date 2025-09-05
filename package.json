@@ -1,6 +1,6 @@
 {
   "name": "hx-tomselect",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "Htmx extension that allows rendering tom-select via plain html elements",
   "main": "hx-tomselect.js",
   "repository": {
