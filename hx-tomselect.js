@@ -220,6 +220,21 @@
             })
         },
         {
+            key: 'ts-on-change-navigate',
+            configChange: (elm, config) => ({
+                multiple: false,
+                onChange: function(value) {
+                    const urlTemplate = elm.getAttribute('ts-on-change-navigate')
+                    if(urlTemplate){
+                        const url = urlTemplate.replace('{value}', value)
+                        window.location.href = url
+                    }else{
+                        console.warn('tomSelect - ts-on-change-navigate - no url template found')
+                    }
+                }
+            })
+        },
+        {
             key: 'ts-raw-config',
             configChange: (elm, config) => elm.getAttribute('ts-raw-config')
         }
