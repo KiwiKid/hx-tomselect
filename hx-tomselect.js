@@ -2,6 +2,9 @@
     /** stable build*/
     const version = '11'
 
+    /** Resolve htmx from global (script tag) so we work with htmx 4 and correct load order. */
+    function getHtmx() { return typeof window !== 'undefined' && window.htmx; }
+
     /**
      * @typedef {Object} SupportedAttribute
      * Defines an attribute supported by a configuration modification system.
@@ -166,7 +169,7 @@
 							}
 							return res.text();
 						})
-                        .then((responseHtml) => htmx.process(elm, responseHtml))
+                        .then((responseHtml) => getHtmx().process(elm, responseHtml))
                         .catch(error => {
                             console.error('Error adding item', error)
                             elm.setAttribute('tom-select-warning', `ts-add-post-url - Error processing item: ${JSON.stringify(error)}`);
@@ -225,7 +228,7 @@
                 multiple: false,
                 onChange: function(value) {
                     const urlTemplate = elm.getAttribute('ts-on-change-navigate')
-                    if(urlTemplate){
+                    if(urlTemplate && value){
                         const url = urlTemplate.replace('{value}', value)
                         window.location.href = url
                     }else{
@@ -310,7 +313,10 @@
     }
     }
 
-    htmx.defineExtension('tomselect', {
+    function register() {
+        var h = getHtmx();
+        if (!h || !h.defineExtension) return false;
+        h.defineExtension('tomselect', {
         // This is doing all the tom-select attachment at this stage, but relies on this full document scan (would prefer onLoad of speicfic content):
         onEvent: function (name, evt) {
             if (name === "htmx:afterProcessNode") {
@@ -344,5 +350,22 @@
             	.forEach(elt => elt.tomselect.destroy())*/
 		}
     });
+        return true;
+    }
+    if (!register()) {
+        function tryRegister() {
+            if (register()) return;
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', tryRegister);
+            } else {
+                setTimeout(tryRegister, 50);
+            }
+        }
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', tryRegister);
+        } else {
+            setTimeout(tryRegister, 50);
+        }
+    }
 
 })();

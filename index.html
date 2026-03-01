@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>hx-tomselect</title>
-    <script defer src="./hx-tomselect.js"></script>
-    <script src="https://unpkg.com/htmx.org@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/htmx.org@4.0.0-alpha7/dist/htmx.min.js"></script>
+    <script src="./hx-tomselect.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/tom-select@latest/dist/css/tom-select.css" rel="stylesheet"/>
     <script src="https://cdn.jsdelivr.net/npm/tom-select@latest/dist/js/tom-select.complete.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet">
@@ -60,15 +60,15 @@
             <pre
                 class="mb-2 code-container"><code class="language-markup wrap">&lt;script src="https://unpkg.com/hx-tomselect/hx-tomselect.js"&gt;&lt;/script&gt;</code></pre>
 
-            this extention relies on <a class="underline" href="https://v1.htmx.org">htmx</a> and <a class="underline"
-                href="https://tom-select.js.org/">tom-select.js</a> being loaded before it is included:
+            this extention relies on <a class="underline" href="https://htmx.org">htmx</a> and <a class="underline"
+                href="https://tom-select.js.org/">tom-select.js</a> being loaded before it is included (htmx first, then this extension):
             <pre class="mb-2 code-container"><code class="language-markup">&lt;!DOCTYPE html&gt;
 &lt;html&gt;
     &lt;head&gt;
-        &lt;script src="https://unpkg.com/htmx.org@latest"&gt;
+        &lt;script src="https://cdn.jsdelivr.net/npm/htmx.org@4.0.0-alpha7/dist/htmx.min.js"&gt;&lt;/script&gt;
         &lt;link href="https://unpkg.com/tom-select@latest/dist/css/tom-select.css" rel="stylesheet" /&gt;
-        &lt;script src="https://unpkg.com/tom-select@latest/dist/js/tom-select.complete.min.js"&gt;
-        &lt;script src="https://unpkg.com/hx-tomselect/hx-tomselect.js"/&gt;
+        &lt;script src="https://unpkg.com/tom-select@latest/dist/js/tom-select.complete.min.js"&gt;&lt;/script&gt;
+        &lt;script src="https://unpkg.com/hx-tomselect/hx-tomselect.js"&gt;&lt;/script&gt;
     &lt;/head&gt;
     &lt;body&gt;
         &lt;select hx-ext="tomselect"&gt;
