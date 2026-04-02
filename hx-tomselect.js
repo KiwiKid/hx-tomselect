@@ -1,6 +1,6 @@
 (function() {   
     /** stable build*/
-    const version = '11'
+    const version = '12'
 
     /** Resolve htmx from global (script tag) so we work with htmx 4 and correct load order. */
     function getHtmx() { return typeof window !== 'undefined' && window.htmx; }
@@ -313,44 +313,66 @@
     }
     }
 
+    var tomselectExtRegistered = false;
+
+    /** @param {Element} root */
+    function initTomSelectInSubtree(root) {
+        if (!root || !root.querySelectorAll) return;
+        var sel = 'select[hx-ext*="tomselect"]:not([tom-select-success]):not([tom-select-error])';
+        var list = [];
+        if (typeof root.matches === 'function' && root.matches('select[hx-ext*="tomselect"]') &&
+            !root.hasAttribute('tom-select-success') && !root.hasAttribute('tom-select-error')) {
+            list.push(root);
+        }
+        root.querySelectorAll(sel).forEach(function (n) {
+            list.push(n);
+        });
+        list.forEach(function (s) {
+            if (window.tsSelectDebugOn) {
+                console.log('hx-tomselect init', s);
+            }
+            attachTomSelect(s);
+        });
+    }
+
     function register() {
         var h = getHtmx();
-        if (!h || !h.defineExtension) return false;
-        h.defineExtension('tomselect', {
-        // This is doing all the tom-select attachment at this stage, but relies on this full document scan (would prefer onLoad of speicfic content):
-        onEvent: function (name, evt) {
-            if (name === "htmx:afterProcessNode") {
-                const newSelects = document.querySelectorAll('select[hx-ext*="tomselect"]:not([tom-select-success]):not([tom-select-error])')
-                newSelects.forEach((s) => {
-                    if(window.tsSelectDebugOn){ console.log('onEvent/htmx:afterProcessNode - newSelects', s) }
-                    attachTomSelect(s)
-                })
-            }
-        },
-        onLoad: function (content) {
-            console.log('onLoad')
-                    const newSelects = content.querySelectorAll('select[hx-ext*="tomselect"]:not([tom-select-success]):not([tom-select-error])')
-                    newSelects.forEach((s) => {
-                        if(window.tsSelectDebugOn){  console.log('onLoad - newSelects', s) }
-                        attachTomSelect(s)
-                    })
+        if (!h) return false;
 
-            // When the DOM changes, this block ensures TomSelect will reflect the current html state (i.e. new <option selected></option> will be respected)
-            // Still evaulating the need of this
-             /*   const selectors = document.querySelectorAll('select[hx-ext*="tomselect"]')
-            selectors.forEach((s) => {
-                console.log('SYNC RAN')
-                s.tomselect.clear();
-                s.tomselect.clearOptions();
-                s.tomselect.sync(); 
-            })
-        },
-		beforeHistorySave: function(){
-			document.querySelectorAll('select[hx-ext*="tomselect"]')
-            	.forEach(elt => elt.tomselect.destroy())*/
-		}
-    });
-        return true;
+        // htmx 4: registerExtension + per-event hooks (htmx:after:process → htmx_after_process)
+        if (typeof h.registerExtension === 'function') {
+            if (!tomselectExtRegistered) {
+                tomselectExtRegistered = true;
+                h.registerExtension('tomselect', {
+                    htmx_after_process: function (elt) {
+                        initTomSelectInSubtree(elt);
+                    }
+                });
+                // Initial htmx process() may run before this script registers; run again so selects upgrade.
+                if (typeof h.process === 'function') {
+                    h.process(document.body);
+                }
+            }
+            return true;
+        }
+
+        // htmx 1.x / 2.x
+        if (typeof h.defineExtension === 'function') {
+            h.defineExtension('tomselect', {
+                onEvent: function (name, evt) {
+                    if (name === 'htmx:afterProcessNode' || name === 'htmx:after:process') {
+                        var t = (evt && evt.detail && evt.detail.elt) ? evt.detail.elt : (evt && evt.target);
+                        initTomSelectInSubtree(t || document.body);
+                    }
+                },
+                onLoad: function (content) {
+                    initTomSelectInSubtree(content);
+                }
+            });
+            return true;
+        }
+
+        return false;
     }
     if (!register()) {
         function tryRegister() {
