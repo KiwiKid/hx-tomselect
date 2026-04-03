@@ -1,6 +1,6 @@
 (function() {   
     /** stable build*/
-    const version = '12'
+    const version = '13'
 
     /** Resolve htmx from global (script tag) so we work with htmx 4 and correct load order. */
     function getHtmx() { return typeof window !== 'undefined' && window.htmx; }
@@ -313,21 +313,19 @@
     }
     }
 
-    var tomselectExtRegistered = false;
+    var SELECTOR = 'select[hx-ext*="tomselect"]:not([tom-select-success]):not([tom-select-error])';
 
     /** @param {Element} root */
     function initTomSelectInSubtree(root) {
-        if (!root || !root.querySelectorAll) return;
-        var sel = 'select[hx-ext*="tomselect"]:not([tom-select-success]):not([tom-select-error])';
+        if (!root) return;
         var list = [];
-        if (typeof root.matches === 'function' && root.matches('select[hx-ext*="tomselect"]') &&
-            !root.hasAttribute('tom-select-success') && !root.hasAttribute('tom-select-error')) {
+        if (typeof root.matches === 'function' && root.matches(SELECTOR)) {
             list.push(root);
         }
-        root.querySelectorAll(sel).forEach(function (n) {
-            list.push(n);
-        });
-        list.forEach(function (s) {
+        if (root.querySelectorAll) {
+            root.querySelectorAll(SELECTOR).forEach(function(n) { list.push(n); });
+        }
+        list.forEach(function(s) {
             if (window.tsSelectDebugOn) {
                 console.log('hx-tomselect init', s);
             }
@@ -339,41 +337,49 @@
         var h = getHtmx();
         if (!h) return false;
 
-        // htmx 4: registerExtension + per-event hooks (htmx:after:process → htmx_after_process)
+        // htmx.onLoad() works in both htmx 2.x and 4.x — fires for initial
+        // page content and every subsequent swap.
+        if (typeof h.onLoad === 'function') {
+            h.onLoad(function(content) {
+                initTomSelectInSubtree(content);
+            });
+        }
+
+        // htmx 4.x: also register extension so htmx is aware of it.
+        // htmx_after_init fires per-element; we check descendants too
+        // in case the processed element is a container.
         if (typeof h.registerExtension === 'function') {
-            if (!tomselectExtRegistered) {
-                tomselectExtRegistered = true;
-                h.registerExtension('tomselect', {
-                    htmx_after_process: function (elt) {
-                        initTomSelectInSubtree(elt);
-                    }
-                });
-                // Initial htmx process() may run before this script registers; run again so selects upgrade.
-                if (typeof h.process === 'function') {
-                    h.process(document.body);
+            h.registerExtension('tomselect', {
+                htmx_after_init: function(elt) {
+                    initTomSelectInSubtree(elt);
                 }
-            }
+            });
             return true;
         }
 
-        // htmx 1.x / 2.x
+        // htmx 1.x / 2.x: register via defineExtension for hx-ext="tomselect" support.
         if (typeof h.defineExtension === 'function') {
             h.defineExtension('tomselect', {
-                onEvent: function (name, evt) {
-                    if (name === 'htmx:afterProcessNode' || name === 'htmx:after:process') {
-                        var t = (evt && evt.detail && evt.detail.elt) ? evt.detail.elt : (evt && evt.target);
-                        initTomSelectInSubtree(t || document.body);
+                onEvent: function(name, evt) {
+                    if (name === 'htmx:afterProcessNode') {
+                        var newSelects = document.querySelectorAll(SELECTOR);
+                        newSelects.forEach(function(s) {
+                            if (window.tsSelectDebugOn) { console.log('onEvent/htmx:afterProcessNode', s); }
+                            attachTomSelect(s);
+                        });
                     }
                 },
-                onLoad: function (content) {
+                onLoad: function(content) {
                     initTomSelectInSubtree(content);
                 }
             });
             return true;
         }
 
-        return false;
+        // htmx is present but has neither API — onLoad above is our only hook.
+        return typeof h.onLoad === 'function';
     }
+
     if (!register()) {
         function tryRegister() {
             if (register()) return;
@@ -388,6 +394,16 @@
         } else {
             setTimeout(tryRegister, 50);
         }
+    }
+
+    // Safety net: scan for any selects that were in the DOM before htmx or
+    // this script finished loading.
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+            initTomSelectInSubtree(document.body);
+        });
+    } else {
+        initTomSelectInSubtree(document.body);
     }
 
 })();
